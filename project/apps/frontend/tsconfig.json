@@ -1,6 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/shared/*": ["src/shared/*"],
+      "@/components/*": ["src/components/*"],
+      "@/styles/*": ["src/styles/*"]
+    },
     "jsx": "preserve",
     "allowJs": true,
     "esModuleInterop": true,
