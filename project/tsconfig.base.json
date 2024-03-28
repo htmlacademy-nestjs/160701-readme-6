@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "strict": true,
     "paths": {
-      "@project/shared/core": ["libs/shared/core/src/index.ts"]
+      "@project/shared/core": ["libs/shared/core/src/index.ts"],
+      "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
