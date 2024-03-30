@@ -22,7 +22,7 @@ export class AuthenticationService {
     private readonly hasherService: HasherService
   ) {}
 
-  public async register(dto: CreateUserDto) {
+  public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
     const { email, firstname, password, avatarId } = dto;
     const existUser = await this.blogUserRepository.findByEmail(email);
 
@@ -44,8 +44,9 @@ export class AuthenticationService {
     };
 
     const userEntity = new BlogUserEntity(blogUser).setPasswordHash(password);
+    this.blogUserRepository.save(userEntity);
 
-    return this.blogUserRepository.save(userEntity);
+    return userEntity;
   }
 
   public async verifyUser(dto: LoginUserDto) {
