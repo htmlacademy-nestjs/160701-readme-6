@@ -8,7 +8,7 @@ import {
 export class BlogUserEntity extends Entity implements StorableEntity<AuthUser> {
   public email!: string;
   public firstname!: string;
-  public avatar!: string | null;
+  public avatar?: string | null;
   public role!: UserRole;
   public createdAt!: Date;
   public passwordHash!: string;
