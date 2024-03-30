@@ -37,7 +37,7 @@ export class BlogUserEntity extends Entity implements StorableEntity<AuthUser> {
     this.passwordHash = user.passwordHash;
   }
 
-  toPOJO(): AuthUser {
+  public toPOJO(): AuthUser {
     return {
       id: this.id,
       email: this.email,
@@ -49,5 +49,11 @@ export class BlogUserEntity extends Entity implements StorableEntity<AuthUser> {
       subscribersCount: this.subscribersCount,
       passwordHash: this.passwordHash,
     };
+  }
+
+  public setPasswordHash(passwordHash: string) {
+    this.passwordHash = passwordHash;
+
+    return this;
   }
 }
