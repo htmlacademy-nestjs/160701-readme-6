@@ -43,7 +43,7 @@ export class AuthenticationService {
       passwordHash,
     };
 
-    const userEntity = new BlogUserEntity(blogUser).setPasswordHash(password);
+    const userEntity = new BlogUserEntity(blogUser);
     this.blogUserRepository.save(userEntity);
 
     return userEntity;
@@ -70,6 +70,12 @@ export class AuthenticationService {
   }
 
   public async getUser(id: string) {
-    return this.blogUserRepository.findById(id);
+    const existUser = await this.blogUserRepository.findById(id);
+
+    if (!existUser) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+
+    return existUser;
   }
 }
