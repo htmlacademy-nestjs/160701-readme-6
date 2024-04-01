@@ -62,3 +62,36 @@ Authorization: Bearer {{token-access}}
 
 POST {{host}}/{{parentPath}}/check HTTP/1.1
 Authorization: Bearer {{token-access}}
+
+
+
+###
+# Create a new user
+POST http://localhost:3777/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound.local",
+  "dateBirth": "2012-02-22",
+  "firstname": "Keks",
+  "lastname": "Smith",
+  "password": "123456"
+}
+
+###
+
+# Get user by ID
+GET http://localhost:3777/api/auth/eff3c25b-8762-4a1c-8c13-1e83bccdac24 HTTP/1.1
+
+###
+
+# Login user by email and password
+POST http://localhost:3777/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound.local",
+  "password": "123456"
+}
+
+###
