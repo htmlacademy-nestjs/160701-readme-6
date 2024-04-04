@@ -14,9 +14,10 @@ import {
 } from './authentication.constant';
 import { HasherService } from '../hasher-module/hasher.service';
 import { LoginUserDto } from '../dto/login-user.dto';
+import { AuthService } from './authentication.interface';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService implements AuthService {
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
     private readonly hasherService: HasherService
