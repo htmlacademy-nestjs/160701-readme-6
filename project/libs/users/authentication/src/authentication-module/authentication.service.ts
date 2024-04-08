@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -12,15 +13,18 @@ import {
   AUTH_USER_NOT_FOUND,
   AUTH_USER_PASSWORD_WRONG,
 } from './authentication.constant';
-import { HasherService } from '../hasher-module/hasher.service';
+
 import { LoginUserDto } from '../dto/login-user.dto';
 import { AuthService } from './authentication.interface';
+import { Hasher } from '../hasher-module/hasher.interface';
+import { HasherComponent } from '../hasher-module/hasher.enum';
 
 @Injectable()
 export class AuthenticationService implements AuthService {
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
-    private readonly hasherService: HasherService
+    @Inject(HasherComponent.Service)
+    private readonly hasherService: Hasher
   ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
