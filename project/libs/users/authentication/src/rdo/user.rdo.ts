@@ -8,7 +8,7 @@ export class UserRdo {
   public avatar!: string;
 
   @Expose()
-  public createdAt!: string;
+  public createdAt!: Date;
 
   @Expose()
   public email!: string;
