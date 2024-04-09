@@ -32,7 +32,7 @@ export class AuthenticationService implements AuthService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (existUser) {
-      throw new ConflictException(AUTH_USER_EXISTS);
+      throw new ConflictException(`${AUTH_USER_EXISTS}: ${email}`);
     }
 
     const passwordHash = await this.hasherService.generatePasswordHash(

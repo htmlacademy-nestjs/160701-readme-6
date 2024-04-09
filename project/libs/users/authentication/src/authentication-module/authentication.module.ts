@@ -10,16 +10,15 @@ import { AuthenticationLoggerService } from './authentication-logger.service';
   imports: [BlogUserModule, HasherModule],
   controllers: [AuthenticationController],
   providers: [
-    // {
-    //   provide: 'AuthService',
-    //   useFactory: (Logger): AuthService => {
-    //     return new AuthenticationLoggerService(
-    //       Logger,
-    //       new AuthenticationService()
-    //     );
-    //   },
-    //   inject: [Logger],
-    // },
+    {
+      provide: 'AuthService',
+      useFactory: (
+        authService: AuthenticationService
+      ): AuthService => {
+        return new AuthenticationLoggerService(authService);
+      },
+      inject: [AuthenticationService],
+    },
     AuthenticationService,
   ],
 })

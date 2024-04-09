@@ -1,14 +1,18 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { fillDto } from '@project/shared/helpers';
 import { UserRdo } from '../rdo/user.rdo';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
+import { AuthService } from './authentication.interface';
 
 @Controller('auth')
 export class AuthenticationController {
-  constructor(private readonly authService: AuthenticationService) {}
+  constructor(
+    @Inject('AuthService')
+    private readonly authService: AuthService
+  ) {}
 
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {

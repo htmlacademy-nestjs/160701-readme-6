@@ -1,25 +1,31 @@
-import { Injectable, LoggerService } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { AuthService } from './authentication.interface';
-import { BlogUserEntity } from '@project/blog-user';
 
 @Injectable()
 export class AuthenticationLoggerService implements AuthService {
-  constructor(
-    private readonly logger: LoggerService,
-    private readonly proxy: AuthService
-  ) {}
+  private readonly logger = new Logger(AuthenticationLoggerService.name);
+
+  constructor(private readonly proxy: AuthService) {}
 
   public async register(dto: CreateUserDto) {
-    return Promise.resolve(new BlogUserEntity());
+    try {
+      const entity = await this.proxy.register(dto);
+      this.logger.log(`Успешная регистрация: ${entity.email}`);
+
+      return entity;
+    } catch (e: any) {
+      this.logger.error(`Ошибка регистрации: ${e?.message}`);
+      throw e;
+    }
   }
 
   public async verifyUser(dto: LoginUserDto) {
-    return Promise.resolve(new BlogUserEntity());
+    return this.proxy.verifyUser(dto);
   }
 
   public async getUser(id: string) {
-    return Promise.resolve(new BlogUserEntity());
+    return this.proxy.getUser(id);
   }
 }
