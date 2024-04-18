@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { appConfig } from '../../configurations/app.config';
 // import { appConfig, mongoConfig, rabbitConfig } from '@project/config-base';
 // import { jwtConfig } from './jwt/jwt.config';
 
@@ -8,7 +9,10 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      // load: [appConfig, mongoConfig, rabbitConfig, jwtConfig],
+      load: [
+        appConfig,
+        //  mongoConfig, rabbitConfig, jwtConfig
+      ],
       envFilePath: 'apps/users/.env',
     }),
   ],
