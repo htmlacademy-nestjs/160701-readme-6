@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
-import { AuthenticationService } from './authentication.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { fillDto } from '@project/shared/helpers';
 import { UserRdo } from '../rdo/user.rdo';

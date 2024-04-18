@@ -1,4 +1,4 @@
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';
 import { BlogUserModule } from '@project/blog-user';
@@ -12,9 +12,7 @@ import { AuthenticationLoggerService } from './authentication-logger.service';
   providers: [
     {
       provide: 'AuthService',
-      useFactory: (
-        authService: AuthenticationService
-      ): AuthService => {
+      useFactory: (authService: AuthenticationService): AuthService => {
         return new AuthenticationLoggerService(authService);
       },
       inject: [AuthenticationService],

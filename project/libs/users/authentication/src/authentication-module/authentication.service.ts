@@ -11,7 +11,7 @@ import { AuthUser, UserRole } from '@project/shared/core';
 import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND,
-  AUTH_USER_PASSWORD_WRONG,
+  AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
 } from './authentication.constant';
 
 import { LoginUserDto } from '../dto/login-user.dto';
@@ -59,7 +59,7 @@ export class AuthenticationService implements AuthService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+      throw new UnauthorizedException(AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG);
     }
 
     const isEqualPassword = await this.hasherService.comparePassword({
@@ -68,7 +68,7 @@ export class AuthenticationService implements AuthService {
     });
 
     if (!isEqualPassword) {
-      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+      throw new UnauthorizedException(AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG);
     }
 
     return existUser;
