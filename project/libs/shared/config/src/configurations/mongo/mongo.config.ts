@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
-import { FromEnv } from '../lib/from-env.decorator';
-import { configEnvValidator } from '../lib/config-env-validator';
+import { FromEnv } from '../../lib/from-env.decorator';
+import { configEnvValidator } from '../../lib/config-env-validator';
 import { IsNumber, IsString, Max, Min } from 'class-validator';
 
 export const MIN_PORT = 0;
