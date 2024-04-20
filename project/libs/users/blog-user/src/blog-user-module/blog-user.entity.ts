@@ -31,7 +31,7 @@ export class BlogUserEntity extends Entity implements StorableEntity<AuthUser> {
     this.avatar = user.avatar;
     this.passwordHash = user.passwordHash;
     this.role = user.role;
-    this.createdAt = user.createdAt ?? new Date();
+    this.createdAt = user.createdAt;
     this.publicationsCount = user.publicationsCount;
     this.subscribersCount = user.subscribersCount;
     this.passwordHash = user.passwordHash;
