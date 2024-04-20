@@ -25,7 +25,11 @@ export class AuthenticationLoggerService implements AuthService {
     return this.proxy.verifyUser(dto);
   }
 
-  public async getUser(id: string) {
-    return this.proxy.getUser(id);
+  public async getUserById(id: string) {
+    return this.proxy.getUserById(id);
+  }
+
+  public async getUserByEmail(id: string) {
+    return this.proxy.getUserByEmail(id);
   }
 }

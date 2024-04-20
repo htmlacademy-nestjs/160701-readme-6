@@ -8,12 +8,12 @@ import {
 export class BlogUserEntity extends Entity implements StorableEntity<AuthUser> {
   public email!: string;
   public firstname!: string;
-  public avatar?: string | null;
   public role!: UserRole;
-  public createdAt!: Date;
+  public avatar?: string | null;
   public passwordHash!: string;
-  public publicationsCount!: number;
-  public subscribersCount!: number;
+  public createdAt?: Date;
+  public publicationsCount?: number;
+  public subscribersCount?: number;
 
   constructor(user?: AuthUser) {
     super();
@@ -32,8 +32,8 @@ export class BlogUserEntity extends Entity implements StorableEntity<AuthUser> {
     this.passwordHash = user.passwordHash;
     this.role = user.role;
     this.createdAt = user.createdAt;
-    this.publicationsCount = Number(user.publicationsCount);
-    this.subscribersCount = Number(user.subscribersCount);
+    this.publicationsCount = user.publicationsCount;
+    this.subscribersCount = user.subscribersCount;
     this.passwordHash = user.passwordHash;
   }
 
