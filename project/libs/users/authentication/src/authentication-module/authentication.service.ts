@@ -44,14 +44,13 @@ export class AuthenticationService implements AuthService {
       firstname,
       role: UserRole.User,
       avatar: avatarId,
-      createdAt: new Date(),
       passwordHash,
     };
 
     const userEntity = new BlogUserEntity(blogUser);
-    this.blogUserRepository.save(userEntity);
+    const newEntity = await this.blogUserRepository.save(userEntity);
 
-    return userEntity;
+    return newEntity;
   }
 
   public async verifyUser(dto: LoginUserDto) {
