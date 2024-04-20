@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model, UpdateQuery } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 
 import { Entity, StorableEntity, EntityFactory } from '@project/shared/core';
@@ -33,19 +33,27 @@ export abstract class BaseMongoRepository<
     return this.createEntityFromDocument(document);
   }
 
-  public async save(entity: T): Promise<void> {
-    const newEntity = new this.model(entity.toPOJO());
-    await newEntity.save();
+  public async save(entity: T): Promise<T> {
+    const newDocument = new this.model(entity.toPOJO());
+    const document = await newDocument.save();
+    const newEntity = this.createEntityFromDocument(document as DocumentType);
+    if (!newEntity) {
+      throw new NotFoundException('Document not save');
+    }
 
-    entity.id = newEntity._id.toString();
+    return newEntity;
   }
 
   public async update(entity: T): Promise<void> {
     const updatedDocument = await this.model
-      .findByIdAndUpdate(entity.id, entity.toPOJO(), {
-        new: true,
-        runValidators: true,
-      })
+      .findByIdAndUpdate(
+        entity.id,
+        entity.toPOJO() as UpdateQuery<DocumentType>,
+        {
+          new: true,
+          runValidators: true,
+        }
+      )
       .exec();
 
     if (!updatedDocument) {
