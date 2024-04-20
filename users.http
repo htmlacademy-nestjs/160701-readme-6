@@ -5,7 +5,7 @@
 @host = {{hostname}}:{{port}}/{{prefix}}
 @parentPath = auth
 @contentType = application/json
-@USER_ID =7748ddec-c2a8-4617-abcd-07021beec399
+@USER_ID =6623f0a69a7b7ed3b55aa5c8
 @token-access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWI1M2M1NjBkNWFiNjUyMjYxODM0ZGYiLCJlbWFpbCI6IjJAMi5uZXQiLCJyb2xlIjoidXNlciIsImZpcnN0bmFtZSI6IkpheSIsImlhdCI6MTcwNjQ0MTMzNywiZXhwIjoxNzA2NDQxOTM3fQ.-7refW7zUFOV89jQ7RAy12iz0JYqsn8lXc6kplrBymE
 @token-refresh =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIyYTEwOWRjZjJkMjY3NjUwMWIyMTAiLCJlbWFpbCI6IjFAMi5uZXQiLCJyb2xlIjoidXNlciIsImZpcnN0bmFtZSI6IkpheSIsInRva2VuSWQiOiIyNDBhM2ZlZS00MTFhLTRiOWQtOGJiNy1lNjQ4YmFmOGJhNzQiLCJpYXQiOjE3MDYyMDU5MTAsImV4cCI6MTcwNjIwNjUxMH0.OXSbWixOEV_RXIqtrZk7cQd-Uw_yqVGazDZvGCmPTm4
 

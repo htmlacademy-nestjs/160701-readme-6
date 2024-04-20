@@ -10,7 +10,6 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthUser, UserRole } from '@project/shared/core';
 import {
   AUTH_USER_EXISTS,
-  AUTH_USER_NOT_FOUND,
   AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
 } from './authentication.constant';
 
@@ -73,11 +72,21 @@ export class AuthenticationService implements AuthService {
     return existUser;
   }
 
-  public async getUser(id: string) {
+  public async getUserById(id: string) {
     const existUser = await this.blogUserRepository.findById(id);
 
     if (!existUser) {
-      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    return existUser;
+  }
+
+  public async getUserByEmail(email: string) {
+    const existUser = await this.blogUserRepository.findByEmail(email);
+
+    if (!existUser) {
+      throw new NotFoundException(`User with email: ${email} not found`);
     }
 
     return existUser;
