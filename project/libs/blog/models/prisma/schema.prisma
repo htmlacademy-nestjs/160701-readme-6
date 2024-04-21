@@ -12,3 +12,65 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum PostStatus {
+  DRAFT
+  PUBLIC
+}
+
+enum PostType {
+  VIDEO
+  TEXT
+  QUOTE
+  LINK
+  PHOTO
+}
+
+model Post {
+  id        String     @id @default(uuid())
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  status    PostStatus @default(PUBLIC)
+  type      PostType
+  authorId  String     @map("author_id")
+  title     String
+  tags      Tag[]
+  comment   Comment[]
+  likes     Like[]
+
+  @@index([title])
+  @@map("posts")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  name      String
+  posts     Post[]
+
+  @@map("tags")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  userId    String   @map("user_id")
+  postId    String   @map("post_id")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  message   String
+
+  @@map("comments")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  userId    String   @map("user_id")
+  postId    String   @map("post_id")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("likes")
+}
