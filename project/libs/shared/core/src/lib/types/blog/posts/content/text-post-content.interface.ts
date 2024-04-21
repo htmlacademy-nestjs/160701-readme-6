@@ -2,7 +2,7 @@ import { Expose } from 'class-transformer';
 import { BasePostContent } from './post-content.interface';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MinLength, MaxLength } from 'class-validator';
-import { PostContentValidator } from '@project/validation';
+// import { PostContentValidator } from '@project/validation';
 
 export class TextPostContent extends BasePostContent {
   @Expose()
@@ -11,8 +11,8 @@ export class TextPostContent extends BasePostContent {
     example: 'Lorem title',
   })
   @IsString()
-  @MinLength(PostContentValidator.text.title.Min)
-  @MaxLength(PostContentValidator.text.title.Max)
+  // @MinLength(PostContentValidator.text.title.Min)
+  // @MaxLength(PostContentValidator.text.title.Max)
   title!: string;
 
   @ApiProperty({
@@ -21,8 +21,8 @@ export class TextPostContent extends BasePostContent {
   })
   @Expose()
   @IsString()
-  @MinLength(PostContentValidator.text.annotation.Min)
-  @MaxLength(PostContentValidator.text.annotation.Max)
+  // @MinLength(PostContentValidator.text.annotation.Min)
+  // @MaxLength(PostContentValidator.text.annotation.Max)
   annotation!: string;
 
   @Expose()
@@ -31,7 +31,7 @@ export class TextPostContent extends BasePostContent {
     example: 'Lorem ipsum',
   })
   @IsString()
-  @MinLength(PostContentValidator.text.content.Min)
-  @MaxLength(PostContentValidator.text.content.Max)
+  // @MinLength(PostContentValidator.text.content.Min)
+  // @MaxLength(PostContentValidator.text.content.Max)
   content!: string;
 }
