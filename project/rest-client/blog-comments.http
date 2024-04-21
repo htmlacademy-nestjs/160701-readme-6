@@ -1,0 +1,41 @@
+## Сервис блога [comments]
+@hostname = http://localhost
+@port = 3666
+@prefix = api
+@host = {{hostname}}:{{port}}/{{prefix}}
+@parentPath = comments
+@contentType = application/json
+@POST_ID = d1ba7245-74d5-494a-9946-5935ab5d21e0
+@COMMENT_ID =33e76574-a9c2-4a9c-b061-02910c872e7c
+@USER_ID =aa58177b-7ca6-4d15-89f2-cfabf8fef6d5
+
+### Все комментарии
+GET {{host}}/{{parentPath}} HTTP/1.1
+
+### Создать комментарий
+POST {{host}}/{{parentPath}} HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "message": "Lorem ipsum 999",
+  "postId": "{{POST_ID}}",
+  "userId": "{{USER_ID}}"
+}
+
+### Получить комментарии к посту
+GET {{host}}/{{parentPath}}/post/{{POST_ID}} HTTP/1.1
+
+### Получить комментарий
+GET {{host}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
+
+### Обновить комментарий
+PATCH   {{host}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "message": "Lorem ipsum 777"  
+}
+
+
+### Удалить комментарий
+DELETE  {{host}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
