@@ -18,6 +18,7 @@
     "strict": true,
     "paths": {
       "@project/authentication": ["libs/users/authentication/src/index.ts"],
+      "@project/blog-models": ["libs/blog/models/src/index.ts"],
       "@project/blog-user": ["libs/users/blog-user/src/index.ts"],
       "@project/config": ["libs/shared/config/src/index.ts"],
       "@project/data-access": ["libs/shared/data-access/src/index.ts"],
