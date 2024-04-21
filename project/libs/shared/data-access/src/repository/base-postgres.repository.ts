@@ -12,11 +12,7 @@ export abstract class BasePostgresRepository<
     protected readonly client: PrismaClientService
   ) {}
 
-  protected createEntityFromDocument(document: DocumentType): T | null {
-    if (!document) {
-      return null;
-    }
-
+  protected createEntityFromDocument(document: DocumentType): T {
     return this.entityFactory.create(document as ReturnType<T['toPOJO']>);
   }
 
@@ -28,7 +24,7 @@ export abstract class BasePostgresRepository<
     throw new Error('Not implemented');
   }
 
-  public async update(entity: T): Promise<void> {
+  public async update(entity: T): Promise<T> {
     throw new Error('Not implemented');
   }
 
