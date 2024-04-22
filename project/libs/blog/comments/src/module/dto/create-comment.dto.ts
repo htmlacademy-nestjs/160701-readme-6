@@ -17,7 +17,7 @@ export class CreateCommentDto
 
   @ApiProperty({
     description: 'Post id',
-    example: '52b7a93fe29bcc5e9410a607',
+    example: '239acf4a-8fac-4500-8b3e-120f2b802ee6',
   })
   public postId!: string;
 
