@@ -16,27 +16,9 @@ import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
 import { CommentRdo } from './rdo/comment.rdo';
 
 @ApiTags('comments')
-@Controller('comments')
+@Controller('posts/:postId/comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
-
-  @ApiResponse({
-    isArray: true,
-    type: CommentRdo,
-    status: HttpStatus.OK,
-    description: 'Get all comments',
-  })
-  @ApiOperation({
-    summary: 'Получить все комментарии',
-    description: 'Get all comments',
-  })
-  @Get()
-  public async findAll() {
-    const commentsEntities = await this.commentsService.findAll();
-    const comments = commentsEntities.map((el) => el.toPOJO());
-
-    return fillDto(CommentRdo, comments);
-  }
 
   @ApiResponse({
     type: CommentRdo,
@@ -85,7 +67,7 @@ export class CommentsController {
     summary: 'Получить все комментарии к посту по id',
     description: 'Find all comments by postId',
   })
-  @Get('/post/:postId')
+  @Get()
   public async findByPostId(@Param('postId') postId: string) {
     const existComments = await this.commentsService.findByPostId(postId);
 
