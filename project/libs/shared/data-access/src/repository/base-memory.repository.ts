@@ -29,12 +29,14 @@ export abstract class BaseMemoryRepository<
     return entity;
   }
 
-  public async update(entity: T): Promise<void> {
+  public async update(entity: T): Promise<T> {
     if (!this.entities.has(entity.id)) {
       throw new Error('Entity not found');
     }
 
     this.entities.set(entity.id, entity.toPOJO());
+
+    return entity;
   }
 
   public async deleteById(id: T['id']): Promise<void> {

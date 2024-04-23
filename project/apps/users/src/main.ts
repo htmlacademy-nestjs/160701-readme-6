@@ -5,24 +5,39 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 import { ConfigService } from '@nestjs/config';
+import { AuthKeyName, attachSwagger } from '@project/shared/helpers';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('The «Account» service')
-    .setDescription('Account service API')
-    .setVersion('1.0')
-    .build();
-
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('spec', app, document);
+  attachSwagger({
+    app,
+    DocumentBuilder: new DocumentBuilder()
+      .setTitle('The «Users» service')
+      .setDescription('Users service API')
+      .setVersion('1.0')
+      .addTag('auth', 'Авторизация и Регистрация')
+      .addBearerAuth(
+        {
+          name: 'Authorization',
+          bearerFormat: 'Bearer',
+          scheme: 'Bearer',
+          type: 'http',
+          in: 'Header',
+        },
+        AuthKeyName
+      ),
+
+    swaggerCustomOptions: {
+      customSiteTitle: '[Users] Swagger UI',
+    },
+  });
 
   const configService = app.get(ConfigService);
   const port = configService.get('application.port');
