@@ -3,8 +3,9 @@ import { LikeEntity } from './entities/like.entity';
 import { LikeFactory } from './likes.factory';
 import { PrismaClientService } from '@project/blog-models';
 import { Like } from '@project/shared/core';
-import { NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class LikesRepository extends BasePostgresRepository<LikeEntity, Like> {
   constructor(
     entityFactory: LikeFactory,
@@ -12,6 +13,23 @@ export class LikesRepository extends BasePostgresRepository<LikeEntity, Like> {
   ) {
     super(entityFactory, client);
   }
+
+  public async save(entity: LikeEntity): Promise<LikeEntity> {
+    const record = await this.client.like.create({
+      data: { ...entity.toPOJO() },
+    });
+
+    return this.createEntityFromDocument(record);
+  }
+
+  public async deleteById(id: string): Promise<void> {
+    const document = await this.client.like.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
   public async getAll() {
     const documents = await this.client.like.findMany();
 
@@ -36,9 +54,7 @@ export class LikesRepository extends BasePostgresRepository<LikeEntity, Like> {
     });
 
     if (!document) {
-      throw new NotFoundException(
-        `Like userId: ${userId} for postId:${postId} not found.`
-      );
+      return null;
     }
 
     return this.createEntityFromDocument(document);

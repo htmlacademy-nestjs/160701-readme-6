@@ -60,7 +60,7 @@ export class LikesService {
       );
     }
 
-    return this.likesRepository.deleteById(like.id);
+    return this.likesRepository.deleteById(String(like?.id));
   }
 
   public async getAll() {
