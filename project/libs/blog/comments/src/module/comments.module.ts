@@ -10,6 +10,5 @@ import { CommentsTechController } from './comments-tech.controller';
   imports: [PrismaClientModule],
   controllers: [CommentsController, CommentsTechController],
   providers: [CommentsService, CommentRepository, CommentFactory],
-  exports: [CommentsService],
 })
 export class CommentsModule {}

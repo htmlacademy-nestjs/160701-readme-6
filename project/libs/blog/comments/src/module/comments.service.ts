@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentRepository } from './comment.repository';
@@ -25,19 +25,12 @@ export class CommentsService {
   public async findOne(id: string) {
     const existComment = await this.commentsRepository.findById(id);
 
-    if (!existComment) {
-      throw new NotFoundException(`Comment with id ${id} not found`);
-    }
-
     return existComment;
   }
 
   public async update(id: string, updateCommentDto: UpdateCommentDto) {
     const existComment = await this.commentsRepository.findById(id);
 
-    if (!existComment) {
-      throw new NotFoundException(`Comment with id ${id} not found`);
-    }
     const newCommentEntity = new CommentEntity({
       ...existComment.toPOJO(),
       message: updateCommentDto.message,
