@@ -6,13 +6,13 @@ import { Like } from '../like.interface';
 
 export interface Post {
   id?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   status: PostStatus;
   type: PostType;
   title: string;
   authorId: string;
-  tags: Tag[];
+  tags?: Tag[];
   comments: Comment[];
   likes: Like[];
 }
