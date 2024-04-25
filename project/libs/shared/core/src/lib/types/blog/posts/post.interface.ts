@@ -2,7 +2,7 @@ import { Tag } from '../tag.interface';
 import { Comment } from '../comment.interface';
 import { PostStatus } from './post-status.enum';
 import { PostType } from './post-type.enum';
-import { Like } from '@prisma/client';
+import { Like } from '../like.interface';
 
 export interface Post {
   id?: string;

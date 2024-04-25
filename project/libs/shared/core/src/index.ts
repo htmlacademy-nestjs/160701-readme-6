@@ -15,7 +15,7 @@ export { Like } from './lib/types/blog/like.interface';
 export { Post } from './lib/types/blog/posts/post.interface';
 export { PostType } from './lib/types/blog/posts/post-type.enum';
 export { PostStatus } from './lib/types/blog/posts/post-status.enum';
-export { PostContent } from './lib/types/blog/posts/content';
+export * from './lib/types/blog/posts/content';
 
 export { BasePostContent } from './lib/types/blog/posts/content/post-content.interface';
 export { LinkPostContent } from './lib/types/blog/posts/content/link-post-content.interface';
@@ -23,3 +23,7 @@ export { PhotoPostContent } from './lib/types/blog/posts/content/photo-post-cont
 export { QuotePostContent } from './lib/types/blog/posts/content/quote-post-content.interface';
 export { TextPostContent } from './lib/types/blog/posts/content/text-post-content.interface';
 export { VideoPostContent } from './lib/types/blog/posts/content/video-post-content.interface';
+
+export { CreatePostDto } from './lib/dto/blog/create-post.dto';
+
+export { PostRdo } from './lib/rdo/blog/post.rdo';
