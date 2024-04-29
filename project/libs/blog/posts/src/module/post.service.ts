@@ -16,12 +16,12 @@ import { UpdatePostDto } from './dto/update/update-post.dto';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly blogPostRepository: PostRepository) {}
+  constructor(private readonly postRepository: PostRepository) {}
 
   public async getAllPosts(
     query?: PostQuery
   ): Promise<PaginationResult<PostEntity>> {
-    return this.blogPostRepository.find(query);
+    return this.postRepository.find(query);
   }
 
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {
@@ -34,21 +34,21 @@ export class PostService {
       likes: [],
       tags: [],
     });
-    await this.blogPostRepository.save(newPost);
+    await this.postRepository.save(newPost);
 
     return newPost;
   }
 
   public async deletePost(id: string): Promise<void> {
     try {
-      await this.blogPostRepository.deleteById(id);
+      await this.postRepository.deleteById(id);
     } catch {
       throw new NotFoundException(`Post with ID ${id} not found`);
     }
   }
 
   public async getPost(id: string): Promise<PostEntity> {
-    return this.blogPostRepository.findById(id);
+    return this.postRepository.findById(id);
   }
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
