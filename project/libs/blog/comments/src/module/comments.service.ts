@@ -8,8 +8,8 @@ import { CommentEntity } from './entities/comment.entity';
 export class CommentsService {
   constructor(private readonly commentsRepository: CommentRepository) {}
 
-  public async create(dto: CreateCommentDto) {
-    const commentEntity = new CommentEntity(dto);
+  public async create(postId: string, dto: CreateCommentDto) {
+    const commentEntity = new CommentEntity({ ...dto, postId });
 
     return this.commentsRepository.save(commentEntity);
   }

@@ -30,8 +30,14 @@ export class CommentsController {
     description: 'Create comment',
   })
   @Post()
-  public async create(@Body() createCommentDto: CreateCommentDto) {
-    const newComment = await this.commentsService.create(createCommentDto);
+  public async create(
+    @Param('postId') postId: string,
+    @Body() createCommentDto: CreateCommentDto
+  ) {
+    const newComment = await this.commentsService.create(
+      postId,
+      createCommentDto
+    );
 
     return fillDto(CommentRdo, newComment.toPOJO());
   }

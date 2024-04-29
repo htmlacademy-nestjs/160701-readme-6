@@ -3,33 +3,34 @@
 @port = 3666
 @prefix = api
 @host = {{hostname}}:{{port}}/{{prefix}}
+@entityPath = posts/{{POST_ID}}
 @parentPath = comments
 @contentType = application/json
-@POST_ID = d1ba7245-74d5-494a-9946-5935ab5d21e0
-@COMMENT_ID =33e76574-a9c2-4a9c-b061-02910c872e7c
-@USER_ID =aa58177b-7ca6-4d15-89f2-cfabf8fef6d5
+@POST_ID = 4a29422d-5db8-4704-be46-d9d76bfc0d22
+@COMMENT_ID =d56e9e43-7890-40a5-ba0a-af3d4b44ebcd
+@USER_ID =65b7a93fe29bcc5e9410a607
 
 ### Все комментарии
-GET {{host}}/{{parentPath}} HTTP/1.1
+GET {{host}}/{{parentPath}}/all HTTP/1.1
 
 ### Создать комментарий
-POST {{host}}/{{parentPath}} HTTP/1.1
+POST {{host}}/{{entityPath}}/{{parentPath}} HTTP/1.1
 Content-Type: {{contentType}}
 
 {
-  "message": "Lorem ipsum 999",
+  "message": "Lorem ipsum 10",
   "postId": "{{POST_ID}}",
   "userId": "{{USER_ID}}"
 }
 
 ### Получить комментарии к посту
-GET {{host}}/{{parentPath}}/post/{{POST_ID}} HTTP/1.1
+GET {{host}}/{{entityPath}}/{{parentPath}} HTTP/1.1
 
 ### Получить комментарий
-GET {{host}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
+GET {{host}}/{{entityPath}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
 
 ### Обновить комментарий
-PATCH   {{host}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
+PATCH   {{host}}/{{entityPath}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
 Content-Type: {{contentType}}
 
 {
@@ -38,4 +39,4 @@ Content-Type: {{contentType}}
 
 
 ### Удалить комментарий
-DELETE  {{host}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1
+DELETE  {{host}}/{{entityPath}}/{{parentPath}}/{{COMMENT_ID}} HTTP/1.1

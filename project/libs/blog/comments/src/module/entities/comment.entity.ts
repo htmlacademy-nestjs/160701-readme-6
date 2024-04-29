@@ -28,6 +28,7 @@ export class CommentEntity extends Entity implements StorableEntity<Comment> {
   public toPOJO(): Comment {
     return {
       ...this,
+      id: this.id,
     };
   }
 }
