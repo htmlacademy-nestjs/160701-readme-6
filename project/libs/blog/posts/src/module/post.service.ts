@@ -51,5 +51,7 @@ export class PostService {
     return this.blogPostRepository.findById(id);
   }
 
-
+  public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
+    return this.getPost(id);
+  }
 }
