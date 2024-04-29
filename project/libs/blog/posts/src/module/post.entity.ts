@@ -8,7 +8,7 @@ import {
 import { CommentEntity, CommentFactory } from '@project/blog-comments';
 import { LikeEntity, LikeFactory } from '@project/blog-likes';
 
-export class BlogPostEntity extends Entity implements StorableEntity<Post> {
+export class PostEntity extends Entity implements StorableEntity<Post> {
   public createdAt?: Date;
   public updatedAt?: Date;
   public status!: PostStatus;
@@ -33,7 +33,11 @@ export class BlogPostEntity extends Entity implements StorableEntity<Post> {
     this.id = post.id;
     this.createdAt = post.createdAt;
     this.updatedAt = post.updatedAt;
+
     this.authorId = post.authorId;
+    this.status = post.status;
+    this.type = post.type;
+    this.title = post.title;
 
     const commentFactory = new CommentFactory();
     this.comments = post.comments.map(commentFactory.create);
