@@ -94,10 +94,11 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
     return Math.ceil(totalCount / limit);
   }
 
-  public async find(query: PostQuery): Promise<PaginationResult<PostEntity>> {
+  public async find(query?: PostQuery): Promise<PaginationResult<PostEntity>> {
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
-    const take = query?.limit;
+    const take = query?.limit || 0;
+    const currentPage = Number(query?.page);
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};
 
@@ -130,7 +131,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
       entities: records.map((record) =>
         this.createEntityFromDocument(record as unknown as Post)
       ),
-      currentPage: query.page,
+      currentPage,
       totalPages: this.calculatePostsPage(postCount, take),
       itemsPerPage: take,
       totalItems: postCount,
