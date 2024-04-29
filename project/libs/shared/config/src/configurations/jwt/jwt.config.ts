@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 import { IsString } from 'class-validator';
-import { FromEnv, configEnvValidator } from '@project/config-base';
+import { configEnvValidator } from '../../lib/config-env-validator';
+import { FromEnv } from '../../lib/from-env.decorator';
 
 export class JwtDto {
   @IsString()
