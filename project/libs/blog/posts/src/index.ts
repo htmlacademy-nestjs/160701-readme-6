@@ -1,1 +1,1 @@
-export { PostsModule } from './module/posts.module';
+export { PostModule } from './module/post.module';

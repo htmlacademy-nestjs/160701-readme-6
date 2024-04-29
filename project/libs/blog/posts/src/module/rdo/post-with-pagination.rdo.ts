@@ -3,7 +3,7 @@ import { PostRdo } from './post.rdo';
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class PostWithPagintionRdo implements PaginationResult<PostRdo> {
+export class PostWithPaginationRdo implements PaginationResult<PostRdo> {
   @Expose()
   @ApiProperty({
     description: 'Posts',

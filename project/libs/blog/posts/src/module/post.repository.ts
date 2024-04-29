@@ -70,8 +70,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
       where: { id: entity.id },
       data: {
         title: pojoEntity.title,
-        // content: pojoEntity.content,
-        // description: pojoEntity.description,
         tags: {
           set: pojoEntity.tags?.map((tag) => ({ id: tag.id })),
         },

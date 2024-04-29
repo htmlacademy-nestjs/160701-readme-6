@@ -6,7 +6,7 @@ import {
   PostStatus,
 } from '@project/shared/core';
 
-import { PostRepository } from './posts.repository';
+import { PostRepository } from './post.repository';
 
 import { PostEntity } from './post.entity';
 import { PostQuery } from './post.query';
