@@ -1,5 +1,7 @@
 import {
   ConflictException,
+  HttpException,
+  HttpStatus,
   Inject,
   Injectable,
   NotFoundException,
@@ -7,7 +9,13 @@ import {
 } from '@nestjs/common';
 import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { AuthUser, UserRole } from '@project/shared/core';
+import {
+  AuthUser,
+  Token,
+  TokenPayload,
+  User,
+  UserRole,
+} from '@project/shared/core';
 import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
@@ -17,11 +25,13 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { AuthService } from './authentication.interface';
 import { Hasher } from '../hasher-module/hasher.interface';
 import { HasherComponent } from '../hasher-module/hasher.enum';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthenticationService implements AuthService {
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
+    private readonly jwtService: JwtService,
     @Inject(HasherComponent.Service)
     private readonly hasherService: Hasher
   ) {}
@@ -90,5 +100,25 @@ export class AuthenticationService implements AuthService {
     }
 
     return existUser;
+  }
+
+  public async createUserToken(user: User): Promise<Token> {
+    const payload: TokenPayload = {
+      sub: String(user.id),
+      email: user.email,
+      role: user.role,
+      firstname: user.firstname,
+    };
+
+    try {
+      const accessToken = await this.jwtService.signAsync(payload);
+
+      return { accessToken };
+    } catch (error: any) {
+      throw new HttpException(
+        `Ошибка при создании токена: ${error?.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 }
