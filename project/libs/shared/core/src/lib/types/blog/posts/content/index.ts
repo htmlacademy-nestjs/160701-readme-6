@@ -40,9 +40,9 @@ export const RefOptionalPostContentArray = AllOptionPostContentArray.map(
 );
 
 export const PostTypeContent = {
-  [PostType.Video]: VideoPostContent,
-  [PostType.Text]: TextPostContent,
-  [PostType.Quote]: QuotePostContent,
-  [PostType.Link]: LinkPostContent,
-  [PostType.Photo]: PhotoPostContent,
+  [PostType.VIDEO]: VideoPostContent,
+  [PostType.TEXT]: TextPostContent,
+  [PostType.QUOTE]: QuotePostContent,
+  [PostType.LINK]: LinkPostContent,
+  [PostType.PHOTO]: PhotoPostContent,
 };

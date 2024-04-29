@@ -27,7 +27,7 @@ export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
   @ApiProperty({
     enum: PostType,
     description: 'Post content type',
-    example: PostType.Video,
+    example: PostType.VIDEO,
   })
   public type!: PostType;
 
@@ -56,8 +56,8 @@ export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
   @ApiProperty({
     enum: PostStatus,
     description: 'This post is repost',
-    example: PostStatus.Public,
-    default: PostStatus.Public,
+    example: PostStatus.PUBLIC,
+    default: PostStatus.PUBLIC,
   })
   public status!: PostStatus;
 

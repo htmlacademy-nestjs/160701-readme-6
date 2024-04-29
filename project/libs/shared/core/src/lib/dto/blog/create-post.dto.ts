@@ -27,7 +27,7 @@ export class CreatePostDto {
   @ApiProperty({
     enum: PostType,
     description: 'Post type',
-    example: PostType.Video,
+    example: PostType.VIDEO,
   })
   @IsEnum(PostType)
   public type!: PostType;
