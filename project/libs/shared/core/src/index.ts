@@ -1,5 +1,8 @@
 export { Entity } from './lib/base/entity';
 
+export { Token } from './lib/interfaces/token.interface';
+export { TokenPayload } from './lib/interfaces/token-payload.interface';
+
 export { UserRole } from './lib/types/user-role.enum';
 export { User } from './lib/types/user.interface';
 export { AuthUser } from './lib/types/auth-user.interface';
