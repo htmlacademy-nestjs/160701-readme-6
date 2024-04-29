@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { AuthService } from './authentication.interface';
+import { User } from '@project/shared/core';
 
 @Injectable()
 export class AuthenticationLoggerService implements AuthService {
@@ -31,5 +32,9 @@ export class AuthenticationLoggerService implements AuthService {
 
   public async getUserByEmail(id: string) {
     return this.proxy.getUserByEmail(id);
+  }
+
+  public async createUserToken(user: User) {
+    return this.proxy.createUserToken(user);
   }
 }

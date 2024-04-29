@@ -26,12 +26,14 @@ import { AuthService } from './authentication.interface';
 import { Hasher } from '../hasher-module/hasher.interface';
 import { HasherComponent } from '../hasher-module/hasher.enum';
 import { JwtService } from '@nestjs/jwt';
+import { JWT_ACCESS_KEY } from '@project/config';
 
 @Injectable()
 export class AuthenticationService implements AuthService {
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
-    private readonly jwtService: JwtService,
+    @Inject(JWT_ACCESS_KEY)
+    private readonly jwtAccessService: JwtService,
     @Inject(HasherComponent.Service)
     private readonly hasherService: Hasher
   ) {}
@@ -111,7 +113,7 @@ export class AuthenticationService implements AuthService {
     };
 
     try {
-      const accessToken = await this.jwtService.signAsync(payload);
+      const accessToken = await this.jwtAccessService.signAsync(payload);
 
       return { accessToken };
     } catch (error: any) {
