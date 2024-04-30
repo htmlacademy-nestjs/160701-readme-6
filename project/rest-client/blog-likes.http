@@ -3,20 +3,21 @@
 @port = 3666
 @prefix = api
 @host = {{hostname}}:{{port}}/{{prefix}}
+@entityPath = posts/{{POST_ID}}
 @parentPath = likes
 @contentType = application/json
-@POST_ID = 3b1b8cfd-60aa-49fc-8abb-df4088136479
+@POST_ID = 4a29422d-5db8-4704-be46-d9d76bfc0d22
 @LIKE_ID = 6b710e8c-640d-4eaa-a933-c68e274b4d53
 @USER_ID = 2a83efd4-07da-42c5-ad2f-339dcb1c3352
 
 ### Создать лайк
-POST {{host}}/{{parentPath}}/create/{{POST_ID}}?userId={{USER_ID}} HTTP/1.1
+POST {{host}}/{{entityPath}}/{{parentPath}}/?userId={{USER_ID}} HTTP/1.1
 
 ### Удалить лайк
-DELETE  {{host}}/{{parentPath}}/delete/{{POST_ID}}?userId={{USER_ID}} HTTP/1.1
+DELETE  {{host}}/{{entityPath}}/{{parentPath}}/?userId={{USER_ID}} HTTP/1.1
 
 ### Получить лайки к посту
-GET {{host}}/{{parentPath}}/{{POST_ID}} HTTP/1.1
+GET {{host}}/{{entityPath}}/{{parentPath}} HTTP/1.1
 
 ### Получить все лайки
-GET {{host}}/{{parentPath}} HTTP/1.1
+GET {{host}}/{{parentPath}}/all HTTP/1.1

@@ -2,6 +2,7 @@ import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LikeRdo } from './rdo/like.rdo';
+import { fillDto } from '@project/shared/helpers';
 
 @ApiTags('likes')
 @Controller('/likes')
@@ -22,6 +23,9 @@ export class LikesTechController {
   public async getAll() {
     const likes = await this.likesService.getAll();
 
-    return likes;
+    return fillDto(
+      LikeRdo,
+      likes.map((el) => el.toPOJO())
+    );
   }
 }
