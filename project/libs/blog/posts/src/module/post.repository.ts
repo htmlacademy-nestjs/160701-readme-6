@@ -6,6 +6,7 @@ import { PrismaClientService } from '@project/blog-models';
 import { PostFactory } from './post.factory';
 import { Prisma } from '@prisma/client';
 import { PostQuery } from './post.query';
+import { DEFAULT_POST_COUNT_LIMIT } from './post.contant';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
@@ -95,13 +96,17 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
   public async find(query?: PostQuery): Promise<PaginationResult<PostEntity>> {
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
-    const take = query?.limit || 0;
+    const take = query?.limit || DEFAULT_POST_COUNT_LIMIT;
     const currentPage = Number(query?.page);
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};
 
-    if (query?.sortDirection) {
-      orderBy.createdAt = query.sortDirection;
+    if (query?.sortDirection && query?.sortBy) {
+      if (query.sortBy === 'likes' || query.sortBy === 'comments') {
+        orderBy[query?.sortBy] = { _count: query.sortDirection };
+      } else {
+        orderBy[query?.sortBy] = query.sortDirection;
+      }
     }
 
     if (query?.type) {

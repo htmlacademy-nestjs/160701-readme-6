@@ -1,8 +1,9 @@
-import { PostType, SortDirection } from '@project/shared/core';
+import { PostType, SortBy, SortDirection } from '@project/shared/core';
 import {
   DEFAULT_PAGE_COUNT,
   DEFAULT_POST_COUNT_LIMIT,
   DEFAULT_POST_MAX_COUNT_LIMIT,
+  DEFAULT_SORT_BY,
   DEFAULT_SORT_DIRECTION,
 } from './post.contant';
 import { IsEnum, IsIn, IsNumber, IsOptional, Max } from 'class-validator';
@@ -15,7 +16,7 @@ export class PostQuery {
     default: DEFAULT_POST_COUNT_LIMIT,
     type: Number,
   })
-  @Transform(({ value }) => +value || DEFAULT_POST_COUNT_LIMIT)
+  @Transform(({ value }) => Number(value) || DEFAULT_POST_COUNT_LIMIT)
   @IsNumber()
   @Max(DEFAULT_POST_MAX_COUNT_LIMIT)
   @IsOptional()
@@ -31,11 +32,20 @@ export class PostQuery {
   public sortDirection: SortDirection = DEFAULT_SORT_DIRECTION;
 
   @ApiProperty({
+    description: 'The sort type the posts',
+    default: DEFAULT_SORT_BY,
+    enum: SortBy,
+  })
+  @IsIn(Object.values(SortBy))
+  @IsOptional()
+  public sortBy: SortBy = DEFAULT_SORT_BY;
+
+  @ApiProperty({
     description: 'The page number',
     default: DEFAULT_PAGE_COUNT,
     type: Number,
   })
-  @Transform(({ value }) => +value || DEFAULT_PAGE_COUNT)
+  @Transform(({ value }) => Number(value) || DEFAULT_PAGE_COUNT)
   @IsOptional()
   public page: number = DEFAULT_PAGE_COUNT;
 

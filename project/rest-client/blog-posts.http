@@ -18,8 +18,9 @@ GET {{host}}/{{parentPath}} HTTP/1.1
 @page= 1
 @limit= 10
 @type= VIDEO
-@sortDirection = desc
-GET {{host}}/{{parentPath}}?page={{page}}&limit={{limit}}&sortDirection={{sortDirection}}&type={{type}} HTTP/1.1
+@sortBy = createdAt
+@sortDirection = asc
+GET {{host}}/{{parentPath}}?page={{page}}&limit={{limit}}&sortBy={{sortBy}}&sortDirection={{sortDirection}}&type={{type}} HTTP/1.1
 
 ### Создать видео пост
 POST {{host}}/{{parentPath}} HTTP/1.1
