@@ -86,6 +86,7 @@ export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
   @ApiProperty({
     description: 'Post likes',
     type: LikeRdo,
+    isArray: true,
   })
   @Type(() => LikeRdo)
   public likes!: Like[];
@@ -94,6 +95,7 @@ export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
   @ApiProperty({
     description: 'Post comments',
     type: CommentRdo,
+    isArray: true,
   })
   public comments!: Comment[];
 }
