@@ -4,6 +4,7 @@ import {
   CreatePostDto,
   PaginationResult,
   PostStatus,
+  PostType,
 } from '@project/shared/core';
 
 import { PostRepository } from './post.repository';
@@ -53,5 +54,11 @@ export class PostService {
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
     return this.getPost(id);
+  }
+
+  public async postTypesAll() {
+    const types = Object.values(PostType);
+
+    return types;
   }
 }
