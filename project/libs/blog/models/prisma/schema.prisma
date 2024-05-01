@@ -34,7 +34,6 @@ model Post {
   status    PostStatus  @default(PUBLIC)
   type      PostType
   authorId  String      @map("author_id")
-  title     String
   tags      Tag[]
   comments  Comment[]
   likes     Like[]
@@ -44,7 +43,6 @@ model Post {
   PostPhoto PostPhoto[]
   PostText  PostText[]
 
-  @@index([title])
   @@map("posts")
 }
 
