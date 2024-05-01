@@ -3,6 +3,7 @@ import {
   LinkPostContent,
   PhotoPostContent,
   PostContent,
+  PostType,
   QuotePostContent,
   TextPostContent,
   VideoPostContent,
@@ -17,29 +18,30 @@ import {
 } from '../entitites/content';
 import { Injectable, NotImplementedException } from '@nestjs/common';
 
+
 @Injectable()
 export class PostContentEntityFactory
   implements EntityFactory<UnionAllContentEntity>
 {
-  public create(content: PostContent) {
-    if (content instanceof VideoPostContent) {
-      return new VideoPostContentEntity(content);
+  public create(content: PostContent, postType?: PostType) {
+    if (postType === PostType.VIDEO) {
+      return new VideoPostContentEntity(content as VideoPostContent);
     }
 
-    if (content instanceof TextPostContent) {
-      return new TextPostContentEntity(content);
+    if (postType === PostType.TEXT) {
+      return new TextPostContentEntity(content as TextPostContent);
     }
 
-    if (content instanceof LinkPostContent) {
-      return new LinkPostContentEntity(content);
+    if (postType === PostType.LINK) {
+      return new LinkPostContentEntity(content as LinkPostContent);
     }
 
-    if (content instanceof PhotoPostContent) {
-      return new PhotoPostContentEntity(content);
+    if (postType === PostType.PHOTO) {
+      return new PhotoPostContentEntity(content as PhotoPostContent);
     }
 
-    if (content instanceof QuotePostContent) {
-      return new QuotePostContentEntity(content);
+    if (postType === PostType.QUOTE) {
+      return new QuotePostContentEntity(content as QuotePostContent);
     }
 
     throw new NotImplementedException('Not implements post type');

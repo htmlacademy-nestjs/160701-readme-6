@@ -38,7 +38,7 @@ export class PostContentService {
     type: PostType,
     content: PostContent
   ): Promise<BasePostContentEntity | undefined> {
-    const entity = this.postContentEntityFactory.create(content);
+    const entity = this.postContentEntityFactory.create(content, type);
 
     return this.getRepository(type)?.save(entity);
   }
