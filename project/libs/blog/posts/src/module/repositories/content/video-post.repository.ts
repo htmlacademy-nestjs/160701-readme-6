@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { VideoPostContent } from '@project/shared/core';
 import { BasePostgresRepository } from '@project/data-access';
-import { VideoPostContentEntity } from '../../entitites/content';
+import {
+  UnionAllContentEntity,
+  VideoPostContentEntity,
+} from '../../entitites/content';
 import { PostContentEntityFactory } from '../../post-content/post-content-entity.factory';
 import { PrismaClientService } from '@project/blog-models';
 
 @Injectable()
 export class VideoPostRepository extends BasePostgresRepository<
-  VideoPostContentEntity,
+  UnionAllContentEntity,
   VideoPostContent
 > {
   constructor(
@@ -15,5 +18,15 @@ export class VideoPostRepository extends BasePostgresRepository<
     readonly client: PrismaClientService
   ) {
     super(entityFactory, client);
+  }
+
+  public async save(entity: VideoPostContentEntity) {
+    const pojoEntity = entity.toPOJO();
+
+    const record = await this.client.postVideo.create({
+      data: { ...pojoEntity },
+    });
+
+    return new VideoPostContentEntity(record);
   }
 }
