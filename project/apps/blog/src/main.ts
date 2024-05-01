@@ -28,7 +28,8 @@ async function bootstrap() {
       .setVersion('1.0')
       .addTag('posts', 'Публикации')
       .addTag('likes', 'Лайки')
-      .addTag('comments', 'Комментарии'),
+      .addTag('comments', 'Комментарии')
+      .addTag('tags', 'Теги'),
     swaggerCustomOptions: {
       customSiteTitle: '[Blog] Swagger UI',
     },

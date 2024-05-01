@@ -16,6 +16,7 @@ export { SortBy } from './lib/interfaces/sort-by.interface';
 
 export { Comment } from './lib/types/blog/comment.interface';
 export { Like } from './lib/types/blog/like.interface';
+export { Tag } from './lib/types/blog/tag.interface';
 
 export { Post } from './lib/types/blog/posts/post.interface';
 export { PostType } from './lib/types/blog/posts/post-type.enum';
