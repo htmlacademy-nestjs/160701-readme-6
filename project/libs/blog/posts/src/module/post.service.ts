@@ -7,13 +7,14 @@ import {
   PostType,
 } from '@project/shared/core';
 
-import { PostRepository } from './post.repository';
+import { PostRepository } from './repositories/post.repository';
 
-import { PostEntity } from './post.entity';
+import { PostEntity } from './entitites/post.entity';
 import { PostQuery } from './post.query';
 
 import { PostFactory } from './post.factory';
 import { UpdatePostDto } from './dto/update/update-post.dto';
+import { CreatePostWithAuthorDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
@@ -25,10 +26,9 @@ export class PostService {
     return this.postRepository.find(query);
   }
 
-  public async createPost(dto: CreatePostDto): Promise<PostEntity> {
+  public async createPost(dto: CreatePostWithAuthorDto): Promise<PostEntity> {
     const newPost = new PostFactory().create({
       ...dto,
-      authorId: '',
       title: '',
       status: PostStatus.PUBLIC,
       comments: [],
