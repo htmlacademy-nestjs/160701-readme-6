@@ -33,7 +33,6 @@ export class PostService {
 
     const newPost = this.postFactory.create({
       ...dto,
-      title: '',
       status: PostStatus.PUBLIC,
       comments: [],
       likes: [],

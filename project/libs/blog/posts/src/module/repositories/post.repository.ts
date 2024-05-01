@@ -70,7 +70,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
     const record = await this.client.post.update({
       where: { id: entity.id },
       data: {
-        title: pojoEntity.title,
         tags: {
           set: pojoEntity.tags?.map((tag) => ({ id: tag.id })),
         },

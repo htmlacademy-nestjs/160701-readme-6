@@ -14,7 +14,6 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   public status!: PostStatus;
   public type!: PostType;
   public authorId!: string;
-  public title!: string;
   public comments!: CommentEntity[];
   public likes!: LikeEntity[];
   // public tags?: TagEntity[]
@@ -32,7 +31,6 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.id = post.id;
     this.createdAt = post.createdAt;
     this.updatedAt = post.updatedAt;
-    this.title = post.title;
 
     this.authorId = post.authorId;
     this.status = post.status;
@@ -53,7 +51,6 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       authorId: this.authorId,
       status: this.status,
       type: this.type,
-      title: this.title,
       // tags: this.tags,
       comments: this.comments?.map((commentEntity) => commentEntity.toPOJO()),
       likes: this.likes?.map((likeEntity) => likeEntity.toPOJO()),
