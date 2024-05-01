@@ -10,7 +10,6 @@ export interface Post {
   updatedAt?: Date;
   status: PostStatus;
   type: PostType;
-  title: string;
   authorId: string;
   tags?: Tag[];
   comments: Comment[];
