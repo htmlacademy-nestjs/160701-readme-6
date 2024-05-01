@@ -5,5 +5,5 @@ export class BasePostContent {
   id?: string;
 
   @Expose()
-  createdAt?: string;
+  createdAt?: Date;
 }
