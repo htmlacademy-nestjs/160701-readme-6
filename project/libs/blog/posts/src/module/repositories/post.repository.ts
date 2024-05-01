@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BasePostgresRepository } from '@project/data-access';
-import { PostEntity } from './post.entity';
+import { PostEntity } from '../entitites/post.entity';
 import { PaginationResult, Post } from '@project/shared/core';
 import { PrismaClientService } from '@project/blog-models';
-import { PostFactory } from './post.factory';
-import { Prisma } from '@prisma/client';
-import { PostQuery } from './post.query';
-import { DEFAULT_POST_COUNT_LIMIT } from './post.contant';
+import { PostFactory } from '../post.factory';
+import { PostStatus, Prisma } from '@prisma/client';
+import { PostQuery } from '../post.query';
+import { DEFAULT_POST_COUNT_LIMIT } from '../post.contant';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
