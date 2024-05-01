@@ -39,10 +39,10 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.type = post.type;
 
     const commentFactory = new CommentFactory();
-    this.comments = post.comments.map(commentFactory.create);
+    this.comments = post.comments?.map(commentFactory.create);
 
     const likeFactory = new LikeFactory();
-    this.likes = post.likes.map(likeFactory.create);
+    this.likes = post.likes?.map(likeFactory.create);
   }
 
   public toPOJO(): Post {
@@ -55,8 +55,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       type: this.type,
       title: this.title,
       // tags: this.tags,
-      comments: this.comments.map((commentEntity) => commentEntity.toPOJO()),
-      likes: this.likes.map((likeEntity) => likeEntity.toPOJO()),
+      comments: this.comments?.map((commentEntity) => commentEntity.toPOJO()),
+      likes: this.likes?.map((likeEntity) => likeEntity.toPOJO()),
     };
   }
 }

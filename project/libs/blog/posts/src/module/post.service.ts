@@ -1,11 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import {
-  CreatePostDto,
-  PaginationResult,
-  PostStatus,
-  PostType,
-} from '@project/shared/core';
+import { PaginationResult, PostStatus, PostType } from '@project/shared/core';
 
 import { PostRepository } from './repositories/post.repository';
 
@@ -15,10 +10,15 @@ import { PostQuery } from './post.query';
 import { PostFactory } from './post.factory';
 import { UpdatePostDto } from './dto/update/update-post.dto';
 import { CreatePostWithAuthorDto } from './dto/create-post.dto';
+import { PostContentService } from './post-content/post-content.service';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly postRepository: PostRepository) {}
+  constructor(
+    private readonly postFactory: PostFactory,
+    private readonly postRepository: PostRepository,
+    private readonly postContentService: PostContentService
+  ) {}
 
   public async getAllPosts(
     query?: PostQuery
@@ -26,8 +26,12 @@ export class PostService {
     return this.postRepository.find(query);
   }
 
-  public async createPost(dto: CreatePostWithAuthorDto): Promise<PostEntity> {
-    const newPost = new PostFactory().create({
+  public async create(dto: CreatePostWithAuthorDto): Promise<PostEntity> {
+    const contentData = (
+      await this.postContentService.save(dto.type, dto.content)
+    )?.toPOJO();
+
+    const newPost = this.postFactory.create({
       ...dto,
       title: '',
       status: PostStatus.PUBLIC,
@@ -40,7 +44,7 @@ export class PostService {
     return newPost;
   }
 
-  public async deletePost(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     try {
       await this.postRepository.deleteById(id);
     } catch {
@@ -48,12 +52,12 @@ export class PostService {
     }
   }
 
-  public async getPost(id: string): Promise<PostEntity> {
+  public async findById(id: string): Promise<PostEntity> {
     return this.postRepository.findById(id);
   }
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
-    return this.getPost(id);
+    return this.findById(id);
   }
 
   public async postTypesAll() {
