@@ -4,8 +4,7 @@ import {
   PostContent,
   RefPostContentArray,
   PostTypeContent,
-  PostType,
-} from '@project/shared/core';
+} from './content/index';
 import { Post } from '@project/validation';
 import { Type } from 'class-transformer';
 
@@ -21,6 +20,7 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
+import { PostType } from '@project/shared/core';
 
 @ApiExtraModels(...AllPostContentArray)
 export class CreatePostDto {

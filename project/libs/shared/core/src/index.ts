@@ -21,9 +21,9 @@ export { Tag } from './lib/types/blog/tag.interface';
 export { Post } from './lib/types/blog/posts/post.interface';
 export { PostType } from './lib/types/blog/posts/post-type.enum';
 export { PostStatus } from './lib/types/blog/posts/post-status.enum';
-export * from './lib/types/blog/posts/content';
+export * from './lib/dto/blog/content';
 
-export { BasePostContent } from './lib/types/blog/posts/content/post-content.interface';
+export { BasePostContent } from './lib/types/blog/posts/content/base-post-content.interface';
 export { LinkPostContent } from './lib/types/blog/posts/content/link-post-content.interface';
 export { PhotoPostContent } from './lib/types/blog/posts/content/photo-post-content.interface';
 export { QuotePostContent } from './lib/types/blog/posts/content/quote-post-content.interface';
