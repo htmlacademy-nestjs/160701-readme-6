@@ -5,7 +5,7 @@
 @host = {{hostname}}:{{port}}/{{prefix}}
 @parentPath = tags
 @contentType = application/json
-@TAG_ID = 4a29422d-5db8-4704-be46-d9d76bfc0d22
+@TAG_ID = aca3c5b9-71b4-4ee9-921d-12d8266b74e8
 
 
 # Get all tags
@@ -23,22 +23,22 @@ POST {{host}}/{{parentPath}}/ HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Animals"
+  "name": "Flowers"
 }
 
 ###
 
-# Delete the post by id
+# Delete tag by id
 DELETE {{host}}/{{parentPath}}/{{TAG_ID}} HTTP/1.1
 
 ###
 
-# Update post by id
+# Update tag by id
 PATCH {{host}}/{{parentPath}}/{{TAG_ID}} HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Dogs"
+  "name": "Water"
 }
 
 ###

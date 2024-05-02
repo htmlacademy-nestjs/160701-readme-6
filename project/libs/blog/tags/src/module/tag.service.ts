@@ -17,21 +17,21 @@ export class BlogTagService {
   }
 
   public async getAllTags(): Promise<BlogTagEntity[]> {
-    return await this.blogTagRepository.find();
+    return this.blogTagRepository.find();
   }
 
   public async createTag(dto: CreateTagDto): Promise<BlogTagEntity> {
-    const existsCategory = (
+    const existsTag = (
       await this.blogTagRepository.find({ name: dto.name })
     ).at(0);
-    if (existsCategory) {
+
+    if (existsTag) {
       throw new ConflictException('A tag with the name already exists');
     }
 
     const newTag = new BlogTagEntity(dto);
-    await this.blogTagRepository.save(newTag);
 
-    return newTag;
+    return this.blogTagRepository.save(newTag);
   }
 
   public async deleteTag(id: string): Promise<void> {
@@ -46,12 +46,13 @@ export class BlogTagService {
     id: string,
     dto: UpdateTagDto
   ): Promise<BlogTagEntity> {
-    const blogTagEntity = await this.getTag(id);
-    const newBloTagEntity = Object.assign(blogTagEntity, { ...dto });
+    const tagEntity = await this.getTag(id);
+    const newTagEntity = Object.assign(tagEntity, { ...dto });
 
     try {
-      await this.blogTagRepository.update(newBloTagEntity);
-      return blogTagEntity;
+      await this.blogTagRepository.update(newTagEntity);
+      
+      return tagEntity;
     } catch {
       throw new NotFoundException(`Tag with ID ${id} not found`);
     }
