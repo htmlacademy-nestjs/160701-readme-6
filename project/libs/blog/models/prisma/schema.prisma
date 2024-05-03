@@ -28,15 +28,16 @@ enum PostType {
 }
 
 model Post {
-  id        String      @id @default(uuid())
-  createdAt DateTime    @default(now()) @map("created_at")
-  updatedAt DateTime    @updatedAt @map("updated_at")
-  status    PostStatus  @default(PUBLIC)
+  id        String     @id @default(uuid())
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  status    PostStatus @default(PUBLIC)
   type      PostType
-  authorId  String      @map("author_id")
+  authorId  String     @map("author_id")
   tags      Tag[]
   comments  Comment[]
   likes     Like[]
+
   PostVideo PostVideo[]
   PostLink  PostLink[]
   PostQuote PostQuote[]
@@ -81,11 +82,11 @@ model Like {
 }
 
 model PostVideo {
-  id     String  @id @default(uuid())
+  id     String @id @default(uuid())
   title  String
   url    String
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String?
+  Post   Post?  @relation(fields: [postId], references: [id])
+  postId String
 
   @@map("posts_video")
 }
@@ -95,37 +96,37 @@ model PostLink {
   url         String
   description String?
   Post        Post?   @relation(fields: [postId], references: [id])
-  postId      String?
+  postId      String
 
   @@map("posts_link")
 }
 
 model PostQuote {
-  id     String  @id @default(uuid())
+  id     String @id @default(uuid())
   quote  String
   author String
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String?
+  Post   Post?  @relation(fields: [postId], references: [id])
+  postId String
 
   @@map("posts_quote")
 }
 
 model PostPhoto {
-  id      String  @id @default(uuid())
-  imageId String  @map("image_id")
-  Post    Post?   @relation(fields: [postId], references: [id])
-  postId  String?
+  id      String @id @default(uuid())
+  imageId String @map("image_id")
+  Post    Post?  @relation(fields: [postId], references: [id])
+  postId  String
 
   @@map("posts_photo")
 }
 
 model PostText {
-  id         String  @id @default(uuid())
+  id         String @id @default(uuid())
   title      String
   annotation String
   content    String
-  Post       Post?   @relation(fields: [postId], references: [id])
-  postId     String?
+  Post       Post?  @relation(fields: [postId], references: [id])
+  postId     String
 
   @@map("posts_text")
 }
