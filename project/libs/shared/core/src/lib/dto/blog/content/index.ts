@@ -5,7 +5,8 @@ import { PhotoPostContentDto } from './photo-post-content.dto';
 import { QuotePostContentDto } from './quote-post-content.dto';
 import { TextPostContentDto } from './text-post-content.dto';
 import { LinkPostContentDto } from './link-post-content.dto';
-import { PostType } from '@project/shared/core';
+import { PostType } from '../../../types/blog/posts/post-type.enum';
+
 
 export const AllPostContentArray = [
   VideoPostContentDto,

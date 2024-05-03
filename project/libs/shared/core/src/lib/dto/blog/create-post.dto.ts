@@ -20,7 +20,8 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
-import { PostType } from '@project/shared/core';
+import { PostType } from '../../types/blog/posts/post-type.enum';
+
 
 @ApiExtraModels(...AllPostContentArray)
 export class CreatePostDto {
