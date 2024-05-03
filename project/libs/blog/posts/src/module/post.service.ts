@@ -27,20 +27,24 @@ export class PostService {
   }
 
   public async create(dto: CreatePostWithAuthorDto): Promise<PostEntity> {
-    const contentData = (
-      await this.postContentService.save(dto.type, dto.content)
-    )?.toPOJO();
-
-    const newPost = this.postFactory.create({
+    const newPostEntity = this.postFactory.create({
       ...dto,
       status: PostStatus.PUBLIC,
       comments: [],
       likes: [],
       tags: [],
     });
-    await this.postRepository.save(newPost);
+    const newPost = await this.postRepository.save(newPostEntity);
 
-    return newPost;
+    await this.postContentService.save(dto.type, {
+      ...dto.content,
+      postId: String(newPost.id),
+    });
+
+    const foundedPost = await this.postRepository.findById(String(newPost.id));
+    console.log(foundedPost.toPOJO());
+
+    return foundedPost;
   }
 
   public async delete(id: string): Promise<void> {

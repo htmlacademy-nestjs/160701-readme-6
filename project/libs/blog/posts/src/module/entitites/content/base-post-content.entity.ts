@@ -5,6 +5,7 @@ export class BasePostContentEntity
   implements StorableEntity<BasePostContent>
 {
   public createdAt?: Date;
+  public postId!: string;
 
   constructor(post?: BasePostContent) {
     super();
@@ -18,6 +19,7 @@ export class BasePostContentEntity
 
     this.id = data.id;
     this.createdAt = data.createdAt;
+    this.postId = data.postId;
   }
 
   public toPOJO() {

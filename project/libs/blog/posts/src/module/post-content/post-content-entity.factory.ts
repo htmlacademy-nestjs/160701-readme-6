@@ -18,12 +18,14 @@ import {
 } from '../entitites/content';
 import { Injectable, NotImplementedException } from '@nestjs/common';
 
-
 @Injectable()
 export class PostContentEntityFactory
   implements EntityFactory<UnionAllContentEntity>
 {
-  public create(content: PostContent, postType?: PostType) {
+  public create(
+    content: PostContent,
+    postType?: PostType
+  ): UnionAllContentEntity {
     if (postType === PostType.VIDEO) {
       return new VideoPostContentEntity(content as VideoPostContent);
     }

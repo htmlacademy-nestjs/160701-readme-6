@@ -6,6 +6,11 @@ import { QuotePostContentDto } from './quote-post-content.dto';
 import { TextPostContentDto } from './text-post-content.dto';
 import { LinkPostContentDto } from './link-post-content.dto';
 import { PostType } from '../../../types/blog/posts/post-type.enum';
+import { VideoPostContent } from '../../../types/blog/posts/content/video-post-content.interface';
+import { LinkPostContent } from '../../../types/blog/posts/content/link-post-content.interface';
+import { PhotoPostContent } from '../../../types/blog/posts/content/photo-post-content.interface';
+import { QuotePostContent } from '../../../types/blog/posts/content/quote-post-content.interface';
+import { TextPostContent } from '../../../types/blog/posts/content/text-post-content.interface';
 
 
 export const AllPostContentArray = [
@@ -17,11 +22,11 @@ export const AllPostContentArray = [
 ];
 
 export type PostContent =
-  | VideoPostContentDto
-  | LinkPostContentDto
-  | PhotoPostContentDto
-  | QuotePostContentDto
-  | TextPostContentDto;
+  | VideoPostContent
+  | LinkPostContent
+  | PhotoPostContent
+  | QuotePostContent
+  | TextPostContent;
 
 export const RefPostContentArray = AllPostContentArray.map((PostTypeClass) => ({
   $ref: getSchemaPath(PostTypeClass),

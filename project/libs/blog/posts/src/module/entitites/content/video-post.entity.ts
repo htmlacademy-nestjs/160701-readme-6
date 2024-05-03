@@ -18,6 +18,7 @@ export class VideoPostContentEntity
 
     this.title = data.title;
     this.url = data.url;
+    this.postId = data.postId;
   }
 
   public toPOJO() {
@@ -27,6 +28,7 @@ export class VideoPostContentEntity
       ...basePOJO,
       title: this.title,
       url: this.url,
+      postId: this.postId,
     };
   }
 }

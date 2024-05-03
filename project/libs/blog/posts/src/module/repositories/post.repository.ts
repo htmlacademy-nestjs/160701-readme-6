@@ -31,6 +31,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
         likes: {
           connect: [],
         },
+        PostVideo: undefined,
       },
     });
 
@@ -54,6 +55,11 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
         tags: true,
         comments: true,
         likes: true,
+        PostVideo: true,
+        PostLink: true,
+        PostPhoto: true,
+        PostQuote: true,
+        PostText: true,
       },
     });
 

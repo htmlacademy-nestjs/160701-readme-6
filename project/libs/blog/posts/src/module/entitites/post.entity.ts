@@ -4,6 +4,8 @@ import {
   PostType,
   PostStatus,
   StorableEntity,
+  PostContent,
+  VideoPostContent,
 } from '@project/shared/core';
 import { CommentEntity, CommentFactory } from '@project/blog-comments';
 import { LikeEntity, LikeFactory } from '@project/blog-likes';
@@ -16,6 +18,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   public authorId!: string;
   public comments!: CommentEntity[];
   public likes!: LikeEntity[];
+
+  public PostVideo?: VideoPostContent;
   // public tags?: TagEntity[]
 
   constructor(post?: Post) {
@@ -36,6 +40,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.status = post.status;
     this.type = post.type;
 
+    this.PostVideo = post.PostVideo;
+
     const commentFactory = new CommentFactory();
     this.comments = post.comments?.map(commentFactory.create);
 
@@ -54,6 +60,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       // tags: this.tags,
       comments: this.comments?.map((commentEntity) => commentEntity.toPOJO()),
       likes: this.likes?.map((likeEntity) => likeEntity.toPOJO()),
+
+      PostVideo: this.PostVideo,
     };
   }
 }
