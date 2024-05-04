@@ -3,9 +3,16 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigService } from '@nestjs/config';
 import { FileUploaderService } from './file-uploader.service';
 import { FileUploaderController } from './file-uploader.controller';
+import { FileUploaderRepository } from './file-uploader.repository';
+import { FileUploaderFactory } from './file-uploader.factory';
+import { MongooseModule } from '@nestjs/mongoose';
+import { FileModel, FileSchema } from './file.model';
 
 @Module({
   imports: [
+    MongooseModule.forFeature([
+      { name: FileModel.name, schema: FileSchema }
+    ]),
     ServeStaticModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
@@ -29,7 +36,11 @@ import { FileUploaderController } from './file-uploader.controller';
       },
     }),
   ],
-  providers: [FileUploaderService],
+  providers: [
+    FileUploaderService,
+    FileUploaderRepository,
+    FileUploaderFactory,
+  ],
   controllers: [FileUploaderController],
 })
 export class FileUploaderModule {}

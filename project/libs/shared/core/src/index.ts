@@ -33,3 +33,7 @@ export { VideoPostContent } from './lib/types/blog/posts/content/video-post-cont
 export { CreatePostDto } from './lib/dto/blog/create-post.dto';
 
 export { PostRdo } from './lib/rdo/blog/post.rdo';
+export { UploadedFileRdo } from './lib/rdo/file-vault/uploaded-file.rdo';
+
+export { File } from './lib/types/file-vault/file.interface';
+export { StoredFile } from './lib/types/file-vault/stored-file.interface';

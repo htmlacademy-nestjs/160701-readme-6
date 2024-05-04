@@ -41,7 +41,7 @@ JohnDoe
 Content-Disposition: form-data; name="{{avatarFieldName}}"; filename="{{avatarFileName}}"
 Content-Type: image/png
 
-< /home/Dmitry/Документы/GitHub/160701-readme-5/markup/img/{{avatarFileName}}
+< ./../../markup/img/{{avatarFileName}}
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
@@ -60,7 +60,7 @@ JohnDoe
 Content-Disposition: form-data; name="{{photoPostFieldName}}"; filename="{{photoPostFileName}}"
 Content-Type: image/png
 
-< /home/Dmitry/Документы/GitHub/160701-readme-5/markup/img/{{photoPostFileName}}
+< ./../../markup/img/{{photoPostFileName}}
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
