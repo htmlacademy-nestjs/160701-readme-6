@@ -11,13 +11,15 @@ import { PostFactory } from './post.factory';
 import { UpdatePostDto } from './dto/update/update-post.dto';
 import { CreatePostWithAuthorDto } from './dto/create-post.dto';
 import { PostContentService } from './post-content/post-content.service';
+import { TagService } from '@project/blog-tags';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly postFactory: PostFactory,
     private readonly postRepository: PostRepository,
-    private readonly postContentService: PostContentService
+    private readonly postContentService: PostContentService,
+    private readonly tagService: TagService
   ) {}
 
   public async getAllPosts(
@@ -27,12 +29,13 @@ export class PostService {
   }
 
   public async create(dto: CreatePostWithAuthorDto): Promise<PostEntity> {
+    const tags = await this.tagService.getTagsByNames(dto.tags);
     const newPostEntity = this.postFactory.create({
       ...dto,
       status: PostStatus.PUBLIC,
       comments: [],
       likes: [],
-      tags: [],
+      tags,
     });
     const newPost = await this.postRepository.save(newPostEntity);
 
@@ -42,7 +45,6 @@ export class PostService {
     });
 
     const foundedPost = await this.postRepository.findById(String(newPost.id));
-    console.log(foundedPost.toPOJO());
 
     return foundedPost;
   }

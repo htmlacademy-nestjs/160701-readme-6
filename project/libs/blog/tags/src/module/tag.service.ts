@@ -71,4 +71,23 @@ export class TagService {
 
     return tags;
   }
+
+  public async getTagsByNames(tagNames: string[]): Promise<TagEntity[]> {
+    const tags = await this.tagRepository.findByNames(tagNames);
+
+    if (tags.length !== tagNames.length) {
+      const foundTagNames = tags.map((tag) => tag.name);
+      const notFoundTagIds = tagNames.filter(
+        (tagId) => !foundTagNames.includes(tagId)
+      );
+
+      if (notFoundTagIds.length > 0) {
+        throw new NotFoundException(
+          `Tag with names "${notFoundTagIds.join(', ')}" not found.`
+        );
+      }
+    }
+
+    return tags;
+  }
 }

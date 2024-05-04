@@ -4,7 +4,7 @@ import { PostEntity } from '../entitites/post.entity';
 import { PaginationResult, Post } from '@project/shared/core';
 import { PrismaClientService } from '@project/blog-models';
 import { PostFactory } from '../post.factory';
-import { PostStatus, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PostQuery } from '../post.query';
 import { DEFAULT_POST_COUNT_LIMIT } from '../post.contant';
 
@@ -32,8 +32,13 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
           connect: [],
         },
         PostVideo: undefined,
+        PostLink: undefined,
+        PostPhoto: undefined,
+        PostQuote: undefined,
+        PostText: undefined,
       },
     });
+    console.log(record);
 
     return this.createEntityFromDocument(record as unknown as Post);
   }
@@ -55,6 +60,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
         tags: true,
         comments: true,
         likes: true,
+
         PostVideo: true,
         PostLink: true,
         PostPhoto: true,
@@ -130,6 +136,12 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
           comments: true,
           likes: true,
           tags: true,
+
+          PostVideo: true,
+          PostLink: true,
+          PostPhoto: true,
+          PostQuote: true,
+          PostText: true,
         },
       }),
       this.getPostCount(where),

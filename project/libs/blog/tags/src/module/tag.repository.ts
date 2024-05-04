@@ -75,4 +75,16 @@ export class TagRepository extends BasePostgresRepository<TagEntity> {
 
     return records.map((record) => this.createEntityFromDocument(record));
   }
+
+  public async findByNames(names: string[]): Promise<TagEntity[]> {
+    const records = await this.client.tag.findMany({
+      where: {
+        name: {
+          in: names,
+        },
+      },
+    });
+
+    return records.map((record) => this.createEntityFromDocument(record));
+  }
 }
