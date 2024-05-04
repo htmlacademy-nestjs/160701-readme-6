@@ -15,12 +15,12 @@ import { fillDto } from '@project/shared/helpers';
 import { TagRdo } from './rdo/tag.rdo';
 import { UpdateTagDto } from './dto/update-tag.dto';
 import { CreateTagDto } from './dto/create-tag.dto';
-import { BlogTagService } from './tag.service';
+import { TagService } from './tag.service';
 
 @ApiTags('tags')
 @Controller('tags')
 export class BlogTagController {
-  constructor(private readonly blogTagService: BlogTagService) {}
+  constructor(private readonly blogTagService: TagService) {}
 
   @ApiResponse({
     type: TagRdo,

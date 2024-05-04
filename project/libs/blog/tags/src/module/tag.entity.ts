@@ -1,6 +1,6 @@
 import { Entity, Tag, StorableEntity } from '@project/shared/core';
 
-export class BlogTagEntity extends Entity implements StorableEntity<Tag> {
+export class TagEntity extends Entity implements StorableEntity<Tag> {
   public name!: string;
   public createdAt?: Date;
   public updatedAt?: Date;

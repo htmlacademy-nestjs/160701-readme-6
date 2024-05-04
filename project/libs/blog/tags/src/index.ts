@@ -1,3 +1,3 @@
-export { BlogTagModule } from './module/tag.module';
-export { BlogTagFactory } from './module/tag.factory';
-export { BlogTagEntity } from './module/tag.entity';
+export { TagModule } from './module/tag.module';
+export { TagFactory } from './module/tag.factory';
+export { TagEntity } from './module/tag.entity';

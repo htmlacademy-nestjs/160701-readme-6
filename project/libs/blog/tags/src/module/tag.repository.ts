@@ -3,20 +3,17 @@ import { PrismaClientService } from '@project/blog-models';
 
 import { BasePostgresRepository } from '@project/data-access';
 import { MAX_TAG_LIMIT } from './tag.constant';
-import { BlogTagEntity } from './tag.entity';
-import { BlogTagFactory } from './tag.factory';
+import { TagEntity } from './tag.entity';
+import { TagFactory } from './tag.factory';
 import { TagFilter, tagFilterToPrismaFilter } from './tag.filter';
 
 @Injectable()
-export class BlogTagRepository extends BasePostgresRepository<BlogTagEntity> {
-  constructor(
-    tagFactory: BlogTagFactory,
-    readonly client: PrismaClientService
-  ) {
+export class TagRepository extends BasePostgresRepository<TagEntity> {
+  constructor(tagFactory: TagFactory, readonly client: PrismaClientService) {
     super(tagFactory, client);
   }
 
-  public async save(entity: BlogTagEntity) {
+  public async save(entity: TagEntity) {
     const record = await this.client.tag.create({
       data: { ...entity.toPOJO() },
     });
@@ -24,7 +21,7 @@ export class BlogTagRepository extends BasePostgresRepository<BlogTagEntity> {
     return this.createEntityFromDocument(record);
   }
 
-  public async findById(id: string): Promise<BlogTagEntity> {
+  public async findById(id: string): Promise<TagEntity> {
     const document = await this.client.tag.findFirst({
       where: {
         id,
@@ -38,7 +35,7 @@ export class BlogTagRepository extends BasePostgresRepository<BlogTagEntity> {
     return this.createEntityFromDocument(document);
   }
 
-  public async find(filter?: TagFilter): Promise<BlogTagEntity[]> {
+  public async find(filter?: TagFilter): Promise<TagEntity[]> {
     const where = tagFilterToPrismaFilter(filter);
     const documents = await this.client.tag.findMany({
       where,
@@ -56,7 +53,7 @@ export class BlogTagRepository extends BasePostgresRepository<BlogTagEntity> {
     });
   }
 
-  public async update(tagEntity: BlogTagEntity) {
+  public async update(tagEntity: TagEntity) {
     const record = await this.client.tag.update({
       where: { id: tagEntity.id },
       data: {
@@ -67,7 +64,7 @@ export class BlogTagRepository extends BasePostgresRepository<BlogTagEntity> {
     return this.createEntityFromDocument(record);
   }
 
-  public async findByIds(ids: string[]): Promise<BlogTagEntity[]> {
+  public async findByIds(ids: string[]): Promise<TagEntity[]> {
     const records = await this.client.tag.findMany({
       where: {
         id: {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { EntityFactory, Tag } from '@project/shared/core';
-import { BlogTagEntity } from './tag.entity';
+import { TagEntity } from './tag.entity';
 
 @Injectable()
-export class BlogTagFactory implements EntityFactory<BlogTagEntity> {
-  public create(entityPlainData: Tag): BlogTagEntity {
-    return new BlogTagEntity(entityPlainData);
+export class TagFactory implements EntityFactory<TagEntity> {
+  public create(entityPlainData: Tag): TagEntity {
+    return new TagEntity(entityPlainData);
   }
 }
