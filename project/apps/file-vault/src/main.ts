@@ -13,7 +13,7 @@ import { attachSwagger } from '@project/shared/helpers';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api/v1';
+  const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
   attachSwagger({
