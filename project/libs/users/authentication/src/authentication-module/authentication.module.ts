@@ -5,9 +5,11 @@ import { BlogUserModule } from '@project/blog-user';
 import { HasherModule } from '../hasher-module/hasher.module';
 import { AuthService } from './authentication.interface';
 import { AuthenticationLoggerService } from './authentication-logger.service';
+import { JwtConfigModule } from '@project/config';
+import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
 
 @Module({
-  imports: [BlogUserModule, HasherModule],
+  imports: [BlogUserModule, HasherModule, JwtConfigModule.register()],
   controllers: [AuthenticationController],
   providers: [
     {
@@ -18,6 +20,7 @@ import { AuthenticationLoggerService } from './authentication-logger.service';
       inject: [AuthenticationService],
     },
     AuthenticationService,
+    JwtAccessStrategy,
   ],
 })
 export class AuthenticationModule {}

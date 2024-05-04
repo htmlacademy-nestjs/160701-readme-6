@@ -1,4 +1,4 @@
 export enum PostStatus {
-  Draft = 'draft',
-  Public = 'public',
+  Public = 'PUBLIC',
+  Draft = 'DRAFT',
 }

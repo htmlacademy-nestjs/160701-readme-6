@@ -1,0 +1,44 @@
+## Сервис блога [tags]
+@hostname = http://localhost
+@port = 3666
+@prefix = api
+@host = {{hostname}}:{{port}}/{{prefix}}
+@parentPath = tags
+@contentType = application/json
+@TAG_ID = aca3c5b9-71b4-4ee9-921d-12d8266b74e8
+
+
+# Get all tags
+GET {{host}}/{{parentPath}}/ HTTP/1.1
+
+###
+
+# Get tag by ID
+GET {{host}}/{{parentPath}}/{{TAG_ID}} HTTP/1.1
+
+###
+
+# Create a new tag
+POST {{host}}/{{parentPath}}/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Flowers"
+}
+
+###
+
+# Delete tag by id
+DELETE {{host}}/{{parentPath}}/{{TAG_ID}} HTTP/1.1
+
+###
+
+# Update tag by id
+PATCH {{host}}/{{parentPath}}/{{TAG_ID}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Water"
+}
+
+###

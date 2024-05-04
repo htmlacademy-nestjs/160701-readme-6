@@ -23,6 +23,7 @@ export class LikeEntity extends Entity implements StorableEntity<Like> {
   public toPOJO(): Like {
     return {
       ...this,
+      id: this.id,
     };
   }
 }

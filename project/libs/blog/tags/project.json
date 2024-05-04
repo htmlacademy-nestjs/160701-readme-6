@@ -1,0 +1,9 @@
+{
+  "name": "blog-tags",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/blog/tags/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project blog-tags --web",
+  "targets": {}
+}

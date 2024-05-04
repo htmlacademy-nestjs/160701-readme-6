@@ -6,7 +6,7 @@
 @parentPath = auth
 @contentType = application/json
 @USER_ID =6623f0a69a7b7ed3b55aa5c8
-@token-access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWI1M2M1NjBkNWFiNjUyMjYxODM0ZGYiLCJlbWFpbCI6IjJAMi5uZXQiLCJyb2xlIjoidXNlciIsImZpcnN0bmFtZSI6IkpheSIsImlhdCI6MTcwNjQ0MTMzNywiZXhwIjoxNzA2NDQxOTM3fQ.-7refW7zUFOV89jQ7RAy12iz0JYqsn8lXc6kplrBymE
+@token-access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjIzZjBhNjlhN2I3ZWQzYjU1YWE1YzgiLCJlbWFpbCI6IjJAMi5uZXQiLCJyb2xlIjoidXNlciIsImZpcnN0bmFtZSI6IkpheSIsImlhdCI6MTcxNDM4NTU1MSwiZXhwIjoxNzE0Mzg2MTUxfQ.q8_facg_6Y5k7GZnsj9fcxkV8j91GS3z3Aj6tRmBdwk
 @token-refresh =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIyYTEwOWRjZjJkMjY3NjUwMWIyMTAiLCJlbWFpbCI6IjFAMi5uZXQiLCJyb2xlIjoidXNlciIsImZpcnN0bmFtZSI6IkpheSIsInRva2VuSWQiOiIyNDBhM2ZlZS00MTFhLTRiOWQtOGJiNy1lNjQ4YmFmOGJhNzQiLCJpYXQiOjE3MDYyMDU5MTAsImV4cCI6MTcwNjIwNjUxMH0.OXSbWixOEV_RXIqtrZk7cQd-Uw_yqVGazDZvGCmPTm4
 
 
@@ -35,7 +35,7 @@ Content-Type: {{contentType}}
 ###
 # Получить юзера по ID
 GET {{host}}/{{parentPath}}/{{USER_ID}} HTTP/1.1
-
+Authorization: Bearer {{token-access}}
 ###
 ## Получить новую JWT пару
 

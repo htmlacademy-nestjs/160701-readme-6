@@ -13,26 +13,9 @@ import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
 import { LikeRdo } from './rdo/like.rdo';
 
 @ApiTags('likes')
-@Controller('likes')
+@Controller('posts/:postId/likes')
 export class LikesController {
   constructor(private readonly likesService: LikesService) {}
-
-  @ApiResponse({
-    isArray: true,
-    type: LikeRdo,
-    description: 'Get all likes',
-    status: HttpStatus.OK,
-  })
-  @ApiOperation({
-    summary: 'Получить все лайки',
-    description: 'Get all likes',
-  })
-  @Get('/')
-  public async getAll() {
-    const likes = await this.likesService.getAll();
-
-    return likes;
-  }
 
   @ApiResponse({
     type: LikeRdo,
@@ -54,7 +37,7 @@ export class LikesController {
     summary: 'Создать лайк',
     description: 'Create like',
   })
-  @Post('/create/:postId')
+  @Post()
   public async create(
     @Param('postId') postId: string,
     @Query('userId') userId: string
@@ -81,7 +64,7 @@ export class LikesController {
     summary: 'Удалить лайк',
     description: 'Delete like',
   })
-  @Delete('/delete/:postId')
+  @Delete()
   public async delete(
     @Param('postId') postId: string,
     @Query('userId') userId: string
@@ -108,7 +91,7 @@ export class LikesController {
     summary: 'Все лайки для определённого поста',
     description: 'Get all likes for post',
   })
-  @Get(':postId')
+  @Get()
   public async getCount(@Param('postId') postId: string) {
     const likes = (await this.likesService.getLikesByPostId(postId)).map(
       (like) => like.toPOJO()

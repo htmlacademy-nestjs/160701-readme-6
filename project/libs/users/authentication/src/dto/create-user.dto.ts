@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import { User } from '@project/validation';
 import { AUTH_USER_EMAIL_NOT_VALID } from '../authentication-module/authentication.constant';
 
 export class CreateUserBaseDto {
@@ -6,29 +8,29 @@ export class CreateUserBaseDto {
     description: 'User unique email address',
     example: 'user@user.ru',
   })
-  // @IsEmail({}, { message: AUTH_USER_EMAIL_NOT_VALID })
+  @IsEmail({}, { message: AUTH_USER_EMAIL_NOT_VALID })
   public email!: string;
 
   @ApiProperty({
     description: 'User first name',
     example: 'Keks',
-    // minLength: User.firstname.Min,
-    // maxLength: User.firstname.Max,
+    minLength: User.firstname.Min,
+    maxLength: User.firstname.Max,
   })
-  // @MinLength(User.firstname.Min)
-  // @MaxLength(User.firstname.Max)
-  // @IsString()
+  @MinLength(User.firstname.Min)
+  @MaxLength(User.firstname.Max)
+  @IsString()
   public firstname!: string;
 
   @ApiProperty({
     description: 'User password',
     example: '123456',
-    // minLength: User.password.Min,
-    // maxLength: User.password.Max,
+    minLength: User.password.Min,
+    maxLength: User.password.Max,
   })
-  // @MinLength(User.password.Min)
-  // @MaxLength(User.password.Max)
-  // @IsString()
+  @MinLength(User.password.Min)
+  @MaxLength(User.password.Max)
+  @IsString()
   public password!: string;
 }
 

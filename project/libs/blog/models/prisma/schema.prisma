@@ -34,12 +34,21 @@ model Post {
   status    PostStatus @default(PUBLIC)
   type      PostType
   authorId  String     @map("author_id")
-  title     String
   tags      Tag[]
   comments  Comment[]
   likes     Like[]
 
-  @@index([title])
+  postVideo   PostVideo? @relation(fields: [postVideoId], references: [id])
+  postVideoId String?    @unique @map("post_video_id")
+  postLink    PostLink?  @relation(fields: [postLinkId], references: [id])
+  postLinkId  String?    @unique @map("post_link_id")
+  postQuote   PostQuote? @relation(fields: [postQuoteId], references: [id])
+  postQuoteId String?    @unique @map("post_quote_id")
+  postPhoto   PostPhoto? @relation(fields: [postPhotoId], references: [id])
+  postPhotoId String?    @unique @map("post_photo_id")
+  postText    PostText?  @relation(fields: [postTextId], references: [id])
+  postTextId  String?    @unique @map("post_text_id")
+
   @@map("posts")
 }
 
@@ -75,4 +84,54 @@ model Like {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("likes")
+}
+
+model PostVideo {
+  id     String @id @default(uuid())
+  title  String
+  url    String
+  Post   Post?
+  postId    String   @map("post_id")
+
+  @@map("posts_video")
+}
+
+model PostLink {
+  id          String  @id @default(uuid())
+  url         String
+  description String?
+  Post        Post?
+  postId    String   @map("post_id")
+
+  @@map("posts_link")
+}
+
+model PostQuote {
+  id     String @id @default(uuid())
+  quote  String
+  author String
+  Post   Post?
+  postId    String   @map("post_id")
+
+  @@map("posts_quote")
+}
+
+model PostPhoto {
+  id      String @id @default(uuid())
+  imageId String @map("image_id")
+  Post    Post?
+  postId    String   @map("post_id")
+
+  @@map("posts_photo")
+}
+
+model PostText {
+  id         String @id @default(uuid())
+  title      String
+  annotation String
+  content    String
+  Post       Post?  
+  postId    String   @map("post_id")
+
+  @@map("posts_text")
 }
