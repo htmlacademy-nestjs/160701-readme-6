@@ -19,8 +19,8 @@ import { TagService } from './tag.service';
 
 @ApiTags('tags')
 @Controller('tags')
-export class BlogTagController {
-  constructor(private readonly blogTagService: TagService) {}
+export class TagController {
+  constructor(private readonly tagService: TagService) {}
 
   @ApiResponse({
     type: TagRdo,
@@ -29,7 +29,7 @@ export class BlogTagController {
   })
   @Get('/:tagId')
   public async show(@Param('tagId') tagId: string) {
-    const tagEntity = await this.blogTagService.getTag(tagId);
+    const tagEntity = await this.tagService.getTag(tagId);
 
     return fillDto(TagRdo, tagEntity.toPOJO());
   }
@@ -41,7 +41,7 @@ export class BlogTagController {
   })
   @Get('/')
   public async index() {
-    const blogTagEntities = await this.blogTagService.getAllTags();
+    const blogTagEntities = await this.tagService.getAllTags();
     const tags = blogTagEntities.map((blogTag) => blogTag.toPOJO());
 
     return fillDto(TagRdo, tags);
@@ -49,7 +49,7 @@ export class BlogTagController {
 
   @Post('/')
   public async create(@Body() dto: CreateTagDto) {
-    const newTag = await this.blogTagService.createTag(dto);
+    const newTag = await this.tagService.createTag(dto);
 
     return fillDto(TagRdo, newTag.toPOJO());
   }
@@ -57,7 +57,7 @@ export class BlogTagController {
   @Delete('/:tagId')
   @HttpCode(HttpStatus.NO_CONTENT)
   public async destroy(@Param('tagId') tagId: string) {
-    await this.blogTagService.deleteTag(tagId);
+    await this.tagService.deleteTag(tagId);
   }
 
   @Patch('/:tagId')
@@ -65,7 +65,7 @@ export class BlogTagController {
     @Param('tagId') tagId: string,
     @Body() dto: UpdateTagDto
   ) {
-    const updatedTag = await this.blogTagService.updateTag(tagId, dto);
+    const updatedTag = await this.tagService.updateTag(tagId, dto);
 
     return fillDto(TagRdo, updatedTag.toPOJO());
   }

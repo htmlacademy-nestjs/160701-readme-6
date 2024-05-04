@@ -5,9 +5,10 @@ import { PostService } from './post.service';
 import { PostRepository } from './repositories/post.repository';
 import { PostFactory } from './post.factory';
 import { PostsContentModule } from './post-content/post-content.module';
+import { TagModule } from '@project/blog-tags';
 
 @Module({
-  imports: [PrismaClientModule, PostsContentModule],
+  imports: [PrismaClientModule, PostsContentModule, TagModule],
   controllers: [PostController],
   providers: [PostService, PostRepository, PostFactory],
   exports: [PostService],

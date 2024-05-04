@@ -10,20 +10,18 @@ import { UpdateTagDto } from './dto/update-tag.dto';
 
 @Injectable()
 export class TagService {
-  constructor(private readonly blogTagRepository: TagRepository) {}
+  constructor(private readonly tagRepository: TagRepository) {}
 
   public async getTag(id: string): Promise<TagEntity> {
-    return this.blogTagRepository.findById(id);
+    return this.tagRepository.findById(id);
   }
 
   public async getAllTags(): Promise<TagEntity[]> {
-    return this.blogTagRepository.find();
+    return this.tagRepository.find();
   }
 
   public async createTag(dto: CreateTagDto): Promise<TagEntity> {
-    const existsTag = (
-      await this.blogTagRepository.find({ name: dto.name })
-    ).at(0);
+    const existsTag = (await this.tagRepository.find({ name: dto.name })).at(0);
 
     if (existsTag) {
       throw new ConflictException('A tag with the name already exists');
@@ -31,12 +29,12 @@ export class TagService {
 
     const newTag = new TagEntity(dto);
 
-    return this.blogTagRepository.save(newTag);
+    return this.tagRepository.save(newTag);
   }
 
   public async deleteTag(id: string): Promise<void> {
     try {
-      await this.blogTagRepository.deleteById(id);
+      await this.tagRepository.deleteById(id);
     } catch {
       throw new NotFoundException(`Tag with ID ${id} not found`);
     }
@@ -47,7 +45,7 @@ export class TagService {
     const newTagEntity = Object.assign(tagEntity, { ...dto });
 
     try {
-      await this.blogTagRepository.update(newTagEntity);
+      await this.tagRepository.update(newTagEntity);
 
       return tagEntity;
     } catch {
@@ -56,7 +54,7 @@ export class TagService {
   }
 
   public async getTagsByIds(tagIds: string[]): Promise<TagEntity[]> {
-    const tags = await this.blogTagRepository.findByIds(tagIds);
+    const tags = await this.tagRepository.findByIds(tagIds);
 
     if (tags.length !== tagIds.length) {
       const foundTagIds = tags.map((tag) => tag.id);
