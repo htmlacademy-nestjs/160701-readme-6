@@ -26,23 +26,23 @@ export class PostContentEntityFactory
     content: PostContent,
     postType?: PostType
   ): UnionAllContentEntity {
-    if (postType === PostType.VIDEO) {
+    if (postType === PostType.Video) {
       return new VideoPostContentEntity(content as VideoPostContent);
     }
 
-    if (postType === PostType.TEXT) {
+    if (postType === PostType.Text) {
       return new TextPostContentEntity(content as TextPostContent);
     }
 
-    if (postType === PostType.LINK) {
+    if (postType === PostType.Link) {
       return new LinkPostContentEntity(content as LinkPostContent);
     }
 
-    if (postType === PostType.PHOTO) {
+    if (postType === PostType.Photo) {
       return new PhotoPostContentEntity(content as PhotoPostContent);
     }
 
-    if (postType === PostType.QUOTE) {
+    if (postType === PostType.Quote) {
       return new QuotePostContentEntity(content as QuotePostContent);
     }
 

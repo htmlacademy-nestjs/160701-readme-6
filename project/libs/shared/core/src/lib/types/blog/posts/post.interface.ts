@@ -12,8 +12,9 @@ export interface Post {
   status: PostStatus;
   type: PostType;
   authorId: string;
-  tags?: Tag[];
+  tags: Tag[];
   comments: Comment[];
   likes: Like[];
-  PostVideo?: VideoPostContent;
+
+  postVideo?: VideoPostContent;
 }

@@ -26,19 +26,18 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
           connect: pojoEntity.tags?.map(({ id }) => ({ id })),
         },
         comments: {
-          connect: [],
+          create: pojoEntity.comments,
         },
         likes: {
-          connect: [],
+          create: pojoEntity.likes,
         },
-        PostVideo: undefined,
-        PostLink: undefined,
-        PostPhoto: undefined,
-        PostQuote: undefined,
-        PostText: undefined,
+        postVideo: undefined,
+        postLink: undefined,
+        postPhoto: undefined,
+        postQuote: undefined,
+        postText: undefined,
       },
     });
-    console.log(record);
 
     return this.createEntityFromDocument(record as unknown as Post);
   }
@@ -61,11 +60,11 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
         comments: true,
         likes: true,
 
-        PostVideo: true,
-        PostLink: true,
-        PostPhoto: true,
-        PostQuote: true,
-        PostText: true,
+        postVideo: true,
+        postLink: true,
+        postPhoto: true,
+        postQuote: true,
+        postText: true,
       },
     });
 
@@ -137,11 +136,11 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
           likes: true,
           tags: true,
 
-          PostVideo: true,
-          PostLink: true,
-          PostPhoto: true,
-          PostQuote: true,
-          PostText: true,
+          postVideo: true,
+          postLink: true,
+          postPhoto: true,
+          postQuote: true,
+          postText: true,
         },
       }),
       this.getPostCount(where),

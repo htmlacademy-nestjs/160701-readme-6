@@ -32,7 +32,7 @@ export class PostService {
     const tags = await this.tagService.getTagsByNames(dto.tags);
     const newPostEntity = this.postFactory.create({
       ...dto,
-      status: PostStatus.PUBLIC,
+      status: PostStatus.Public,
       comments: [],
       likes: [],
       tags,

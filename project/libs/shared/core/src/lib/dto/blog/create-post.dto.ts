@@ -22,13 +22,12 @@ import {
 } from 'class-validator';
 import { PostType } from '../../types/blog/posts/post-type.enum';
 
-
 @ApiExtraModels(...AllPostContentArray)
 export class CreatePostDto {
   @ApiProperty({
     enum: PostType,
     description: 'Post type',
-    example: PostType.VIDEO,
+    example: PostType.Video,
   })
   @IsEnum(PostType)
   public type!: PostType;

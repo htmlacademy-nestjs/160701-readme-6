@@ -19,9 +19,9 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   public authorId!: string;
   public comments!: CommentEntity[];
   public likes!: LikeEntity[];
-  public tags?: TagEntity[];
+  public tags!: TagEntity[];
 
-  public PostVideo?: VideoPostContent;
+  public postVideo?: VideoPostContent;
 
   constructor(post?: Post) {
     super();
@@ -41,7 +41,7 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.status = post.status;
     this.type = post.type;
 
-    this.PostVideo = post.PostVideo;
+    this.postVideo = post.postVideo;
 
     const commentFactory = new CommentFactory();
     this.comments = post.comments?.map(commentFactory.create);
@@ -65,7 +65,7 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       comments: this.comments?.map((commentEntity) => commentEntity.toPOJO()),
       likes: this.likes?.map((likeEntity) => likeEntity.toPOJO()),
 
-      PostVideo: this.PostVideo,
+      postVideo: this.postVideo,
     };
   }
 }

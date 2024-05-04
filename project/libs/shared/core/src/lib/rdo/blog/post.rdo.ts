@@ -13,7 +13,11 @@ import { Tag } from '../../types/blog/tag.interface';
 import { LikeRdo } from 'libs/blog/likes/src/module/rdo/like.rdo';
 import { Comment } from '../../types/blog/comment.interface';
 import { CommentRdo } from 'libs/blog/comments/src/module/rdo/comment.rdo';
-import { AllOptionPostContentArray, PostContent, RefPostContentArray } from '../../dto/blog/content';
+import {
+  AllOptionPostContentArray,
+  PostContent,
+  RefPostContentArray,
+} from '../../dto/blog/content';
 
 @ApiExtraModels(...AllOptionPostContentArray)
 export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
@@ -28,7 +32,7 @@ export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
   @ApiProperty({
     enum: PostType,
     description: 'Post content type',
-    example: PostType.VIDEO,
+    example: PostType.Video,
   })
   public type!: PostType;
 
@@ -57,8 +61,8 @@ export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {
   @ApiProperty({
     enum: PostStatus,
     description: 'This post is repost',
-    example: PostStatus.PUBLIC,
-    default: PostStatus.PUBLIC,
+    example: PostStatus.Public,
+    default: PostStatus.Public,
   })
   public status!: PostStatus;
 

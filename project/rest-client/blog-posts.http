@@ -5,7 +5,7 @@
 @host = {{hostname}}:{{port}}/{{prefix}}
 @parentPath = posts
 @contentType = application/json
-@POST_ID = 1c3e0eae-fad2-4beb-9bd8-8baac7aabfff
+@POST_ID = a35bb176-05a4-4ccb-b355-e8087987a4a4
 @USER_ID = 65b7a93fe29bcc5e9410a607
 # @CONTENT_ID =26c60e02-6db6-49b2-ba5f-9024a7fb3941
 @CONTENT_ID =e9ed6476-be0f-4495-a4f3-a8a16793d82d
@@ -32,7 +32,7 @@ Content-Type: {{contentType}}
     "title": "Мой др 33 test title title title",
     "url": "https://www.youtube.com/watch?v=JU79n3yU1aA"
   },
-  "tags": ["hash"],
+  "tags": [],
   "authorId": "{{USER_ID}}"
 }
 
@@ -50,5 +50,7 @@ Content-Type: {{contentType}}
   "author": "df191215-1f3c-407d-96b2-390bdfae1961"
 }
 
+### Получить пост по id
+GET  {{host}}/{{parentPath}}/{{POST_ID}} HTTP/1.1
 ### Получить все типы постов
 GET  {{host}}/{{parentPath}}/types HTTP/1.1

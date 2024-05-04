@@ -12,7 +12,6 @@ import { PhotoPostContent } from '../../../types/blog/posts/content/photo-post-c
 import { QuotePostContent } from '../../../types/blog/posts/content/quote-post-content.interface';
 import { TextPostContent } from '../../../types/blog/posts/content/text-post-content.interface';
 
-
 export const AllPostContentArray = [
   VideoPostContentDto,
   PhotoPostContentDto,
@@ -47,9 +46,9 @@ export const RefOptionalPostContentArray = AllOptionPostContentArray.map(
 );
 
 export const PostTypeContent = {
-  [PostType.VIDEO]: VideoPostContentDto,
-  [PostType.TEXT]: TextPostContentDto,
-  [PostType.QUOTE]: QuotePostContentDto,
-  [PostType.LINK]: LinkPostContentDto,
-  [PostType.PHOTO]: PhotoPostContentDto,
+  [PostType.Video]: VideoPostContentDto,
+  [PostType.Text]: TextPostContentDto,
+  [PostType.Quote]: QuotePostContentDto,
+  [PostType.Link]: LinkPostContentDto,
+  [PostType.Photo]: PhotoPostContentDto,
 };

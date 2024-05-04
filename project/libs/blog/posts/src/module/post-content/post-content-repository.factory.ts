@@ -25,15 +25,15 @@ export class PostContentRepositoryFactory implements PostContentRepository {
 
   public create(type: PostType) {
     switch (type) {
-      case PostType.VIDEO:
+      case PostType.Video:
         return new VideoPostRepository(this.entityFactory, this.client);
-      case PostType.TEXT:
+      case PostType.Text:
         return new TextPostRepository(this.entityFactory, this.client);
-      case PostType.LINK:
+      case PostType.Link:
         return new LinkPostRepository(this.entityFactory, this.client);
-      case PostType.PHOTO:
+      case PostType.Photo:
         return new PhotoPostRepository(this.entityFactory, this.client);
-      case PostType.QUOTE:
+      case PostType.Quote:
         return new QuotePostRepository(this.entityFactory, this.client);
       default:
         throw new NotImplementedException(
