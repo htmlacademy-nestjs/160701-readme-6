@@ -5,10 +5,12 @@ import { ensureDir } from 'fs-extra';
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { FileVaultConfig } from '@project/config';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class FileUploaderService {
   private readonly logger = new Logger(FileUploaderService.name);
+  private readonly DATE_FORMAT = 'YYYY/MM/DD';
 
   constructor(
     @Inject(FileVaultConfig.KEY)
@@ -20,7 +22,17 @@ export class FileUploaderService {
   }
 
   private getDestinationFilePath(filename: string): string {
-    return join(this.getUploadDirectoryPath(), filename);
+    return join(
+      this.getUploadDirectoryPath(),
+      this.getSubUploadDirectoryPath(),
+      filename
+    );
+  }
+
+  private getSubUploadDirectoryPath(): string {
+    const path = dayjs().format(this.DATE_FORMAT).split('/');
+
+    return join(...path);
   }
 
   public async saveFile(file: Express.Multer.File): Promise<string> {
