@@ -33,6 +33,7 @@
       "@project/pipes": ["libs/shared/pipes/src/index.ts"],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
       "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"],
+      "@project/users-notify": ["libs/users/notify/src/index.ts"],
       "@project/validation": ["libs/shared/validation/src/index.ts"]
     }
   },

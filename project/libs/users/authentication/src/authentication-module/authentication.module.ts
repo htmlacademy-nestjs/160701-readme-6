@@ -7,9 +7,15 @@ import { AuthService } from './authentication.interface';
 import { AuthenticationLoggerService } from './authentication-logger.service';
 import { JwtConfigModule } from '@project/config';
 import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
+import { NotifyModule } from '@project/users-notify';
 
 @Module({
-  imports: [BlogUserModule, HasherModule, JwtConfigModule.register()],
+  imports: [
+    BlogUserModule,
+    HasherModule,
+    JwtConfigModule.register(),
+    NotifyModule,
+  ],
   controllers: [AuthenticationController],
   providers: [
     {

@@ -10,7 +10,7 @@ import { CreateSubscriberDto, ChangeSubscriberPasswordDto, RabbitRouting } from 
 export class EmailSubscriberController {
   constructor(
     private readonly subscriberService: EmailSubscriberService,
-    private readonly mailService: MailService
+    // private readonly mailService: MailService
   ) {}
 
   @RabbitSubscribe({

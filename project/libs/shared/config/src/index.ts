@@ -7,6 +7,8 @@ export { getRabbitMQOptions } from './configurations/rabbit/get-rabbit-options';
 export { getMongooseOptions } from './configurations/mongo/get-mongoose-options';
 export { appFileVaultConfig as FileVaultConfig } from './apps/file-vault/app.config';
 
+/* Rabbit */
+export { rabbitConfig } from './configurations/rabbit/rabbit.config';
 /* JWT */
 export * from './configurations/jwt/jwt.config';
 export * from './configurations/jwt/get-jwt-options';
