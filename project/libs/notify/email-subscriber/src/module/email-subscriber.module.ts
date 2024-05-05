@@ -10,6 +10,7 @@ import { EmailSubscriberRepository } from './email-subscriber.repository';
 import { EmailSubscriberFactory } from './email-subscriber.factory';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { getRabbitMQOptions } from '@project/config';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { getRabbitMQOptions } from '@project/config';
       { name: EmailSubscriberModel.name, schema: EmailSubscriberSchema },
     ]),
     RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions('rabbit')),
+    MailModule,
   ],
   providers: [
     EmailSubscriberService,

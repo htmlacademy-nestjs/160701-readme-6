@@ -2,15 +2,18 @@ import { Controller } from '@nestjs/common';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 import { EmailSubscriberService } from './email-subscriber.service';
-import { CreateSubscriberDto, ChangeSubscriberPasswordDto, RabbitRouting } from '@project/shared/core';
-
-// import { MailService } from '../mail/mail.service';
+import {
+  CreateSubscriberDto,
+  ChangeSubscriberPasswordDto,
+  RabbitRouting,
+} from '@project/shared/core';
+import { MailService } from './mail/mail.service';
 
 @Controller()
 export class EmailSubscriberController {
   constructor(
     private readonly subscriberService: EmailSubscriberService,
-    // private readonly mailService: MailService
+    private readonly mailService: MailService
   ) {}
 
   @RabbitSubscribe({
@@ -20,7 +23,7 @@ export class EmailSubscriberController {
   })
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
-    // this.mailService.sendNotifyNewSubscriber(subscriber);
+    this.mailService.sendNotifyNewSubscriber(subscriber);
   }
 
   @RabbitSubscribe({
@@ -29,6 +32,6 @@ export class EmailSubscriberController {
     queue: 'readme.notify.income',
   })
   public async changePassword(subscriber: ChangeSubscriberPasswordDto) {
-    // this.mailService.sendNotifyChangePassword(subscriber);
+    this.mailService.sendNotifyChangePassword(subscriber);
   }
 }
