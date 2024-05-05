@@ -3,6 +3,7 @@ export { BlogConfigModule } from './apps/blog/blog.module';
 export { FileVaultConfigModule } from './apps/file-vault/file-vault.module';
 export { NotifyConfigModule } from './apps/notify/notify-config.module';
 
+export { getRabbitMQOptions } from './configurations/rabbit/get-rabbit-options';
 export { getMongooseOptions } from './configurations/mongo/get-mongoose-options';
 export { appFileVaultConfig as FileVaultConfig } from './apps/file-vault/app.config';
 

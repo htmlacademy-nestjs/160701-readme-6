@@ -8,12 +8,15 @@ import {
 import { EmailSubscriberService } from './email-subscriber.service';
 import { EmailSubscriberRepository } from './email-subscriber.repository';
 import { EmailSubscriberFactory } from './email-subscriber.factory';
+import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { getRabbitMQOptions } from '@project/config';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: EmailSubscriberModel.name, schema: EmailSubscriberSchema },
     ]),
+    RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions('rabbit')),
   ],
   providers: [
     EmailSubscriberService,
