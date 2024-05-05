@@ -6,6 +6,7 @@ import {
   CreateSubscriberDto,
   ChangeSubscriberPasswordDto,
   RabbitRouting,
+  RabbitExchange,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
 
@@ -17,9 +18,9 @@ export class EmailSubscriberController {
   ) {}
 
   @RabbitSubscribe({
-    exchange: 'readme.notify.income',
+    exchange: RabbitExchange.Income,
     routingKey: RabbitRouting.AddSubscriber,
-    queue: 'readme.notify.income',
+    queue: RabbitExchange.Income,
   })
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
@@ -27,9 +28,9 @@ export class EmailSubscriberController {
   }
 
   @RabbitSubscribe({
-    exchange: 'readme.notify.income',
+    exchange: RabbitExchange.ChangePassword,
     routingKey: RabbitRouting.ChangePassword,
-    queue: 'readme.notify.income',
+    queue: RabbitExchange.ChangePassword,
   })
   public async changePassword(subscriber: ChangeSubscriberPasswordDto) {
     this.mailService.sendNotifyChangePassword(subscriber);
