@@ -38,6 +38,8 @@ export { UploadedFileRdo } from './lib/rdo/file-vault/uploaded-file.rdo';
 export { File } from './lib/types/file-vault/file.interface';
 export { StoredFile } from './lib/types/file-vault/stored-file.interface';
 
-
 export { Subscriber } from './lib/types/notify/subscriber.interface';
 export { RabbitRouting } from './lib/types/notify/rabbit-routing.enum';
+
+export { ChangeSubscriberPasswordDto } from './lib/dto/notify/change-password.dto';
+export { CreateSubscriberDto } from './lib/dto/notify/create-subscriber.dto';
