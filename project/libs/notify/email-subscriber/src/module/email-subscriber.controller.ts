@@ -7,7 +7,7 @@ import {
   ChangeSubscriberPasswordDto,
   RabbitRouting,
 } from '@project/shared/core';
-import { MailService } from './mail/mail.service';
+import { MailService } from '@project/notify-mail';
 
 @Controller()
 export class EmailSubscriberController {

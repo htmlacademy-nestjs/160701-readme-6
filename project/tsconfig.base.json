@@ -30,6 +30,7 @@
         "libs/notify/email-subscriber/src/index.ts"
       ],
       "@project/file-uploader": ["libs/file-vault/file-uploader/src/index.ts"],
+      "@project/notify-mail": ["libs/notify/mail/src/index.ts"],
       "@project/pipes": ["libs/shared/pipes/src/index.ts"],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
       "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"],
