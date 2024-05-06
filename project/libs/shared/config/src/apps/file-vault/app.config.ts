@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { registerAs } from '@nestjs/config';
 
 import { IsString } from 'class-validator';
@@ -8,11 +9,11 @@ import { BaseAppDto } from '../../configurations/app.config';
 class AppDto extends BaseAppDto {
   @IsString()
   @FromEnv('UPLOAD_DIRECTORY_PATH')
-  uploadDirectory = '/uploads';
+  uploadDirectory: string = '/uploads';
 
   @IsString()
   @FromEnv('SERVE_ROOT')
-  serveRoot = '/static';
+  serveRoot: string = '/static';
 }
 
 export const appFileVaultConfig = registerAs(

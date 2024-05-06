@@ -26,7 +26,7 @@ export class FileUploaderService {
   ) {}
 
   private getUploadDirectoryPath(): string {
-    return String(this.config.uploadDirectory); //TODO: Убрать String, почему приходит массив?
+    return this.config.uploadDirectory;
   }
 
   private getDestinationFilePath(filename: string): string {
@@ -71,9 +71,7 @@ export class FileUploaderService {
 
   public async writeFile(file: Express.Multer.File): Promise<StoredFile> {
     try {
-      const port = String(this.config.port);
-      const serveRoot = String(this.config.serveRoot); //TODO: Убрать String, почему приходит массив?
-
+      const { port, serveRoot } = this.config;
       const uploadDirectoryPath = this.getUploadDirectoryPath();
       const subDirectory = this.getSubUploadDirectoryPath();
       const fileExtension = String(

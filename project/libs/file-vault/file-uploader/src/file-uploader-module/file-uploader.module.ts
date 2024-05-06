@@ -10,18 +10,14 @@ import { FileModel, FileSchema } from './file.model';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: FileModel.name, schema: FileSchema }
-    ]),
+    MongooseModule.forFeature([{ name: FileModel.name, schema: FileSchema }]),
     ServeStaticModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const rootPath = String(
-          configService.get<string>('application.uploadDirectory')
+        const rootPath = configService.get<string>(
+          'application.uploadDirectory'
         );
-        const serveRoot = String(
-          configService.get<string>('application.serveRoot')
-        ); //TODO: Убрать String, почему приходит массив?
+        const serveRoot = configService.get<string>('application.serveRoot');
 
         return [
           {
@@ -36,11 +32,7 @@ import { FileModel, FileSchema } from './file.model';
       },
     }),
   ],
-  providers: [
-    FileUploaderService,
-    FileUploaderRepository,
-    FileUploaderFactory,
-  ],
+  providers: [FileUploaderService, FileUploaderRepository, FileUploaderFactory],
   controllers: [FileUploaderController],
 })
 export class FileUploaderModule {}
