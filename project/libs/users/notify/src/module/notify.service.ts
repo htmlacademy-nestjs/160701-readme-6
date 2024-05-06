@@ -1,7 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-
-import { ConfigType } from '@nestjs/config';
 import {
   ChangeSubscriberPasswordDto,
   CreateSubscriberDto,
