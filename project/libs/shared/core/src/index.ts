@@ -44,3 +44,6 @@ export { RabbitExchange } from './lib/types/notify/rabbit-exchange.enum';
 
 export { ChangeSubscriberPasswordDto } from './lib/dto/notify/change-password.dto';
 export { CreateSubscriberDto } from './lib/dto/notify/create-subscriber.dto';
+
+export { ChangePasswordDto } from './lib/dto/users/change-password.dto';
+export { ChangePasswordRdo } from './lib/rdo/users/change-password.rdo';

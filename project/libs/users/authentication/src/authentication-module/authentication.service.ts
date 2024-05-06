@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   HttpException,
   HttpStatus,
@@ -11,6 +12,7 @@ import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
 import { CreateUserDto } from '../dto/create-user.dto';
 import {
   AuthUser,
+  ChangePasswordDto,
   Token,
   TokenPayload,
   User,
@@ -19,6 +21,7 @@ import {
 import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
+  OLD_PASSWORD_NOT_CORRECT,
 } from './authentication.constant';
 
 import { LoginUserDto } from '../dto/login-user.dto';
@@ -122,5 +125,32 @@ export class AuthenticationService implements AuthService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+  }
+
+  public async changePassword(id: string, dto: ChangePasswordDto) {
+    const { oldPassword, newPassword } = dto;
+    const existUser = await this.getUserById(id);
+
+    if (!existUser) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    const isOldPasswordCorrect = await this.hasherService.comparePassword({
+      password: oldPassword,
+      passwordHash: existUser.passwordHash,
+    });
+
+    if (!isOldPasswordCorrect) {
+      throw new BadRequestException(OLD_PASSWORD_NOT_CORRECT);
+    }
+
+    const passwordHash = await this.hasherService.generatePasswordHash(
+      newPassword
+    );
+    const newUser = existUser.setPasswordHash(passwordHash);
+
+    await this.blogUserRepository.update(newUser);
+
+    return newUser;
   }
 }
