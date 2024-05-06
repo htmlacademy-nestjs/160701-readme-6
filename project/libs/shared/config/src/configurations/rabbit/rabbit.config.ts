@@ -19,14 +19,6 @@ export class RabbitDto {
   @IsNumber()
   @FromEnv('RABBIT_PORT')
   port!: number;
-
-  @IsString()
-  @FromEnv('RABBIT_QUEUE')
-  queue!: string;
-
-  @IsString()
-  @FromEnv('RABBIT_EXCHANGE')
-  exchange!: string;
 }
 
 export const rabbitConfig = registerAs('rabbit', configEnvValidator(RabbitDto));

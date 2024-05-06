@@ -1,4 +1,5 @@
 import { ConfigService } from '@nestjs/config';
+import { RabbitExchange } from '@project/shared/core';
 import { getRabbitMQConnectionString } from '@project/shared/helpers';
 
 export function getRabbitMQOptions(optionSpace: string) {
@@ -6,7 +7,11 @@ export function getRabbitMQOptions(optionSpace: string) {
     useFactory: async (config: ConfigService) => ({
       exchanges: [
         {
-          name: config.get<string>(`${optionSpace}.queue`) as string,
+          name: RabbitExchange.Income,
+          type: 'direct',
+        },
+        {
+          name: RabbitExchange.ChangePassword,
           type: 'direct',
         },
       ],

@@ -5,21 +5,17 @@ import { ConfigType } from '@nestjs/config';
 import {
   ChangeSubscriberPasswordDto,
   CreateSubscriberDto,
+  RabbitExchange,
   RabbitRouting,
 } from '@project/shared/core';
-import { rabbitConfig } from '@project/config';
 
 @Injectable()
 export class NotifyService {
-  constructor(
-    private readonly rabbitClient: AmqpConnection,
-    @Inject(rabbitConfig.KEY)
-    private readonly config: ConfigType<typeof rabbitConfig>
-  ) {}
+  constructor(private readonly rabbitClient: AmqpConnection) {}
 
   public async registerSubscriber(dto: CreateSubscriberDto) {
     return this.rabbitClient.publish<CreateSubscriberDto>(
-      this.config.exchange,
+      RabbitExchange.Income,
       RabbitRouting.AddSubscriber,
       dto
     );
@@ -27,7 +23,7 @@ export class NotifyService {
 
   public async changePassword(dto: ChangeSubscriberPasswordDto) {
     return this.rabbitClient.publish<ChangeSubscriberPasswordDto>(
-      this.config.exchange,
+      RabbitExchange.ChangePassword,
       RabbitRouting.ChangePassword,
       dto
     );
