@@ -3,7 +3,9 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { ConfigService } from '@nestjs/config';
 import { resolve } from 'node:path';
 
-export function getMailerAsyncOptions(optionSpace: string): MailerAsyncOptions {
+export function getMailerAsyncOptions(
+  optionSpace = 'mail'
+): MailerAsyncOptions {
   return {
     useFactory: async (configService: ConfigService) => {
       return {
@@ -17,7 +19,7 @@ export function getMailerAsyncOptions(optionSpace: string): MailerAsyncOptions {
           },
         },
         defaults: {
-          from: configService.get<string>('mail.from'),
+          from: configService.get<string>(`${optionSpace}.from`),
         },
         template: {
           dir: resolve(__dirname, 'assets'),
