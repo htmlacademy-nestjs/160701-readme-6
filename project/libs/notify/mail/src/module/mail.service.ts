@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 
 import { EMAIL_SUBJECT } from './mail.constant';
-import { Subscriber } from '@project/shared/core';
+import { Post, Subscriber } from '@project/shared/core';
 import { MailConfig } from '@project/config';
 
 @Injectable()
@@ -37,5 +37,18 @@ export class MailService {
         user: `${subscriber.firstname}`,
       },
     });
+  }
+
+  public async sendPostNotification(subscriber: Subscriber, posts: Post[]) {
+    await this.mailerService.sendMail({
+      from: this.notifyConfig.from,
+      to: subscriber.email,
+      subject: EMAIL_SUBJECT.NewPosts,
+      template: './new-posts',
+      context: {
+        username: subscriber.firstname,
+        posts: posts
+      }
+    })
   }
 }

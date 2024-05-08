@@ -26,4 +26,8 @@ export class EmailSubscriberService {
 
     return emailSubscriber;
   }
+
+  public async getAllSubscribers(): Promise<EmailSubscriberEntity[]> {
+    return await this.emailSubscriberRepository.findAll()
+  }
 }

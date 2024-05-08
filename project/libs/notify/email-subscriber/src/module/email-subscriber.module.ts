@@ -21,13 +21,12 @@ import { EmailSubscriberController } from './email-subscriber.controller';
     RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions()),
     MailModule,
   ],
-  controllers: [
-    EmailSubscriberController,
-  ],
+  controllers: [EmailSubscriberController],
   providers: [
     EmailSubscriberService,
     EmailSubscriberRepository,
     EmailSubscriberFactory,
   ],
+  exports: [EmailSubscriberService],
 })
 export class EmailSubscriberModule {}
