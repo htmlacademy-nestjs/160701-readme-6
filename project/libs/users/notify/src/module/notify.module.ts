@@ -4,9 +4,7 @@ import { NotifyService } from './notify.service';
 import { getRabbitMQOptions } from '@project/config';
 
 @Module({
-  imports: [
-    RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions('rabbit')),
-  ],
+  imports: [RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions())],
   providers: [NotifyService],
   exports: [NotifyService],
 })

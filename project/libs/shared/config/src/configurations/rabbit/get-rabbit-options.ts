@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { RabbitExchange } from '@project/shared/core';
 import { getRabbitMQConnectionString } from '@project/shared/helpers';
 
-export function getRabbitMQOptions(optionSpace: string) {
+export function getRabbitMQOptions(optionSpace = 'rabbit') {
   return {
     useFactory: async (config: ConfigService) => ({
       exchanges: [

@@ -18,7 +18,7 @@ import { EmailSubscriberController } from './email-subscriber.controller';
     MongooseModule.forFeature([
       { name: EmailSubscriberModel.name, schema: EmailSubscriberSchema },
     ]),
-    RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions('rabbit')),
+    RabbitMQModule.forRootAsync(RabbitMQModule, getRabbitMQOptions()),
     MailModule,
   ],
   controllers: [
