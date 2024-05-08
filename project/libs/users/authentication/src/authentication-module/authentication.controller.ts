@@ -11,12 +11,16 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
+import {
+  AuthKeyName,
+  fillDto,
+  generateSchemeApiError,
+} from '@project/shared/helpers';
 import { UserRdo } from '../rdo/user.rdo';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { AuthService } from './authentication.interface';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthenticationResponseMessage } from './authentication.constant';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
@@ -89,6 +93,7 @@ export class AuthenticationController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
+  @ApiBearerAuth(AuthKeyName)
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', MongoIdValidationPipe) id: string) {
@@ -112,12 +117,12 @@ export class AuthenticationController {
     description: 'Bad request data',
     schema: generateSchemeApiError('Bad request data', HttpStatus.BAD_REQUEST),
   })
-  // @ApiBearerAuth(AuthKeyName)
+  @ApiBearerAuth(AuthKeyName)
   @UseGuards(JwtAuthGuard)
-  @Patch('change-password')
+  @Patch('change-password/:sub')
   public async changePassword(
     // @Req() { user }: RequestWithTokenPayload,
-    @Query() sub: string,
+    @Param('sub', MongoIdValidationPipe) sub: string,
     @Body() dto: ChangePasswordDto
   ) {
     const newUser = await this.authService.changePassword(
