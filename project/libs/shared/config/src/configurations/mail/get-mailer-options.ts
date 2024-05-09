@@ -25,7 +25,7 @@ export function getMailerAsyncOptions(
           dir: resolve(__dirname, 'assets'),
           adapter: new HandlebarsAdapter(),
           options: {
-            strict: true,
+            strict: false,
           },
         },
       };
