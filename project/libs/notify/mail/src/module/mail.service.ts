@@ -39,7 +39,7 @@ export class MailService {
     });
   }
 
-  public async sendPostNotification(subscriber: Subscriber, posts: Post[]) {
+  public async sendNewPostsNotification(subscriber: Subscriber, posts: Post[]) {
     await this.mailerService.sendMail({
       from: this.notifyConfig.from,
       to: subscriber.email,

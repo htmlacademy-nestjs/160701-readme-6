@@ -7,6 +7,8 @@ import {
   ChangeSubscriberPasswordDto,
   RabbitRouting,
   RabbitExchange,
+  RabbitQueue,
+  Post,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
 
@@ -20,7 +22,7 @@ export class EmailSubscriberController {
   @RabbitSubscribe({
     exchange: RabbitExchange.Income,
     routingKey: RabbitRouting.AddSubscriber,
-    queue: RabbitExchange.Income,
+    queue: RabbitQueue.Income,
   })
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
@@ -30,9 +32,22 @@ export class EmailSubscriberController {
   @RabbitSubscribe({
     exchange: RabbitExchange.ChangePassword,
     routingKey: RabbitRouting.ChangePassword,
-    queue: RabbitExchange.ChangePassword,
+    queue: RabbitQueue.ChangePassword,
   })
   public async changePassword(subscriber: ChangeSubscriberPasswordDto) {
     this.mailService.sendNotifyChangePassword(subscriber);
+  }
+
+  @RabbitSubscribe({
+    exchange: RabbitExchange.SendNewPosts,
+    routingKey: RabbitRouting.SendNewPosts,
+    queue: RabbitQueue.SendNewPosts,
+  })
+  public async sendNewPosts(posts: Post[]) {
+    const subscribers = await this.subscriberService.getAllSubscribers();
+    const promises = subscribers.map((subscriber) =>
+      this.mailService.sendNewPostsNotification(subscriber, posts)
+    );
+    await Promise.all(promises);
   }
 }
