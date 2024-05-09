@@ -41,9 +41,12 @@ export { StoredFile } from './lib/types/file-vault/stored-file.interface';
 export { Subscriber } from './lib/types/notify/subscriber.interface';
 export { RabbitRouting } from './lib/types/notify/rabbit-routing.enum';
 export { RabbitExchange } from './lib/types/notify/rabbit-exchange.enum';
+export { RabbitQueue } from './lib/types/notify/rabbit-queue.enum';
 
 export { ChangeSubscriberPasswordDto } from './lib/dto/notify/change-password.dto';
 export { CreateSubscriberDto } from './lib/dto/notify/create-subscriber.dto';
 
 export { ChangePasswordDto } from './lib/dto/users/change-password.dto';
 export { ChangePasswordRdo } from './lib/rdo/users/change-password.rdo';
+
+export { CronTime } from './lib/types/cronTime.enum';

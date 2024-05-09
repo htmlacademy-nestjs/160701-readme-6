@@ -14,8 +14,11 @@ export function getRabbitMQOptions(optionSpace = 'rabbit') {
           name: RabbitExchange.ChangePassword,
           type: 'direct',
         },
+        {
+          name: RabbitExchange.SendNewPosts,
+          type: 'direct',
+        },
       ],
-
       uri: getRabbitMQConnectionString({
         host: config.get<string>(`${optionSpace}.host`),
         password: config.get<string>(`${optionSpace}.password`),
