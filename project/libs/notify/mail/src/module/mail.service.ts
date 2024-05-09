@@ -43,7 +43,7 @@ export class MailService {
     await this.mailerService.sendMail({
       from: this.notifyConfig.from,
       to: dto.email,
-      subject: EMAIL_SUBJECT.ChangePassword,
+      subject: EMAIL_SUBJECT.RecoveryEmail,
       template: './recovery-email',
       context: {
         recoveryToken: dto.recoveryToken,
