@@ -30,6 +30,8 @@ import { Hasher } from '../hasher-module/hasher.interface';
 import { HasherComponent } from '../hasher-module/hasher.enum';
 import { JwtService } from '@nestjs/jwt';
 import { JWT_ACCESS_KEY } from '@project/config';
+import { RecoveryEmailDto } from '../dto/recovery-email.dto';
+import { randomUUID } from 'node:crypto';
 
 @Injectable()
 export class AuthenticationService implements AuthService {
@@ -152,5 +154,15 @@ export class AuthenticationService implements AuthService {
     await this.blogUserRepository.update(newUser);
 
     return newUser;
+  }
+
+  public async recoveryEmail(dto: RecoveryEmailDto) {
+    const existUser = await this.blogUserRepository.findByEmail(dto.email);
+
+    if (!existUser) {
+      return null;
+    }
+
+    return randomUUID();
   }
 }

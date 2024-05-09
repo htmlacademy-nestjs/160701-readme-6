@@ -9,6 +9,7 @@ import {
   RabbitExchange,
   RabbitQueue,
   Post,
+  NotifyRecoveryEmailDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
 
@@ -36,6 +37,15 @@ export class EmailSubscriberController {
   })
   public async changePassword(subscriber: ChangeSubscriberPasswordDto) {
     this.mailService.sendNotifyChangePassword(subscriber);
+  }
+
+  @RabbitSubscribe({
+    exchange: RabbitExchange.RecoveryEmail,
+    routingKey: RabbitRouting.RecoveryEmail,
+    queue: RabbitQueue.RecoveryEmail,
+  })
+  public async recoveryEmail(dto: NotifyRecoveryEmailDto) {
+    this.mailService.sendRecoveryEmail(dto);
   }
 
   @RabbitSubscribe({

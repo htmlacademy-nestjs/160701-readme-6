@@ -18,6 +18,10 @@ export function getRabbitMQOptions(optionSpace = 'rabbit') {
           name: RabbitExchange.SendNewPosts,
           type: 'direct',
         },
+        {
+          name: RabbitExchange.RecoveryEmail,
+          type: 'direct',
+        },
       ],
       uri: getRabbitMQConnectionString({
         host: config.get<string>(`${optionSpace}.host`),

@@ -26,6 +26,7 @@ import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { NotifyService } from '@project/users-notify';
 import { ChangePasswordDto, ChangePasswordRdo } from '@project/shared/core';
+import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -141,5 +142,26 @@ export class AuthenticationController {
     return fillDto(ChangePasswordRdo, {
       message: 'Password changed successfully',
     });
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Recovery email sent successfully',
+  })
+  @Post('recovery-email')
+  public async recoveryPassword(@Body() dto: RecoveryEmailDto) {
+    const recoveryToken = await this.authService.recoveryEmail(dto);
+
+    if (recoveryToken) {
+      await this.notifyService.recoveryEmail({
+        email: dto.email,
+        recoveryToken,
+      });
+    }
+
+    return {
+      recoveryToken,
+      message: 'Recovery email sent successfully',
+    };
   }
 }

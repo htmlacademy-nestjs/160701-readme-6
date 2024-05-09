@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 
 import { EMAIL_SUBJECT } from './mail.constant';
-import { Post, Subscriber } from '@project/shared/core';
+import { NotifyRecoveryEmailDto, Post, Subscriber } from '@project/shared/core';
 import { MailConfig } from '@project/config';
 
 @Injectable()
@@ -39,6 +39,18 @@ export class MailService {
     });
   }
 
+  public async sendRecoveryEmail(dto: NotifyRecoveryEmailDto) {
+    await this.mailerService.sendMail({
+      from: this.notifyConfig.from,
+      to: dto.email,
+      subject: EMAIL_SUBJECT.ChangePassword,
+      template: './recovery-email',
+      context: {
+        recoveryToken: dto.recoveryToken,
+      },
+    });
+  }
+
   public async sendNewPostsNotification(subscriber: Subscriber, posts: Post[]) {
     await this.mailerService.sendMail({
       from: this.notifyConfig.from,
@@ -47,8 +59,8 @@ export class MailService {
       template: './new-posts',
       context: {
         username: subscriber.firstname,
-        posts: posts
-      }
-    })
+        posts: posts,
+      },
+    });
   }
 }
