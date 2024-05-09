@@ -27,6 +27,7 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { NotifyService } from '@project/users-notify';
 import { ChangePasswordDto, ChangePasswordRdo } from '@project/shared/core';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
+import { PasswordTokenService } from '../password-token-module/password-token.service';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -34,7 +35,8 @@ export class AuthenticationController {
   constructor(
     @Inject('AuthService')
     private readonly authService: AuthService,
-    private readonly notifyService: NotifyService
+    private readonly notifyService: NotifyService,
+    private readonly passswortTokenService: PasswordTokenService
   ) {}
 
   @ApiResponse({
@@ -153,6 +155,10 @@ export class AuthenticationController {
     const recoveryToken = await this.authService.recoveryEmail(dto);
 
     if (recoveryToken) {
+      await this.passswortTokenService.createPasswordSession({
+        tokenId: recoveryToken,
+        userEmail: dto.email,
+      });
       await this.notifyService.recoveryEmail({
         email: dto.email,
         recoveryToken,
