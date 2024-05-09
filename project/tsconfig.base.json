@@ -21,6 +21,7 @@
       "@project/blog-comments": ["libs/blog/comments/src/index.ts"],
       "@project/blog-likes": ["libs/blog/likes/src/index.ts"],
       "@project/blog-models": ["libs/blog/models/src/index.ts"],
+      "@project/blog-notify": ["libs/blog/notify/src/index.ts"],
       "@project/blog-post": ["libs/blog/posts/src/index.ts"],
       "@project/blog-tags": ["libs/blog/tags/src/index.ts"],
       "@project/blog-user": ["libs/users/blog-user/src/index.ts"],
