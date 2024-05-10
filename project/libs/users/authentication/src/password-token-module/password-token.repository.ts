@@ -34,7 +34,10 @@ export class PasswordTokenRepository extends BaseMongoRepository<
     return this.createEntityFromDocument(passwordTokenDocument);
   }
 
-  public async deleteExpiredTokens(): Promise<void> {
-    this.model.deleteMany({ expiresIn: { $lt: new Date() } });
+  public async deleteUserExpiredTokens(
+    userEmail: string,
+    expiresIn = new Date()
+  ): Promise<void> {
+    this.model.deleteMany({ userEmail, expiresIn: { $lt: expiresIn } });
   }
 }

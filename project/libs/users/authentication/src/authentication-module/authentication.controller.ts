@@ -155,10 +155,16 @@ export class AuthenticationController {
     const recoveryToken = await this.authService.recoveryEmail(dto);
 
     if (recoveryToken) {
-      await this.passswortTokenService.createPasswordSession({
-        tokenId: recoveryToken,
-        userEmail: dto.email,
-      });
+      const newTokenEntity = (
+        await this.passswortTokenService.createPasswordSession({
+          tokenId: recoveryToken,
+          userEmail: dto.email,
+        })
+      ).toPOJO();
+      await this.passswortTokenService.deleteExpiredPasswordTokens(
+        dto.email,
+        new Date(String(newTokenEntity.expiresIn))
+      );
       await this.notifyService.recoveryEmail({
         email: dto.email,
         recoveryToken,

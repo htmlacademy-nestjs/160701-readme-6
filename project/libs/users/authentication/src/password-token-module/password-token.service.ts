@@ -32,7 +32,6 @@ export class PasswordTokenService {
   }
 
   public async deletePasswordSession(tokenId: string): Promise<void> {
-    await this.deleteExpiredPasswordTokens();
     await this.passwordTokenRepository.deleteByTokenId(tokenId);
   }
 
@@ -42,7 +41,10 @@ export class PasswordTokenService {
     return token !== null;
   }
 
-  public async deleteExpiredPasswordTokens() {
-    await this.passwordTokenRepository.deleteExpiredTokens();
+  public async deleteExpiredPasswordTokens(userEmail: string, expiresIn: Date) {
+    await this.passwordTokenRepository.deleteUserExpiredTokens(
+      userEmail,
+      expiresIn
+    );
   }
 }
