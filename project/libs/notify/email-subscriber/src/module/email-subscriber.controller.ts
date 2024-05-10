@@ -4,12 +4,10 @@ import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { EmailSubscriberService } from './email-subscriber.service';
 import {
   CreateSubscriberDto,
-  ChangeSubscriberPasswordDto,
   RabbitRouting,
   RabbitExchange,
   RabbitQueue,
   Post,
-  NotifyRecoveryEmailDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
 
@@ -28,24 +26,6 @@ export class EmailSubscriberController {
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
     this.mailService.sendNotifyNewSubscriber(subscriber);
-  }
-
-  @RabbitSubscribe({
-    exchange: RabbitExchange.ChangePassword,
-    routingKey: RabbitRouting.ChangePassword,
-    queue: RabbitQueue.ChangePassword,
-  })
-  public async changePassword(subscriber: ChangeSubscriberPasswordDto) {
-    this.mailService.sendNotifyChangePassword(subscriber);
-  }
-
-  @RabbitSubscribe({
-    exchange: RabbitExchange.RecoveryEmail,
-    routingKey: RabbitRouting.RecoveryEmail,
-    queue: RabbitQueue.RecoveryEmail,
-  })
-  public async recoveryEmail(dto: NotifyRecoveryEmailDto) {
-    this.mailService.sendRecoveryEmail(dto);
   }
 
   @RabbitSubscribe({
