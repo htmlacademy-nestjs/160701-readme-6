@@ -11,5 +11,5 @@ export interface AuthService {
   getUserByEmail(email: string): Promise<BlogUserEntity>;
   createUserToken(user: User): Promise<Token>;
   changePassword(id: string, dto: ChangePasswordDto): Promise<BlogUserEntity>;
-  recoveryEmail(dto: RecoveryEmailDto): Promise<string | null>;
+  recoveryEmail(dto: RecoveryEmailDto): Promise<string>;
 }

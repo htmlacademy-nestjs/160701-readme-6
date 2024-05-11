@@ -160,17 +160,16 @@ export class AuthenticationController {
     const { email } = dto;
     const recoveryToken = await this.authService.recoveryEmail(dto);
 
-    if (recoveryToken) {
-      await this.passwordTokenService.deletePasswordTokensByEmail(email);
-      await this.passwordTokenService.createPasswordSession({
-        tokenId: recoveryToken,
-        userEmail: email,
-      });
-      await this.notifyService.recoveryEmail({
-        email,
-        recoveryToken,
-      });
-    }
+    await this.passwordTokenService.deletePasswordTokensByEmail(email);
+    await this.passwordTokenService.createPasswordSession({
+      tokenId: recoveryToken,
+      userEmail: email,
+    });
+    await this.notifyService.recoveryEmail({
+      email,
+      recoveryToken,
+    });
+
     return fillDto(RecoveryEmailRdo, {
       message: 'Recovery email sent successfully',
     });

@@ -160,7 +160,7 @@ export class AuthenticationService implements AuthService {
     const existUser = await this.blogUserRepository.findByEmail(dto.email);
 
     if (!existUser) {
-      return null;
+      throw new NotFoundException(`User with email: ${dto.email} not found`);
     }
 
     return randomUUID();
