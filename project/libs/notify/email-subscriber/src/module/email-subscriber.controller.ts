@@ -8,6 +8,7 @@ import {
   RabbitExchange,
   RabbitQueue,
   Post,
+  DeleteSubscriberDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
 
@@ -26,6 +27,15 @@ export class EmailSubscriberController {
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
     this.mailService.sendNotifyNewSubscriber(subscriber);
+  }
+
+  @RabbitSubscribe({
+    exchange: RabbitExchange.Income,
+    routingKey: RabbitRouting.DeleteSubscriber,
+    queue: RabbitQueue.Income,
+  })
+  public async delete({ email }: DeleteSubscriberDto) {
+    this.subscriberService.deleteSubscriber(email);
   }
 
   @RabbitSubscribe({

@@ -27,7 +27,11 @@ export class EmailSubscriberService {
     return emailSubscriber;
   }
 
+  public async deleteSubscriber(email: string) {
+    await this.emailSubscriberRepository.deleteByEmail(email);
+  }
+
   public async getAllSubscribers(): Promise<EmailSubscriberEntity[]> {
-    return await this.emailSubscriberRepository.findAll()
+    return await this.emailSubscriberRepository.findAll();
   }
 }

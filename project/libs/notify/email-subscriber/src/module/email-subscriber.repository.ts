@@ -35,4 +35,8 @@ export class EmailSubscriberRepository extends BaseMongoRepository<
 
     return documents.map((doc) => this.createEntityFromDocument(doc));
   }
+
+  public async deleteByEmail(email: string) {
+    await this.model.findOneAndDelete({ email }).exec();
+  }
 }

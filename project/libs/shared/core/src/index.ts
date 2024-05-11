@@ -46,6 +46,7 @@ export { RabbitQueue } from './lib/types/notify/rabbit-queue.enum';
 
 export { ChangeSubscriberPasswordDto } from './lib/dto/notify/change-password.dto';
 export { CreateSubscriberDto } from './lib/dto/notify/create-subscriber.dto';
+export { DeleteSubscriberDto } from './lib/dto/notify/delete-subscriber.dto';
 export { NotifyRecoveryEmailDto } from './lib/dto/notify/recovery-email.dto';
 
 export { ChangePasswordDto } from './lib/dto/users/change-password.dto';
