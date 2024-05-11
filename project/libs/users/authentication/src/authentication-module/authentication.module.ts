@@ -9,6 +9,7 @@ import { JwtConfigModule } from '@project/config';
 import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
 import { NotifyModule } from '@project/users-notify';
 import { PasswordTokenModule } from '../password-token-module/password-token.module';
+import { LocalStrategy } from '../strategies/local.strategy';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { PasswordTokenModule } from '../password-token-module/password-token.mod
     },
     AuthenticationService,
     JwtAccessStrategy,
+    LocalStrategy,
   ],
 })
 export class AuthenticationModule {}
