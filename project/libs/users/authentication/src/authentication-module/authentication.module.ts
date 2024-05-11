@@ -10,7 +10,7 @@ import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
 import { NotifyModule } from '@project/users-notify';
 import { PasswordTokenModule } from '../password-token-module/password-token.module';
 import { LocalStrategy } from '../strategies/local.strategy';
-
+import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy';
 @Module({
   imports: [
     PasswordTokenModule,
@@ -30,6 +30,7 @@ import { LocalStrategy } from '../strategies/local.strategy';
     },
     AuthenticationService,
     JwtAccessStrategy,
+    JwtRefreshStrategy,
     LocalStrategy,
   ],
 })

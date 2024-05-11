@@ -17,17 +17,14 @@ export class JwtConfigModule {
           useFactory: (configService: ConfigService) =>
             new JwtService(getJwtOptions('access', configService)),
         },
-        // {
-        //   provide: JWT_REFRESH_KEY,
-        //   inject: [ConfigService],
-        //   useFactory: (configService: ConfigService) =>
-        //     new JwtService(getJwtOptions('refresh', configService)),
-        // },
+        {
+          provide: JWT_REFRESH_KEY,
+          inject: [ConfigService],
+          useFactory: (configService: ConfigService) =>
+            new JwtService(getJwtOptions('refresh', configService)),
+        },
       ],
-      exports: [
-        JWT_ACCESS_KEY,
-        // JWT_REFRESH_KEY
-      ],
+      exports: [JWT_ACCESS_KEY, JWT_REFRESH_KEY],
     };
   }
 }
