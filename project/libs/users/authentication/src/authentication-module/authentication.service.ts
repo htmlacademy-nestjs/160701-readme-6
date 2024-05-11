@@ -29,7 +29,7 @@ import { AuthService } from './authentication.interface';
 import { Hasher } from '../hasher-module/hasher.interface';
 import { HasherComponent } from '../hasher-module/hasher.enum';
 import { JwtService } from '@nestjs/jwt';
-import { JWT_ACCESS_KEY } from '@project/config';
+import { JWT_ACCESS_KEY, JWT_REFRESH_KEY } from '@project/config';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { randomUUID } from 'node:crypto';
 
@@ -39,6 +39,8 @@ export class AuthenticationService implements AuthService {
     private readonly blogUserRepository: BlogUserRepository,
     @Inject(JWT_ACCESS_KEY)
     private readonly jwtAccessService: JwtService,
+    @Inject(JWT_REFRESH_KEY)
+    private readonly jwtRefreshService: JwtService,
     @Inject(HasherComponent.Service)
     private readonly hasherService: Hasher
   ) {}
@@ -110,17 +112,26 @@ export class AuthenticationService implements AuthService {
   }
 
   public async createUserToken(user: User): Promise<Token> {
-    const payload: TokenPayload = {
+    const accessTokenPayload: TokenPayload = {
       sub: String(user.id),
       email: user.email,
       role: user.role,
       firstname: user.firstname,
     };
+    const refreshTokenPayload = {
+      ...accessTokenPayload,
+      tokenId: crypto.randomUUID(),
+    };
 
     try {
-      const accessToken = await this.jwtAccessService.signAsync(payload);
+      const accessToken = await this.jwtAccessService.signAsync(
+        accessTokenPayload
+      );
+      const refreshToken = await this.jwtRefreshService.signAsync(
+        refreshTokenPayload
+      );
 
-      return { accessToken };
+      return { accessToken, refreshToken };
     } catch (error: any) {
       throw new HttpException(
         `Ошибка при создании токена: ${error?.message}`,
