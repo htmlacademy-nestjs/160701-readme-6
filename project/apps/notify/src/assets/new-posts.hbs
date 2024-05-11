@@ -1,0 +1,40 @@
+<h1>Список новых публикаций</h1>
+<p>{{username}}, предлагаем ознакомиться со списком наших новых публикаций.</p>
+
+<ul>
+  {{#each posts}}
+
+    <li class='post'>
+      <p><strong>Автор:</strong> {{authorId}}</p>
+      <p><strong>Пост создан:</strong> {{createdAt}}</p>
+      <p><strong>Тип поста</strong> {{type}}</p>
+
+      {{#if postVideo}}
+        <p><strong>Title</strong> {{postVideo.title}}</p>
+        <p><strong>Video URL:</strong> {{postVideo.url}}</p>
+      {{/if}}
+
+      {{#if postLink}}
+        <p><strong>Link URL:</strong> {{postLink.url}}</p>
+        <p><strong>Description:</strong> {{postLink.description}}</p>
+      {{/if}}
+
+      {{#if postQuote}}
+        <p><strong>Quote:</strong> {{postQuote.quoteContent}}</p>
+      {{/if}}
+
+      {{#if postPhoto}}
+        <p><strong>Photo ID:</strong> {{postPhoto.photoId}}</p>
+      {{/if}}
+
+      {{#if postText}}
+        <p><strong>Announcement:</strong> {{postText.announcement}}</p>
+        <p><strong>Content:</strong> {{postText.content}}</p>
+      {{/if}}
+    </li>
+
+  {{/each}}
+
+</ul>
+
+<p>Спасибо, что остаётесь с нами!</p>

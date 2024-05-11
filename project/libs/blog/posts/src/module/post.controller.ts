@@ -20,11 +20,17 @@ import { PostWithPaginationRdo } from './rdo/post-with-pagination.rdo';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostTypesRdo } from './rdo/post-types.rdo';
 import { CreatePostWithAuthorDto } from './dto/create-post.dto';
+import { Cron } from '@nestjs/schedule';
+import { CronTime } from '@project/shared/core';
+import { NotifyService } from '@project/blog-notify';
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly notifyService: NotifyService
+  ) {}
 
   @ApiResponse({
     type: PostTypesRdo,
@@ -112,5 +118,19 @@ export class PostController {
     const updatedPost = await this.postService.updatePost(id, dto);
 
     return fillDto(PostRdo, updatedPost.toPOJO());
+  }
+
+  @Cron(CronTime.EVERY_DAY_AT_18_00)
+  public async notifyNewPosts() {
+    const postsWithPagination = await this.postService.getNewPosts();
+    const result = {
+      ...postsWithPagination,
+      entities: postsWithPagination.entities.map((post) => post.toPOJO()),
+    };
+    const newPosts = result.entities;
+
+    if (newPosts.length) {
+      await this.notifyService.sendPosts(newPosts);
+    }
   }
 }

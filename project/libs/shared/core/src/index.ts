@@ -2,6 +2,7 @@ export { Entity } from './lib/base/entity';
 
 export { Token } from './lib/interfaces/token.interface';
 export { TokenPayload } from './lib/interfaces/token-payload.interface';
+export { PasswordToken } from './lib/interfaces/password-token.interface';
 
 export { UserRole } from './lib/types/user-role.enum';
 export { User } from './lib/types/user.interface';
@@ -33,3 +34,24 @@ export { VideoPostContent } from './lib/types/blog/posts/content/video-post-cont
 export { CreatePostDto } from './lib/dto/blog/create-post.dto';
 
 export { PostRdo } from './lib/rdo/blog/post.rdo';
+export { UploadedFileRdo } from './lib/rdo/file-vault/uploaded-file.rdo';
+
+export { File } from './lib/types/file-vault/file.interface';
+export { StoredFile } from './lib/types/file-vault/stored-file.interface';
+
+export { Subscriber } from './lib/types/notify/subscriber.interface';
+export { RabbitRouting } from './lib/types/notify/rabbit-routing.enum';
+export { RabbitExchange } from './lib/types/notify/rabbit-exchange.enum';
+export { RabbitQueue } from './lib/types/notify/rabbit-queue.enum';
+
+export { ChangeSubscriberPasswordDto } from './lib/dto/notify/change-password.dto';
+export { CreateSubscriberDto } from './lib/dto/notify/create-subscriber.dto';
+export { DeleteSubscriberDto } from './lib/dto/notify/delete-subscriber.dto';
+
+export { NotifyRecoveryEmailDto } from './lib/dto/notify/recovery-email.dto';
+export { RecoveryEmailRdo } from './lib/rdo/users/recovery-email.rdo';
+
+export { ChangePasswordDto } from './lib/dto/users/change-password.dto';
+export { ChangePasswordRdo } from './lib/rdo/users/change-password.rdo';
+
+export { CronTime } from './lib/types/cronTime.enum';

@@ -1,6 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { PaginationResult, PostStatus, PostType } from '@project/shared/core';
+import {
+  PaginationResult,
+  PostStatus,
+  PostType,
+  SortBy,
+  SortDirection,
+} from '@project/shared/core';
 
 import { PostRepository } from './repositories/post.repository';
 
@@ -69,5 +75,14 @@ export class PostService {
     const types = Object.values(PostType);
 
     return types;
+  }
+
+  public async getNewPosts() {
+    return this.postRepository.find({
+      sortBy: SortBy.createdAt,
+      sortDirection: SortDirection.Desc,
+      limit: 10,
+      page: 1,
+    });
   }
 }
