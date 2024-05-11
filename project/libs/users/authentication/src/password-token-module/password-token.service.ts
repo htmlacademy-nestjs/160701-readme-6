@@ -13,14 +13,14 @@ export class PasswordTokenService {
   constructor(
     private readonly passwordTokenRepository: PasswordTokenRepository,
     @Inject(passwordTokenConfig.KEY)
-    private readonly passwortTokenOptions: ConfigType<
+    private readonly passwordTokenOptions: ConfigType<
       typeof passwordTokenConfig
     >
   ) {}
 
   public async createPasswordSession(payload: PasswordToken) {
     const timeValue = parseTime(
-      this.passwortTokenOptions.passwordTokenExpiresIn
+      this.passwordTokenOptions.passwordTokenExpiresIn
     );
     const token = new PasswordTokenEntity({
       tokenId: payload.tokenId,
@@ -41,10 +41,7 @@ export class PasswordTokenService {
     return token !== null;
   }
 
-  public async deleteExpiredPasswordTokens(userEmail: string, expiresIn: Date) {
-    await this.passwordTokenRepository.deleteUserExpiredTokens(
-      userEmail,
-      expiresIn
-    );
+  public async deletePasswordTokensByEmail(email: string) {
+    return this.passwordTokenRepository.deleteByEmail(email);
   }
 }

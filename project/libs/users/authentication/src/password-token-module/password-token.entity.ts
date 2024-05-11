@@ -19,7 +19,7 @@ export class PasswordTokenEntity
       return;
     }
 
-    this.id = token.id ?? '';
+    this.id = token.id;
     this.createdAt = token.createdAt;
     this.expiresIn = token.expiresIn;
     this.userEmail = token.userEmail;

@@ -25,7 +25,11 @@ import { AuthenticationResponseMessage } from './authentication.constant';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { NotifyService } from '@project/users-notify';
-import { ChangePasswordDto, ChangePasswordRdo } from '@project/shared/core';
+import {
+  ChangePasswordDto,
+  ChangePasswordRdo,
+  RecoveryEmailRdo,
+} from '@project/shared/core';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { PasswordTokenService } from '../password-token-module/password-token.service';
 
@@ -36,7 +40,7 @@ export class AuthenticationController {
     @Inject('AuthService')
     private readonly authService: AuthService,
     private readonly notifyService: NotifyService,
-    private readonly passswortTokenService: PasswordTokenService
+    private readonly passwordTokenService: PasswordTokenService
   ) {}
 
   @ApiResponse({
@@ -147,33 +151,28 @@ export class AuthenticationController {
   }
 
   @ApiResponse({
-    status: HttpStatus.OK,
+    type: RecoveryEmailRdo,
+    status: HttpStatus.CREATED,
     description: 'Recovery email sent successfully',
   })
   @Post('recovery-email')
   public async recoveryPassword(@Body() dto: RecoveryEmailDto) {
+    const { email } = dto;
     const recoveryToken = await this.authService.recoveryEmail(dto);
 
     if (recoveryToken) {
-      const newTokenEntity = (
-        await this.passswortTokenService.createPasswordSession({
-          tokenId: recoveryToken,
-          userEmail: dto.email,
-        })
-      ).toPOJO();
-      await this.passswortTokenService.deleteExpiredPasswordTokens(
-        dto.email,
-        new Date(String(newTokenEntity.expiresIn))
-      );
+      await this.passwordTokenService.deletePasswordTokensByEmail(email);
+      await this.passwordTokenService.createPasswordSession({
+        tokenId: recoveryToken,
+        userEmail: email,
+      });
       await this.notifyService.recoveryEmail({
-        email: dto.email,
+        email,
         recoveryToken,
       });
     }
-
-    return {
-      recoveryToken,
+    return fillDto(RecoveryEmailRdo, {
       message: 'Recovery email sent successfully',
-    };
+    });
   }
 }
