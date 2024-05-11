@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -32,6 +33,8 @@ import {
 } from '@project/shared/core';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { PasswordTokenService } from '../password-token-module/password-token.service';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { RequestWithUser } from './request-with-user.interface';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -83,12 +86,12 @@ export class AuthenticationController {
     status: HttpStatus.UNAUTHORIZED,
     description: AuthenticationResponseMessage.LoggedError,
   })
+  @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-    const userToken = await this.authService.createUserToken(verifiedUser);
+  public async login(@Req() { user }: RequestWithUser) {
+    const userToken = await this.authService.createUserToken(user);
 
-    return fillDto(LoggedUserRdo, { ...verifiedUser.toPOJO(), ...userToken });
+    return fillDto(LoggedUserRdo, { ...user.toPOJO(), ...userToken });
   }
 
   @ApiResponse({

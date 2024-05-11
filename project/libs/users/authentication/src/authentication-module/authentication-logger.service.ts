@@ -4,6 +4,7 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { AuthService } from './authentication.interface';
 import { ChangePasswordDto, User } from '@project/shared/core';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
+import { BlogUserEntity } from '@project/blog-user';
 
 @Injectable()
 export class AuthenticationLoggerService implements AuthService {
@@ -35,7 +36,7 @@ export class AuthenticationLoggerService implements AuthService {
     return this.proxy.getUserByEmail(id);
   }
 
-  public async createUserToken(user: User) {
+  public async createUserToken(user: BlogUserEntity) {
     return this.proxy.createUserToken(user);
   }
   public async changePassword(id: string, dto: ChangePasswordDto) {
