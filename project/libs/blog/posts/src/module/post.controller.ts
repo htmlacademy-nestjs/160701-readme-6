@@ -120,7 +120,7 @@ export class PostController {
     return fillDto(PostRdo, updatedPost.toPOJO());
   }
 
-  @Cron(CronTime.EVERY_30_SECONDS)
+  @Cron(CronTime.EVERY_DAY_AT_18_00)
   public async notifyNewPosts() {
     const postsWithPagination = await this.postService.getNewPosts();
     const result = {
@@ -129,8 +129,8 @@ export class PostController {
     };
     const newPosts = result.entities;
 
-    console.log(`Отправлены новые посты, количество: ${newPosts.length}`);
-
-    await this.notifyService.sendPosts(newPosts);
+    if (newPosts.length) {
+      await this.notifyService.sendPosts(newPosts);
+    }
   }
 }
