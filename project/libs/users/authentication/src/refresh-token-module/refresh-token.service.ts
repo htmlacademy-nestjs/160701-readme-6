@@ -28,9 +28,8 @@ export class RefreshTokenService {
     return this.refreshTokenRepository.save(refreshToken);
   }
 
-  public async deleteRefreshSession(tokenId: string): Promise<void> {
-    await this.deleteExpiredRefreshTokens();
-    await this.refreshTokenRepository.deleteByTokenId(tokenId);
+  public async deleteRefreshSession(tokenId: string) {
+    return this.refreshTokenRepository.deleteByTokenId(tokenId);
   }
 
   public async isExists(tokenId: string): Promise<boolean> {
@@ -41,6 +40,6 @@ export class RefreshTokenService {
   }
 
   public async deleteExpiredRefreshTokens() {
-    await this.refreshTokenRepository.deleteExpiredTokens();
+    return this.refreshTokenRepository.deleteExpiredTokens();
   }
 }
