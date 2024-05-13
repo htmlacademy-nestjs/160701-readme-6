@@ -75,7 +75,7 @@ export class AuthenticationController {
       email,
       firstname,
       userId: String(id),
-    });
+    }); //TODO: перенести вызов в сервис
 
     return fillDto(UserRdo, newUser.toPOJO());
   }
@@ -156,7 +156,7 @@ export class AuthenticationController {
       email,
       firstname,
       userId: String(userId),
-    });
+    }); //TODO: перенести вызов в сервис
 
     return fillDto(ChangePasswordRdo, {
       message: 'Password changed successfully',
@@ -181,7 +181,7 @@ export class AuthenticationController {
     await this.notifyService.recoveryEmail({
       email,
       recoveryToken,
-    });
+    }); //TODO: перенести вызов в сервис
 
     return fillDto(RecoveryEmailRdo, {
       message: 'Recovery email sent successfully',
