@@ -32,6 +32,7 @@ import { JwtService } from '@nestjs/jwt';
 import { JWT_ACCESS_KEY, JWT_REFRESH_KEY } from '@project/config';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { randomUUID } from 'node:crypto';
+import { RefreshTokenService } from '../refresh-token-module/refresh-token.service';
 
 @Injectable()
 export class AuthenticationService implements AuthService {
@@ -42,7 +43,8 @@ export class AuthenticationService implements AuthService {
     @Inject(JWT_REFRESH_KEY)
     private readonly jwtRefreshService: JwtService,
     @Inject(HasherComponent.Service)
-    private readonly hasherService: Hasher
+    private readonly hasherService: Hasher,
+    private readonly refreshTokenService: RefreshTokenService
   ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
@@ -111,17 +113,24 @@ export class AuthenticationService implements AuthService {
     return existUser;
   }
 
-  public async createUserToken(user: User): Promise<Token> {
+  public async createUserToken({
+    id,
+    email,
+    role,
+    firstname,
+  }: User): Promise<Token> {
     const accessTokenPayload: TokenPayload = {
-      sub: String(user.id),
-      email: user.email,
-      role: user.role,
-      firstname: user.firstname,
+      sub: String(id),
+      email,
+      role,
+      firstname,
     };
     const refreshTokenPayload = {
       ...accessTokenPayload,
       tokenId: crypto.randomUUID(),
     };
+
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
 
     try {
       const accessToken = await this.jwtAccessService.signAsync(
