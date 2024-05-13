@@ -54,4 +54,6 @@ export { RecoveryEmailRdo } from './lib/rdo/users/recovery-email.rdo';
 export { ChangePasswordDto } from './lib/dto/users/change-password.dto';
 export { ChangePasswordRdo } from './lib/rdo/users/change-password.rdo';
 
+export { RefreshUserRdo } from './lib/rdo/users/refresh-user.rdo';
+
 export { CronTime } from './lib/types/cronTime.enum';

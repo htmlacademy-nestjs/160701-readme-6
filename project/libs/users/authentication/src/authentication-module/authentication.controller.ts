@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   HttpStatus,
   Inject,
   Param,
@@ -30,11 +31,13 @@ import {
   ChangePasswordDto,
   ChangePasswordRdo,
   RecoveryEmailRdo,
+  RefreshUserRdo,
 } from '@project/shared/core';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { PasswordTokenService } from '../password-token-module/password-token.service';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { RequestWithUser } from './request-with-user.interface';
+import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -176,5 +179,18 @@ export class AuthenticationController {
     return fillDto(RecoveryEmailRdo, {
       message: 'Recovery email sent successfully',
     });
+  }
+
+  @ApiBearerAuth(AuthKeyName)
+  @UseGuards(JwtRefreshGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    type: RefreshUserRdo,
+    status: HttpStatus.OK,
+    description: 'Get a new access/refresh tokens',
+  })
+  @Post('refresh')
+  public async refreshToken(@Req() { user }: RequestWithUser) {
+    return this.authService.createUserToken(user);
   }
 }
