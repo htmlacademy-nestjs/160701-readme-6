@@ -88,6 +88,10 @@ export class AuthenticationController {
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
     description: AuthenticationResponseMessage.LoggedError,
+    schema: generateSchemeApiError(
+      AuthenticationResponseMessage.UserOrPasswordNotCorrect,
+      HttpStatus.UNAUTHORIZED
+    ),
   })
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -122,8 +126,11 @@ export class AuthenticationController {
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: 'User not found',
-    schema: generateSchemeApiError('User not found', HttpStatus.NOT_FOUND),
+    description: AuthenticationResponseMessage.UserNotFound,
+    schema: generateSchemeApiError(
+      AuthenticationResponseMessage.UserNotFound,
+      HttpStatus.NOT_FOUND
+    ),
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,

@@ -12,4 +12,5 @@ export const AuthenticationResponseMessage = {
   UserNotFound: 'User not found',
   UserExist: 'User with the email already exists',
   UserCreated: 'The new user has been successfully created.',
+  UserOrPasswordNotCorrect: AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
 } as const;
