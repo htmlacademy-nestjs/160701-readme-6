@@ -20,9 +20,9 @@ export class EmailSubscriberController {
   ) {}
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.Income,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.AddSubscriber,
-    queue: RabbitQueue.Income,
+    queue: RabbitQueue.Subscribers,
   })
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
@@ -30,16 +30,16 @@ export class EmailSubscriberController {
   }
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.Income,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.DeleteSubscriber,
-    queue: RabbitQueue.Income,
+    queue: RabbitQueue.Subscribers,
   })
   public async delete({ email }: DeleteSubscriberDto) {
     this.subscriberService.deleteSubscriber(email);
   }
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.SendNewPosts,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.SendNewPosts,
     queue: RabbitQueue.SendNewPosts,
   })

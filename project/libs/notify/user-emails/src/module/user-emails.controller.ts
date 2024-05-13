@@ -15,7 +15,7 @@ export class UserEmailsController {
   constructor(private readonly mailService: MailService) {}
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.ChangePassword,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.ChangePassword,
     queue: RabbitQueue.ChangePassword,
   })
@@ -24,7 +24,7 @@ export class UserEmailsController {
   }
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.RecoveryEmail,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.RecoveryEmail,
     queue: RabbitQueue.RecoveryEmail,
   })

@@ -14,7 +14,7 @@ export class NotifyService {
 
   public async registerSubscriber(dto: CreateSubscriberDto) {
     return this.rabbitClient.publish<CreateSubscriberDto>(
-      RabbitExchange.Income,
+      RabbitExchange.Notify,
       RabbitRouting.AddSubscriber,
       dto
     );
@@ -22,7 +22,7 @@ export class NotifyService {
 
   public async changePassword(dto: ChangeSubscriberPasswordDto) {
     return this.rabbitClient.publish<ChangeSubscriberPasswordDto>(
-      RabbitExchange.ChangePassword,
+      RabbitExchange.Notify,
       RabbitRouting.ChangePassword,
       dto
     );
@@ -30,7 +30,7 @@ export class NotifyService {
 
   public async recoveryEmail(dto: NotifyRecoveryEmailDto) {
     return this.rabbitClient.publish<NotifyRecoveryEmailDto>(
-      RabbitExchange.RecoveryEmail,
+      RabbitExchange.Notify,
       RabbitRouting.RecoveryEmail,
       dto
     );
