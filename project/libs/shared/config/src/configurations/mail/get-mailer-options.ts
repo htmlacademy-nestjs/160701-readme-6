@@ -2,12 +2,15 @@ import { MailerAsyncOptions } from '@nestjs-modules/mailer/dist/interfaces/maile
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ConfigService } from '@nestjs/config';
 import { resolve } from 'node:path';
+import { MailerOptions } from '@nestjs-modules/mailer';
 
 export function getMailerAsyncOptions(
   optionSpace = 'mail'
 ): MailerAsyncOptions {
   return {
-    useFactory: async (configService: ConfigService) => {
+    useFactory: async (
+      configService: ConfigService
+    ): Promise<MailerOptions> => {
       return {
         transport: {
           host: configService.get<string>(`${optionSpace}.host`),
