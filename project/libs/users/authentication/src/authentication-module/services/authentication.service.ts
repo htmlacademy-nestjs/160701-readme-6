@@ -18,10 +18,8 @@ import {
   User,
   UserRole,
 } from '@project/shared/core';
-import {
-  AUTH_USER_EXISTS,
-  AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
-  OLD_PASSWORD_NOT_CORRECT,
+import {  
+  AuthenticationResponseMessage,  
 } from '../authentication.constant';
 
 import { LoginUserDto } from '../../dto/login-user.dto';
@@ -52,7 +50,7 @@ export class AuthenticationService implements AuthService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (existUser) {
-      throw new ConflictException(`${AUTH_USER_EXISTS}: ${email}`);
+      throw new ConflictException(`${AuthenticationResponseMessage.UserExist}: ${email}`);
     }
 
     const passwordHash = await this.hasherService.generatePasswordHash(
@@ -78,7 +76,7 @@ export class AuthenticationService implements AuthService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new UnauthorizedException(AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG);
+      throw new UnauthorizedException(AuthenticationResponseMessage.LoggedError);
     }
 
     const isEqualPassword = await this.hasherService.comparePassword({
@@ -87,7 +85,7 @@ export class AuthenticationService implements AuthService {
     });
 
     if (!isEqualPassword) {
-      throw new UnauthorizedException(AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG);
+      throw new UnauthorizedException(AuthenticationResponseMessage.LoggedError);
     }
 
     return existUser;
@@ -163,7 +161,7 @@ export class AuthenticationService implements AuthService {
     });
 
     if (!isOldPasswordCorrect) {
-      throw new BadRequestException(OLD_PASSWORD_NOT_CORRECT);
+      throw new BadRequestException(AuthenticationResponseMessage.OldPasswordNotCorrect);
     }
 
     const passwordHash = await this.hasherService.generatePasswordHash(
