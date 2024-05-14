@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ApiConfigModule } from '@project/config';
-import {
-  HTTP_CLIENT_MAX_REDIRECTS,
-  HTTP_CLIENT_TIMEOUT
-} from './app.config'
+import { HTTP_CLIENT_MAX_REDIRECTS, HTTP_CLIENT_TIMEOUT } from './app.config';
 import { HttpModule } from '@nestjs/axios';
+import { BlogController } from './controllers/blog.controlller';
+import { UsersController } from './controllers/users.controller';
+import { ApiService } from './service/api.service';
 
 @Module({
   imports: [
@@ -14,7 +14,10 @@ import { HttpModule } from '@nestjs/axios';
       maxRedirects: HTTP_CLIENT_MAX_REDIRECTS,
     }),
   ],
-  controllers: [],
-  providers: [],
+  controllers: [
+    // BlogController,
+    UsersController,
+  ],
+  providers: [ApiService],
 })
 export class AppModule {}
