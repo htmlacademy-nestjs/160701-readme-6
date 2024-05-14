@@ -129,17 +129,12 @@ export class AuthenticationController {
   })
   @ApiBearerAuth(AuthKeyName)
   @UseGuards(JwtAuthGuard)
-  @Patch('change-password/:sub')
+  @Patch('change-password')
   public async changePassword(
-    // @Req() { user }: RequestWithTokenPayload,
-    @Param('sub', MongoIdValidationPipe) sub: string,
+    @Req() { user }: RequestWithUser,
     @Body() dto: ChangePasswordDto
   ) {
-    await this.authService.changePassword(
-      // String(user?.sub),
-      sub,
-      dto
-    );
+    await this.authService.changePassword(String(user?.id), dto);
 
     return fillDto(ChangePasswordRdo, {
       message: 'Password changed successfully',
