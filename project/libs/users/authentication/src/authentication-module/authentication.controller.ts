@@ -36,7 +36,7 @@ import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { RequestWithUser } from './request-with-user.interface';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { LoginUserDto } from '../dto/login-user.dto';
-import { RequestWithTokenPayload } from './request-with-token-payload';
+import { RequestWithTokenPayload } from './request-with-token-payload.interface';
 
 @ApiTags('auth')
 @Controller('auth')
