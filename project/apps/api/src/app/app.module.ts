@@ -5,6 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { BlogController } from './controllers/blog.controlller';
 import { UsersController } from './controllers/users.controller';
 import { ApiService } from './service/api.service';
+import { CheckAuthGuard } from './guards/check-auth.guard';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { ApiService } from './service/api.service';
     // BlogController,
     UsersController,
   ],
-  providers: [ApiService],
+  providers: [CheckAuthGuard,ApiService],
 })
 export class AppModule {}
