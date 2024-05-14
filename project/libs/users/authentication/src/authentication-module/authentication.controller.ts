@@ -20,7 +20,16 @@ import {
 import { UserRdo } from '../rdo/user.rdo';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { AuthService } from './services/authentication-service.interface';
-import { ApiBearerAuth, ApiResponse, ApiTags , ApiNotFoundResponse, ApiCreatedResponse, ApiConflictResponse, ApiUnprocessableEntityResponse, ApiBadRequestResponse, ApiOkResponse, ApiUnauthorizedResponse} from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiNotFoundResponse,
+  ApiCreatedResponse,
+  ApiConflictResponse,
+  ApiBadRequestResponse,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { AuthenticationResponseMessage } from './authentication.constant';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
@@ -46,18 +55,22 @@ export class AuthenticationController {
     private readonly authService: AuthService,
     private readonly passwordTokenService: PasswordTokenService
   ) {}
-@ApiCreatedResponse({type:UserRdo, description: AuthenticationResponseMessage.UserCreated})
-@ApiConflictResponse({
-  description: AuthenticationResponseMessage.UserExist,
-  schema: generateSchemeApiError(
-  AuthenticationResponseMessage.UserExist,
-  HttpStatus.CONFLICT
-)})
-@ApiBadRequestResponse({
-  description: 'Bad request data',
-  schema: generateSchemeApiError('Bad request data', HttpStatus.BAD_REQUEST),
-})
 
+  @ApiCreatedResponse({
+    type: UserRdo,
+    description: AuthenticationResponseMessage.UserCreated,
+  })
+  @ApiConflictResponse({
+    description: AuthenticationResponseMessage.UserExist,
+    schema: generateSchemeApiError(
+      AuthenticationResponseMessage.UserExist,
+      HttpStatus.CONFLICT
+    ),
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad request data',
+    schema: generateSchemeApiError('Bad request data', HttpStatus.BAD_REQUEST),
+  })
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
@@ -65,8 +78,10 @@ export class AuthenticationController {
     return fillDto(UserRdo, newUser.toPOJO());
   }
 
-
-  @ApiOkResponse({type:LoggedUserRdo, description: AuthenticationResponseMessage.LoggedSuccess})
+  @ApiOkResponse({
+    type: LoggedUserRdo,
+    description: AuthenticationResponseMessage.LoggedSuccess,
+  })
   @ApiUnauthorizedResponse({
     description: AuthenticationResponseMessage.LoggedError,
     schema: generateSchemeApiError(
@@ -74,7 +89,6 @@ export class AuthenticationController {
       HttpStatus.UNAUTHORIZED
     ),
   })
-
   @UseGuards(LocalAuthGuard)
   @Post('login')
   public async login(
@@ -93,7 +107,6 @@ export class AuthenticationController {
   @ApiNotFoundResponse({
     description: AuthenticationResponseMessage.UserNotFound,
   })
-
   @ApiBearerAuth(AuthKeyName)
   @UseGuards(JwtAuthGuard)
   @Get(':id')
@@ -102,7 +115,6 @@ export class AuthenticationController {
 
     return fillDto(UserRdo, existUser.toPOJO());
   }
-
 
   @ApiOkResponse({
     type: ChangePasswordRdo,
@@ -132,7 +144,6 @@ export class AuthenticationController {
     });
   }
 
-
   @ApiCreatedResponse({
     type: RecoveryEmailRdo,
     description: AuthenticationResponseMessage.RecoveryEmailSuccess,
@@ -158,7 +169,7 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({
     type: RefreshUserRdo,
-    description: AuthenticationResponseMessage.NewJWTTokensSuccess
+    description: AuthenticationResponseMessage.NewJWTTokensSuccess,
   })
   @Post('refresh')
   public async refreshToken(@Req() { user }: RequestWithUser) {
