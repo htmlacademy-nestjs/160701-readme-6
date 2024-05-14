@@ -9,24 +9,23 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
-import { CreateUserDto } from '../../dto/create-user.dto';
 import {
   AuthUser,
   ChangePasswordDto,
+  CreateUserDto,
+  LoginUserDto,
+  RecoveryEmailDto,
   Token,
   TokenPayload,
   User,
   UserRole,
 } from '@project/shared/core';
 import { AuthenticationResponseMessage } from '../authentication.constant';
-
-import { LoginUserDto } from '../../dto/login-user.dto';
 import { AuthService } from './authentication-service.interface';
 import { Hasher } from '../../hasher-module/hasher.interface';
 import { HasherComponent } from '../../hasher-module/hasher.enum';
 import { JwtService } from '@nestjs/jwt';
 import { JWT_ACCESS_KEY, JWT_REFRESH_KEY } from '@project/config';
-import { RecoveryEmailDto } from '../../dto/recovery-email.dto';
 import { randomUUID } from 'node:crypto';
 import { RefreshTokenService } from '../../refresh-token-module/refresh-token.service';
 

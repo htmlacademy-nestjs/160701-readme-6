@@ -39,6 +39,7 @@ export {
   CreateUserDtoWithAvatarFile,
 } from './lib/dto/users/create-user.dto';
 export { LoginUserDto } from './lib/dto/users/login-user.dto';
+export { RecoveryEmailDto } from './lib/dto/users/recovery-email.dto';
 
 export { PostRdo } from './lib/rdo/blog/post.rdo';
 export { UploadedFileRdo } from './lib/rdo/file-vault/uploaded-file.rdo';

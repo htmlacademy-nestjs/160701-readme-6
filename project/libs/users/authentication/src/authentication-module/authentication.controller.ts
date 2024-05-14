@@ -5,19 +5,22 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
-  Param,
   Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
 import {
   AuthKeyName,
   fillDto,
   generateSchemeApiError,
 } from '@project/shared/helpers';
-import { UserRdo } from '@project/shared/core';
+import {
+  CreateUserDto,
+  LoginUserDto,
+  RecoveryEmailDto,
+  UserRdo,
+} from '@project/shared/core';
 import { LoggedUserRdo } from '@project/shared/core';
 import { AuthService } from './services/authentication-service.interface';
 import {
@@ -31,7 +34,6 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AuthenticationResponseMessage } from './authentication.constant';
-import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import {
   ChangePasswordDto,
@@ -39,12 +41,10 @@ import {
   RecoveryEmailRdo,
   RefreshUserRdo,
 } from '@project/shared/core';
-import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { PasswordTokenService } from '../password-token-module/password-token.service';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { RequestWithUser } from './request-with-user.interface';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
-import { LoginUserDto } from '../dto/login-user.dto';
 import { RequestWithTokenPayload } from './request-with-token-payload.interface';
 
 @ApiTags('auth')
@@ -89,6 +89,7 @@ export class AuthenticationController {
       HttpStatus.UNAUTHORIZED
     ),
   })
+  @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Post('login')
   public async login(
@@ -109,9 +110,11 @@ export class AuthenticationController {
   })
   @ApiBearerAuth(AuthKeyName)
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  public async show(@Param('id', MongoIdValidationPipe) id: string) {
-    const existUser = await this.authService.getUserById(id);
+  @Get('info')
+  public async show(@Req() { user }: RequestWithTokenPayload) {
+    const existUser = await this.authService.getUserByEmail(
+      String(user?.email)
+    );
 
     return fillDto(UserRdo, existUser.toPOJO());
   }
@@ -165,17 +168,18 @@ export class AuthenticationController {
   }
 
   @ApiBearerAuth(AuthKeyName)
-  @UseGuards(JwtRefreshGuard)
-  @HttpCode(HttpStatus.OK)
   @ApiOkResponse({
     type: RefreshUserRdo,
     description: AuthenticationResponseMessage.NewJWTTokensSuccess,
   })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtRefreshGuard)
   @Post('refresh')
   public async refreshToken(@Req() { user }: RequestWithUser) {
     return this.authService.createUserToken(user);
   }
 
+  @ApiBearerAuth(AuthKeyName)
   @UseGuards(JwtAuthGuard)
   @Post('check')
   public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
