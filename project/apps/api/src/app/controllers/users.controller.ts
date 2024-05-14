@@ -19,6 +19,8 @@ import {
   RefreshUserRdo,
   ChangePasswordRdo,
   UserRdo,
+  RecoveryEmailRdo,
+  RecoveryEmailDto,
 } from '@project/shared/core';
 
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
@@ -27,6 +29,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
+  ApiCreatedResponse,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -168,12 +171,29 @@ export class UsersController {
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
   @Patch('change-password')
-  public async changePassword(@Req() req: any, @Body() dto: ChangePasswordDto) {
+  public async changePassword(
+    @Req() req: Request,
+    @Body() dto: ChangePasswordDto
+  ) {
     const data = await this.apiService.users<UserRdo>({
       method: 'patch',
       endpoint: 'change-password',
       data: dto,
       options: this.apiService.getAuthorizationHeader(req),
+    });
+
+    return data;
+  }
+
+  @ApiCreatedResponse({
+    type: RecoveryEmailRdo,
+  })
+  @Post('recovery-email')
+  public async recoveryPassword(@Body() dto: RecoveryEmailDto) {
+    const data = await this.apiService.users<RecoveryEmailRdo>({
+      method: 'post',
+      endpoint: 'recovery-email',
+      data: dto,
     });
 
     return data;
