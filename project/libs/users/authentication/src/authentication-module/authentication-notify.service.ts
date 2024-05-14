@@ -5,13 +5,26 @@ import { AuthService } from './authentication.interface';
 import { ChangePasswordDto } from '@project/shared/core';
 import { RecoveryEmailDto } from '../dto/recovery-email.dto';
 import { BlogUserEntity } from '@project/blog-user';
+import { NotifyService } from '@project/users-notify';
 
 @Injectable()
-export class AuthenticationMailerService implements AuthService {
-  constructor(private readonly proxy: AuthService) {}
+export class AuthenticationNotifyService implements AuthService {
+  constructor(
+    private readonly proxy: AuthService,
+    private readonly notifyService: NotifyService
+  ) {}
 
   public async register(dto: CreateUserDto) {
-    return this.proxy.register(dto);
+    const newUser = await this.proxy.register(dto);
+    const { email, firstname, id } = newUser;
+
+    await this.notifyService.registerSubscriber({
+      email,
+      firstname,
+      userId: String(id),
+    });
+
+    return newUser;
   }
 
   public async verifyUser(dto: LoginUserDto) {
@@ -31,10 +44,27 @@ export class AuthenticationMailerService implements AuthService {
   }
 
   public async changePassword(id: string, dto: ChangePasswordDto) {
-    return this.proxy.changePassword(id, dto);
+    const userEntity = await this.proxy.changePassword(id, dto);
+    const { email, firstname, id: userId } = userEntity.toPOJO();
+
+    await this.notifyService.changePassword({
+      email,
+      firstname,
+      userId: String(userId),
+    });
+
+    return userEntity;
   }
 
   public async recoveryEmail(dto: RecoveryEmailDto) {
-    return this.proxy.recoveryEmail(dto);
+    const { email } = dto;
+    const recoveryToken = await this.proxy.recoveryEmail(dto);
+
+    await this.notifyService.recoveryEmail({
+      email,
+      recoveryToken,
+    });
+
+    return recoveryToken;
   }
 }

@@ -12,6 +12,9 @@ import { PasswordTokenModule } from '../password-token-module/password-token.mod
 import { LocalStrategy } from '../strategies/local.strategy';
 import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy';
 import { RefreshTokenModule } from '../refresh-token-module/refresh-token.module';
+import { NotifyService } from '@project/users-notify';
+import { AuthenticationNotifyService } from './authentication-notify.service';
+
 @Module({
   imports: [
     PasswordTokenModule,
@@ -25,10 +28,18 @@ import { RefreshTokenModule } from '../refresh-token-module/refresh-token.module
   providers: [
     {
       provide: 'AuthService',
-      useFactory: (authService: AuthenticationService): AuthService => {
-        return new AuthenticationLoggerService(authService);
+      useFactory: (
+        authService: AuthenticationService,
+        authNotifyService: NotifyService
+      ): AuthService => {
+        const authenticationNotifyService = new AuthenticationNotifyService(
+          authService,
+          authNotifyService
+        );
+
+        return new AuthenticationLoggerService(authenticationNotifyService);
       },
-      inject: [AuthenticationService],
+      inject: [AuthenticationService, NotifyService],
     },
     AuthenticationService,
     JwtAccessStrategy,

@@ -8,7 +8,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -19,14 +18,12 @@ import {
   generateSchemeApiError,
 } from '@project/shared/helpers';
 import { UserRdo } from '../rdo/user.rdo';
-import { LoginUserDto } from '../dto/login-user.dto';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { AuthService } from './authentication.interface';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthenticationResponseMessage } from './authentication.constant';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { NotifyService } from '@project/users-notify';
 import {
   ChangePasswordDto,
   ChangePasswordRdo,
@@ -45,7 +42,6 @@ export class AuthenticationController {
   constructor(
     @Inject('AuthService')
     private readonly authService: AuthService,
-    private readonly notifyService: NotifyService,
     private readonly passwordTokenService: PasswordTokenService
   ) {}
 
@@ -70,12 +66,6 @@ export class AuthenticationController {
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
-    const { email, firstname, id } = newUser;
-    await this.notifyService.registerSubscriber({
-      email,
-      firstname,
-      userId: String(id),
-    }); //TODO: перенести вызов в сервис
 
     return fillDto(UserRdo, newUser.toPOJO());
   }
@@ -145,18 +135,11 @@ export class AuthenticationController {
     @Param('sub', MongoIdValidationPipe) sub: string,
     @Body() dto: ChangePasswordDto
   ) {
-    const newUser = await this.authService.changePassword(
+    await this.authService.changePassword(
       // String(user?.sub),
       sub,
       dto
     );
-    const { email, firstname, id: userId } = newUser.toPOJO();
-
-    await this.notifyService.changePassword({
-      email,
-      firstname,
-      userId: String(userId),
-    }); //TODO: перенести вызов в сервис
 
     return fillDto(ChangePasswordRdo, {
       message: 'Password changed successfully',
@@ -178,10 +161,6 @@ export class AuthenticationController {
       tokenId: recoveryToken,
       userEmail: email,
     });
-    await this.notifyService.recoveryEmail({
-      email,
-      recoveryToken,
-    }); //TODO: перенести вызов в сервис
 
     return fillDto(RecoveryEmailRdo, {
       message: 'Recovery email sent successfully',
