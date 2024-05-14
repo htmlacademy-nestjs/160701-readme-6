@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@project/shared/core';
 import { Expose, Transform } from 'class-transformer';
+import { User } from '../../types/user.interface';
 
 export class UserRdo implements Omit<User, 'role'> {
   @Expose()

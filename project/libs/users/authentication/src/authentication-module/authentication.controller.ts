@@ -17,8 +17,8 @@ import {
   fillDto,
   generateSchemeApiError,
 } from '@project/shared/helpers';
-import { UserRdo } from '../rdo/user.rdo';
-import { LoggedUserRdo } from '../rdo/logged-user.rdo';
+import { UserRdo } from '@project/shared/core';
+import { LoggedUserRdo } from '@project/shared/core';
 import { AuthService } from './services/authentication-service.interface';
 import {
   ApiBearerAuth,

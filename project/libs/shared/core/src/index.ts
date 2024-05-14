@@ -34,9 +34,16 @@ export { TextPostContent } from './lib/types/blog/posts/content/text-post-conten
 export { VideoPostContent } from './lib/types/blog/posts/content/video-post-content.interface';
 
 export { CreatePostDto } from './lib/dto/blog/create-post.dto';
+export {
+  CreateUserDto,
+  CreateUserDtoWithAvatarFile,
+} from './lib/dto/users/create-user.dto';
+export { LoginUserDto } from './lib/dto/users/login-user.dto';
 
 export { PostRdo } from './lib/rdo/blog/post.rdo';
 export { UploadedFileRdo } from './lib/rdo/file-vault/uploaded-file.rdo';
+export { LoggedUserRdo } from './lib/rdo/users/logged-user.rdo';
+export { UserRdo } from './lib/rdo/users/user.rdo';
 
 export { File } from './lib/types/file-vault/file.interface';
 export { StoredFile } from './lib/types/file-vault/stored-file.interface';
