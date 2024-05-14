@@ -8,7 +8,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-// import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
+import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 // import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
@@ -24,7 +24,7 @@ import { PostRdo } from '../rdo/post.rdo';
 
 @ApiTags('posts')
 @Controller('posts')
-// @UseFilters(AxiosExceptionFilter)
+@UseFilters(AxiosExceptionFilter)
 export class BlogController {
   constructor(private readonly apiService: ApiService) {}
 

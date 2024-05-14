@@ -12,7 +12,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Request } from 'express';
-// import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
+import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 import {
   UploadedFileRdo,
   LoggedUserRdo,
@@ -45,7 +45,7 @@ import { ALLOWED_IMG_MIMETYPES, User } from '@project/validation';
 
 @ApiTags('auth')
 @Controller('auth')
-// @UseFilters(AxiosExceptionFilter)
+@UseFilters(AxiosExceptionFilter)
 export class UsersController {
   constructor(private readonly apiService: ApiService) {}
 
