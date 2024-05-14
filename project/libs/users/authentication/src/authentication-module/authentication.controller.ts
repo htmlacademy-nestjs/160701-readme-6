@@ -35,6 +35,8 @@ import { PasswordTokenService } from '../password-token-module/password-token.se
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { RequestWithUser } from './request-with-user.interface';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
+import { LoginUserDto } from '../dto/login-user.dto';
+import { RequestWithTokenPayload } from './request-with-token-payload';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -85,7 +87,10 @@ export class AuthenticationController {
   })
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login(@Req() { user }: RequestWithUser) {
+  public async login(
+    @Req() { user }: RequestWithUser,
+    @Body() _: LoginUserDto
+  ) {
     const userToken = await this.authService.createUserToken(user);
 
     return fillDto(LoggedUserRdo, { ...user.toPOJO(), ...userToken });
@@ -131,10 +136,10 @@ export class AuthenticationController {
   @UseGuards(JwtAuthGuard)
   @Patch('change-password')
   public async changePassword(
-    @Req() { user }: RequestWithUser,
+    @Req() { user }: RequestWithTokenPayload,
     @Body() dto: ChangePasswordDto
   ) {
-    await this.authService.changePassword(String(user?.id), dto);
+    await this.authService.changePassword(String(user?.sub), dto);
 
     return fillDto(ChangePasswordRdo, {
       message: 'Password changed successfully',
