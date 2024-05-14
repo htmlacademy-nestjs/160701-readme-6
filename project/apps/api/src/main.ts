@@ -10,11 +10,13 @@ import { AppModule } from './app/app.module';
 import { AuthKeyName, attachSwagger } from '@project/shared/helpers';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { RequestIdInterceptor } from '@project/interceptors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+  app.useGlobalInterceptors(new RequestIdInterceptor());
 
   attachSwagger({
     app,
