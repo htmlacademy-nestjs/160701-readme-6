@@ -9,7 +9,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
-// import { CheckAuthGuard } from '../guards/check-auth.guard';
+import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
 import { CreatePostDto, UploadedFileRdo, UserRdo } from '@project/shared/core';
@@ -37,7 +37,7 @@ export class BlogController {
   @ApiOperation({
     summary: 'Создать пост',
   })
-  // @UseGuards(CheckAuthGuard)
+  @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
   @Post('/')
   public async create(@Body() dto: CreatePostDto, @Req() req: any) {

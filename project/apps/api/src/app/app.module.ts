@@ -16,7 +16,7 @@ import { CheckAuthGuard } from './guards/check-auth.guard';
     }),
   ],
   controllers: [
-    // BlogController,
+    BlogController,
     UsersController,
   ],
   providers: [CheckAuthGuard,ApiService],

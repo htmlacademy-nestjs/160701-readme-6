@@ -31,11 +31,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-// import { CheckAuthGuard } from '../guards/check-auth.guard';
+import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import FormData from 'form-data';
 import { FileValidationPipe } from '@project/pipes';
-
+import { InjectUserIdInterceptor } from '@project/interceptors';
 import {
   ChangePasswordDto,
   LoginUserDto,
@@ -119,7 +119,8 @@ export class UsersController {
     description: 'Get a new access/refresh tokens',
   })
   @ApiBearerAuth(AuthKeyName)
-  // @UseGuards(CheckAuthGuard)
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
   @Post('refresh')
   public async refreshToken(@Req() req: Request) {
     const data = await this.apiService.users<UserRdo>({
@@ -137,6 +138,7 @@ export class UsersController {
     description: 'User found',
   })
   @ApiBearerAuth(AuthKeyName)
+  @UseGuards(CheckAuthGuard)
   @Get('info')
   public async info(@Req() req: Request) {
     const user = await this.apiService.users<UserRdo>({
@@ -154,7 +156,7 @@ export class UsersController {
       user.avatar = file.path;
     }
 
-    return fillDto(UserRdo, user);
+    return user;
   }
 
   @ApiResponse({
@@ -163,6 +165,8 @@ export class UsersController {
     description: 'Password changed successfully',
   })
   @ApiBearerAuth(AuthKeyName)
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
   @Patch('change-password')
   public async changePassword(@Req() req: any, @Body() dto: ChangePasswordDto) {
     const data = await this.apiService.users<UserRdo>({
@@ -172,6 +176,6 @@ export class UsersController {
       options: this.apiService.getAuthorizationHeader(req),
     });
 
-    return fillDto(ChangePasswordRdo, data);
+    return data;
   }
 }
