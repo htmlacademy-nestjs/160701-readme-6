@@ -9,7 +9,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../../dto/create-user.dto';
 import {
   AuthUser,
   ChangePasswordDto,
@@ -22,17 +22,17 @@ import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND_OR_PASSWORD_WRONG,
   OLD_PASSWORD_NOT_CORRECT,
-} from './authentication.constant';
+} from '../authentication.constant';
 
-import { LoginUserDto } from '../dto/login-user.dto';
-import { AuthService } from './authentication.interface';
-import { Hasher } from '../hasher-module/hasher.interface';
-import { HasherComponent } from '../hasher-module/hasher.enum';
+import { LoginUserDto } from '../../dto/login-user.dto';
+import { AuthService } from './authentication-service.interface';
+import { Hasher } from '../../hasher-module/hasher.interface';
+import { HasherComponent } from '../../hasher-module/hasher.enum';
 import { JwtService } from '@nestjs/jwt';
 import { JWT_ACCESS_KEY, JWT_REFRESH_KEY } from '@project/config';
-import { RecoveryEmailDto } from '../dto/recovery-email.dto';
+import { RecoveryEmailDto } from '../../dto/recovery-email.dto';
 import { randomUUID } from 'node:crypto';
-import { RefreshTokenService } from '../refresh-token-module/refresh-token.service';
+import { RefreshTokenService } from '../../refresh-token-module/refresh-token.service';
 
 @Injectable()
 export class AuthenticationService implements AuthService {

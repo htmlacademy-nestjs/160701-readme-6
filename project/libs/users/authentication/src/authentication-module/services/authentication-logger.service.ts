@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { LoginUserDto } from '../dto/login-user.dto';
-import { AuthService } from './authentication.interface';
+import { CreateUserDto } from '../../dto/create-user.dto';
+import { LoginUserDto } from '../../dto/login-user.dto';
+import { AuthService } from './authentication-service.interface';
 import { ChangePasswordDto, User } from '@project/shared/core';
-import { RecoveryEmailDto } from '../dto/recovery-email.dto';
+import { RecoveryEmailDto } from '../../dto/recovery-email.dto';
 import { BlogUserEntity } from '@project/blog-user';
 
 @Injectable()

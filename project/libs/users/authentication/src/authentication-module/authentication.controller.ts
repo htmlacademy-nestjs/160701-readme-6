@@ -19,7 +19,7 @@ import {
 } from '@project/shared/helpers';
 import { UserRdo } from '../rdo/user.rdo';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
-import { AuthService } from './authentication.interface';
+import { AuthService } from './services/authentication-service.interface';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthenticationResponseMessage } from './authentication.constant';
 import { MongoIdValidationPipe } from '@project/pipes';

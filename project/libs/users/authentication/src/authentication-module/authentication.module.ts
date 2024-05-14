@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AuthenticationController } from './authentication.controller';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from './services/authentication.service';
 import { BlogUserModule } from '@project/blog-user';
 import { HasherModule } from '../hasher-module/hasher.module';
-import { AuthService } from './authentication.interface';
-import { AuthenticationLoggerService } from './authentication-logger.service';
+import { AuthService } from './services/authentication-service.interface';
+import { AuthenticationLoggerService } from './services/authentication-logger.service';
 import { JwtConfigModule } from '@project/config';
 import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
 import { NotifyModule } from '@project/users-notify';
@@ -13,7 +13,7 @@ import { LocalStrategy } from '../strategies/local.strategy';
 import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy';
 import { RefreshTokenModule } from '../refresh-token-module/refresh-token.module';
 import { NotifyService } from '@project/users-notify';
-import { AuthenticationNotifyService } from './authentication-notify.service';
+import { AuthenticationNotifyService } from './services/authentication-notify.service';
 
 @Module({
   imports: [
