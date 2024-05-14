@@ -8,5 +8,5 @@ export const AuthenticationResponseMessage = {
   RecoveryEmailSuccess: 'Recovery email sent successfully',
   PasswordChangeSuccess: 'Password changed successfully',
   OldPasswordNotCorrect: 'Old password is not correct',
-  NewJWTTokensSuccess: 'Get a new access/refresh tokens'
+  NewJWTTokensSuccess: 'Get a new access/refresh tokens',
 } as const;
