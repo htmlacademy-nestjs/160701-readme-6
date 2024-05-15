@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ApplicationServiceURL } from '../app.config';
 import { HttpService } from '@nestjs/axios';
 import { Request } from 'express';
 import { AxiosRequestConfig } from 'axios';
+import { AppService } from '../app.service';
 
 type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'postForm';
 type ReqOptions<D> = {
@@ -14,7 +14,10 @@ type ReqOptions<D> = {
 
 @Injectable()
 export class ApiService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly appServiceUrl: AppService
+  ) {}
 
   private async request<D, R = unknown>(
     method: HttpMethod,
@@ -38,15 +41,15 @@ export class ApiService {
   }
 
   users<D, R>(options: ReqOptions<D>): Promise<R> {
-    return this.apiCall<D, R>(ApplicationServiceURL.Users, options);
+    return this.apiCall<D, R>(this.appServiceUrl.Users, options);
   }
 
   blog<D, R>(options: ReqOptions<D>): Promise<R> {
-    return this.apiCall<D, R>(ApplicationServiceURL.Blog, options);
+    return this.apiCall<D, R>(this.appServiceUrl.Blog, options);
   }
 
   fileVault<D, R>(options: ReqOptions<D>): Promise<R> {
-    return this.apiCall<D, R>(ApplicationServiceURL.FileVault, options);
+    return this.apiCall<D, R>(this.appServiceUrl.FileVault, options);
   }
 
   getAuthorizationHeader(req: Request): AxiosRequestConfig {

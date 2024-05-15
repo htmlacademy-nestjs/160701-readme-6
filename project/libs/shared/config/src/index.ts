@@ -9,6 +9,7 @@ export { getMongooseOptions } from './configurations/mongo/get-mongoose-options'
 export { getMailerAsyncOptions } from './configurations/mail/get-mailer-options';
 export { mailConfig as MailConfig } from './configurations/mail/mail.config';
 export { appFileVaultConfig as FileVaultConfig } from './apps/file-vault/app.config';
+export { microservicesConfig as ApiMicroservicesConfig } from './apps/api/microservices.config';
 
 /* Rabbit */
 export { rabbitConfig } from './configurations/rabbit/rabbit.config';
