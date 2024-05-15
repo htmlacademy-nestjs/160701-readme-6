@@ -37,3 +37,5 @@ export { TokenPayload } from './users/tokens/token-payload.interface';
 export { PasswordToken } from './users/tokens/password-token.interface';
 export { JwtToken } from './users/tokens/jwt-token.interface';
 export { RefreshTokenPayload } from './users/tokens/refresh-token-payload.interface.ts';
+//  Api
+export { RequestWithUserId } from './api/request-with-userId.interface';

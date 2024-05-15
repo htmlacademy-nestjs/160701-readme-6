@@ -21,6 +21,7 @@ import {
   PostRdo,
   PostWithAuthorFullRdo,
   PostWithPaginationRdo,
+  RequestWithUserId,
   UploadedFileRdo,
   UserRdo,
 } from '@project/shared/core';
@@ -50,8 +51,13 @@ export class BlogController {
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
   @Post('/')
-  public async create(@Body() dto: CreatePostDto, @Req() req: any) {
-    const userId = req['user']['sub'];
+  public async create(
+    @Body() dto: CreatePostDto,
+    @Req() req: RequestWithUserId
+  ) {
+    const {
+      body: { userId },
+    } = req;
     const post = await this.apiService.blog<CreatePostWithAuthorDto, PostRdo>({
       method: 'post',
       endpoint: '',
