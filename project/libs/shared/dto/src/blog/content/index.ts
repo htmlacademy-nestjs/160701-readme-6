@@ -6,12 +6,7 @@ import { QuotePostContentDto } from './quote-post-content.dto';
 import { TextPostContentDto } from './text-post-content.dto';
 import { LinkPostContentDto } from './link-post-content.dto';
 
-import { VideoPostContent } from '../../../interfaces/blog/posts/content/video-post-content.interface';
-import { LinkPostContent } from '../../../interfaces/blog/posts/content/link-post-content.interface';
-import { PhotoPostContent } from '../../../interfaces/blog/posts/content/photo-post-content.interface';
-import { QuotePostContent } from '../../../interfaces/blog/posts/content/quote-post-content.interface';
-import { TextPostContent } from '../../../interfaces/blog/posts/content/text-post-content.interface';
-import { PostType } from '../../../enums';
+import { PostType } from '@project/shared/core';
 
 export const AllPostContentArray = [
   VideoPostContentDto,
@@ -20,13 +15,6 @@ export const AllPostContentArray = [
   TextPostContentDto,
   LinkPostContentDto,
 ];
-
-export type PostContent =
-  | VideoPostContent
-  | LinkPostContent
-  | PhotoPostContent
-  | QuotePostContent
-  | TextPostContent;
 
 export const RefPostContentArray = AllPostContentArray.map((PostTypeClass) => ({
   $ref: getSchemaPath(PostTypeClass),

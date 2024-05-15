@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { PostType } from '../../../enums';
+import { PostType } from '../../../../core/src/lib/enums';
 
 export class PostTypesRdo {
   @Expose()

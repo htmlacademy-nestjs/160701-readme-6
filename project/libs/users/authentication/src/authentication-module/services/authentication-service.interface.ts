@@ -1,12 +1,12 @@
 import { BlogUserEntity } from '@project/blog-user';
 
+import { Token } from '@project/shared/core';
 import {
   ChangePasswordDto,
   CreateUserDto,
   LoginUserDto,
   RecoveryEmailDto,
-  Token,
-} from '@project/shared/core';
+} from '@project/dto';
 
 export interface AuthService {
   register(dto: CreateUserDto): Promise<BlogUserEntity>;

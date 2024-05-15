@@ -14,15 +14,9 @@ import { fillDto } from '@project/shared/helpers';
 import { PostService } from './post.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Cron } from '@nestjs/schedule';
-import {
-  CreatePostWithAuthorDto,
-  CronTime,
-  PostQuery,
-  PostRdo,
-  PostTypesRdo,
-  PostWithPaginationRdo,
-  UpdatePostDto,
-} from '@project/shared/core';
+import { CronTime, PostQuery } from '@project/shared/core';
+import { PostRdo, PostTypesRdo, PostWithPaginationRdo } from '@project/rdo';
+import { CreatePostWithAuthorDto, UpdatePostDto } from '@project/dto';
 import { NotifyService } from '@project/blog-notify';
 
 @ApiTags('posts')

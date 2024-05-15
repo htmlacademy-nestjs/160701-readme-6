@@ -6,7 +6,7 @@ import {
 
 import { TagEntity } from './tag.entity';
 import { TagRepository } from './tag.repository';
-import { CreateTagDto, UpdateTagDto } from '@project/shared/core';
+import { CreateTagDto, UpdateTagDto } from '@project/dto';
 
 @Injectable()
 export class TagService {

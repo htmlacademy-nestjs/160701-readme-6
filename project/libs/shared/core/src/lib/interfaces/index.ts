@@ -7,6 +7,7 @@ export { SortDirection } from './base/sort-direction.interface';
 export { SortBy } from './base/sort-by.interface';
 
 // Posts
+export { PostContent } from './blog/posts/content';
 export { Post } from './blog/posts/post.interface';
 
 export { BasePostContent } from './blog/posts/content/base-post-content.interface';

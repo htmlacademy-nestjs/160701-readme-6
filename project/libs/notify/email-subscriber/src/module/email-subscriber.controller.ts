@@ -3,14 +3,13 @@ import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 import { EmailSubscriberService } from './email-subscriber.service';
 import {
-  CreateSubscriberDto,
   RabbitRouting,
   RabbitExchange,
   RabbitQueue,
   Post,
-  DeleteSubscriberDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
+import { CreateSubscriberDto, DeleteSubscriberDto } from '@project/dto';
 
 @Controller()
 export class EmailSubscriberController {

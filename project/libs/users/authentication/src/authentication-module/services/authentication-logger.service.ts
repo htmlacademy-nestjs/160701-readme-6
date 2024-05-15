@@ -5,7 +5,7 @@ import {
   CreateUserDto,
   LoginUserDto,
   RecoveryEmailDto,
-} from '@project/shared/core';
+} from '@project/dto';
 
 import { BlogUserEntity } from '@project/blog-user';
 

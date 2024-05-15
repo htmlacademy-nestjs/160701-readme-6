@@ -11,7 +11,8 @@ import {
 import { CommentsService } from './comments.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
-import { CommentRdo, CreateCommentDto, UpdateCommentDto } from '@project/shared/core';
+import { CreateCommentDto, UpdateCommentDto } from '@project/dto';
+import { CommentRdo } from '@project/rdo';
 
 @ApiTags('comments')
 @Controller('posts/:postId/comments')

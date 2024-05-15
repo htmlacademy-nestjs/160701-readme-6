@@ -1,16 +1,10 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-// import { PostContent, PostType } from '@project/libs/shared/app/types';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PostContentEntityFactory } from './post-content-entity.factory';
 import { PostContentRepositoryFactory } from './post-content-repository.factory';
 import { Repository } from '@project/data-access';
-import { PostContent, PostType } from '@project/shared/core';
+import { PostType } from '@project/shared/core';
+import { PostContent } from '@project/shared/core';
 import { BasePostContentEntity } from '../entitites/content';
-// import { BasePostContentEntity } from '../entities/content';
-// import { Repository } from '@project/shared/core';
 
 @Injectable()
 export class PostContentService {

@@ -12,19 +12,17 @@ import {
 } from '@nestjs/common';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
-import { InjectUserIdInterceptor } from '@project/interceptors';
+import { InjectUserIdInterceptor } from '@project/interceptors';>
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
+import { PostQuery, RequestWithUserId } from '@project/shared/core';
 import {
-  CreatePostDto,
-  CreatePostWithAuthorDto,
-  PostQuery,
   PostRdo,
   PostWithAuthorFullRdo,
   PostWithPaginationRdo,
-  RequestWithUserId,
   UploadedFileRdo,
   UserRdo,
-} from '@project/shared/core';
+} from '@project/rdo';
+import { CreatePostDto, CreatePostWithAuthorDto } from '@project/dto';
 import { ApiService } from '../service/api.service';
 import {
   ApiBearerAuth,

@@ -3,8 +3,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 
 import { EMAIL_SUBJECT } from './mail.constant';
-import { NotifyRecoveryEmailDto, Post, Subscriber } from '@project/shared/core';
+import { Post, Subscriber } from '@project/shared/core';
 import { MailConfig } from '@project/config';
+import { NotifyRecoveryEmailDto } from '@project/dto';
 
 @Injectable()
 export class MailService {

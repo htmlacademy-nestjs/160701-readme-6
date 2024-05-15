@@ -2,13 +2,15 @@ import { Controller } from '@nestjs/common';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 import {
-  ChangeSubscriberPasswordDto,
   RabbitRouting,
   RabbitExchange,
   RabbitQueue,
-  NotifyRecoveryEmailDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
+import {
+  ChangeSubscriberPasswordDto,
+  NotifyRecoveryEmailDto,
+} from '@project/dto';
 
 @Controller()
 export class UserEmailsController {

@@ -15,13 +15,7 @@ import {
   fillDto,
   generateSchemeApiError,
 } from '@project/shared/helpers';
-import {
-  CreateUserDto,
-  LoginUserDto,
-  RecoveryEmailDto,
-  UserRdo,
-} from '@project/shared/core';
-import { LoggedUserRdo } from '@project/shared/core';
+
 import { AuthService } from './services/authentication-service.interface';
 import {
   ApiBearerAuth,
@@ -37,10 +31,17 @@ import { AuthenticationResponseMessage } from './authentication.constant';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import {
   ChangePasswordDto,
+  CreateUserDto,
+  LoginUserDto,
+  RecoveryEmailDto,
+} from '@project/dto';
+import {
+  UserRdo,
   ChangePasswordRdo,
   RecoveryEmailRdo,
   RefreshUserRdo,
-} from '@project/shared/core';
+  LoggedUserRdo,
+} from '@project/rdo';
 import { PasswordTokenService } from '../password-token-module/password-token.service';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { RequestWithUser } from './request-with-user.interface';

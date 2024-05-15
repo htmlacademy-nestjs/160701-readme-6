@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
-  CreatePostWithAuthorDto,
   DEFAULT_PAGE_COUNT,
   DefaultPost,
   PaginationResult,
@@ -9,8 +8,8 @@ import {
   PostType,
   SortBy,
   SortDirection,
-  UpdatePostDto,
 } from '@project/shared/core';
+import { CreatePostWithAuthorDto, UpdatePostDto } from '@project/dto';
 import { PostRepository } from './repositories/post.repository';
 import { PostEntity } from './entitites/post.entity';
 import { PostFactory } from './post.factory';

@@ -20,10 +20,8 @@ import {
   ChangePasswordRdo,
   UserRdo,
   RecoveryEmailRdo,
-  RecoveryEmailDto,
-  CreateUserDto,
   UserFullRdo,
-} from '@project/shared/core';
+} from '@project/rdo';
 
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
 import { ApiService } from '../service/api.service';
@@ -46,7 +44,9 @@ import {
   ChangePasswordDto,
   LoginUserDto,
   CreateUserDtoWithAvatarFile,
-} from '@project/shared/core';
+  RecoveryEmailDto,
+  CreateUserDto,
+} from '@project/dto';
 import { ALLOWED_IMG_MIMETYPES, User } from '@project/validation';
 
 @ApiTags('auth')

@@ -1,7 +1,7 @@
 import { PostRdo } from './post.rdo';
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { PaginationResult } from '../../../interfaces';
+import { PaginationResult } from '../../../../core/src/lib/interfaces';
 
 export class PostWithPaginationRdo<T> implements PaginationResult<T> {
   @Expose()

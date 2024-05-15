@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { EmailSubscriberEntity } from './email-subscriber.entity';
 
 import { EmailSubscriberRepository } from './email-subscriber.repository';
-import { CreateSubscriberDto } from '@project/shared/core';
+import { CreateSubscriberDto } from '@project/dto';
 
 @Injectable()
 export class EmailSubscriberService {

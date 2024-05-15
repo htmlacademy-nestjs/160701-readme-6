@@ -11,15 +11,17 @@ import {
 import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
 import {
   AuthUser,
-  ChangePasswordDto,
-  CreateUserDto,
-  LoginUserDto,
-  RecoveryEmailDto,
   Token,
   TokenPayload,
   User,
   UserRole,
 } from '@project/shared/core';
+import {
+  ChangePasswordDto,
+  CreateUserDto,
+  LoginUserDto,
+  RecoveryEmailDto,
+} from '@project/dto';
 import { AuthenticationResponseMessage } from '../authentication.constant';
 import { AuthService } from './authentication-service.interface';
 import { Hasher } from '../../hasher-module/hasher.interface';

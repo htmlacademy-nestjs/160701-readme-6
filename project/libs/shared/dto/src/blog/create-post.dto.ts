@@ -1,7 +1,6 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
 import {
   AllPostContentArray,
-  PostContent,
   RefPostContentArray,
   PostTypeContent,
 } from './content/index';
@@ -20,7 +19,7 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
-import { PostType } from '../../enums';
+import { PostContent, PostType } from '@project/shared/core';
 
 @ApiExtraModels(...AllPostContentArray)
 export class CreatePostDto {

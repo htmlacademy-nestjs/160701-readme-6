@@ -27,7 +27,7 @@ import {
   User,
   PostContentValidator,
 } from '@project/validation';
-import { UploadedFileRdo } from '@project/shared/core';
+import { UploadedFileRdo } from '@project/rdo';
 
 @ApiTags('files')
 @Controller('files')

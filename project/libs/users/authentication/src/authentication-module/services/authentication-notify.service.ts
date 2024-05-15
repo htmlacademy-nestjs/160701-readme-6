@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { AuthService } from './authentication-service.interface';
-import { ChangePasswordDto, CreateUserDto, LoginUserDto, RecoveryEmailDto } from '@project/shared/core';
+import { ChangePasswordDto, CreateUserDto, LoginUserDto, RecoveryEmailDto } from '@project/dto';
 
 import { BlogUserEntity } from '@project/blog-user';
 import { NotifyService } from '@project/users-notify';
