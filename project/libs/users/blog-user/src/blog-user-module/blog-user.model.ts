@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AuthUser, UserRole } from '@project/shared/core';
-// import { User } from '@project/validation';
+import { User } from '@project/validation';
 
 @Schema({
   collection: 'users',
@@ -23,8 +23,8 @@ export class BlogUserModel extends Document implements AuthUser {
 
   @Prop({
     required: true,
-    // minlength: User.firstname.Min,
-    // maxlength: User.firstname.Max,
+    minlength: User.firstname.Min,
+    maxlength: User.firstname.Max,
   })
   public firstname!: string;
 

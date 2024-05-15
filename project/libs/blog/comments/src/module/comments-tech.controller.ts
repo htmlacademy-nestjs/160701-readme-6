@@ -2,7 +2,7 @@ import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
-import { CommentRdo } from './rdo/comment.rdo';
+import { CommentRdo } from '../../../../shared/rdo/src/blog/comments/comment.rdo';
 
 @ApiTags('comments')
 @Controller('comments')

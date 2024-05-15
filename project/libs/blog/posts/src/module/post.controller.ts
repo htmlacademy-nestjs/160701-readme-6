@@ -10,18 +10,13 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-
 import { fillDto } from '@project/shared/helpers';
-import { PostRdo } from './rdo/post.rdo';
-import { UpdatePostDto } from './dto/update/update-post.dto';
 import { PostService } from './post.service';
-import { PostQuery } from './post.query';
-import { PostWithPaginationRdo } from './rdo/post-with-pagination.rdo';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PostTypesRdo } from './rdo/post-types.rdo';
-import { CreatePostWithAuthorDto } from './dto/create-post.dto';
 import { Cron } from '@nestjs/schedule';
-import { CronTime } from '@project/shared/core';
+import { CronTime, PostQuery } from '@project/shared/core';
+import { PostRdo, PostTypesRdo, PostWithPaginationRdo } from '@project/rdo';
+import { CreatePostWithAuthorDto, UpdatePostDto } from '@project/dto';
 import { NotifyService } from '@project/blog-notify';
 
 @ApiTags('posts')
@@ -62,7 +57,7 @@ export class PostController {
       entities: postsWithPagination.entities.map((post) => post.toPOJO()),
     };
 
-    return fillDto(PostWithPaginationRdo, result);
+    return fillDto(PostWithPaginationRdo<PostRdo>, result);
   }
 
   @ApiResponse({

@@ -7,19 +7,7 @@ export function getRabbitMQOptions(optionSpace = 'rabbit') {
     useFactory: async (config: ConfigService) => ({
       exchanges: [
         {
-          name: RabbitExchange.Income,
-          type: 'direct',
-        },
-        {
-          name: RabbitExchange.ChangePassword,
-          type: 'direct',
-        },
-        {
-          name: RabbitExchange.SendNewPosts,
-          type: 'direct',
-        },
-        {
-          name: RabbitExchange.RecoveryEmail,
+          name: RabbitExchange.Notify,
           type: 'direct',
         },
       ],

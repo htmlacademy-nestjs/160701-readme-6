@@ -5,8 +5,7 @@ import { PaginationResult, Post } from '@project/shared/core';
 import { PrismaClientService } from '@project/blog-models';
 import { PostFactory } from '../post.factory';
 import { Prisma } from '@prisma/client';
-import { PostQuery } from '../post.query';
-import { DEFAULT_POST_COUNT_LIMIT } from '../post.contant';
+import { PostQuery , DefaultPost} from '@project/shared/core';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
@@ -106,7 +105,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
   public async find(query?: PostQuery): Promise<PaginationResult<PostEntity>> {
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
-    const take = query?.limit || DEFAULT_POST_COUNT_LIMIT;
+    const take = query?.limit || DefaultPost.COUNT_LIMIT;
     const currentPage = Number(query?.page);
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};

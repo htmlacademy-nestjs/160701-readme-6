@@ -3,14 +3,13 @@ import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 import { EmailSubscriberService } from './email-subscriber.service';
 import {
-  CreateSubscriberDto,
   RabbitRouting,
   RabbitExchange,
   RabbitQueue,
   Post,
-  DeleteSubscriberDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
+import { CreateSubscriberDto, DeleteSubscriberDto } from '@project/dto';
 
 @Controller()
 export class EmailSubscriberController {
@@ -20,9 +19,9 @@ export class EmailSubscriberController {
   ) {}
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.Income,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.AddSubscriber,
-    queue: RabbitQueue.Income,
+    queue: RabbitQueue.Subscribers,
   })
   public async create(subscriber: CreateSubscriberDto) {
     this.subscriberService.addSubscriber(subscriber);
@@ -30,16 +29,16 @@ export class EmailSubscriberController {
   }
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.Income,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.DeleteSubscriber,
-    queue: RabbitQueue.Income,
+    queue: RabbitQueue.Subscribers,
   })
   public async delete({ email }: DeleteSubscriberDto) {
     this.subscriberService.deleteSubscriber(email);
   }
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.SendNewPosts,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.SendNewPosts,
     queue: RabbitQueue.SendNewPosts,
   })

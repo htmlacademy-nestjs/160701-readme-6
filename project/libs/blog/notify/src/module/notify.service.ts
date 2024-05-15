@@ -8,7 +8,7 @@ export class NotifyService {
 
   public async sendPosts(posts: Post[]) {
     return this.rabbitClient.publish<Post[]>(
-      RabbitExchange.SendNewPosts,
+      RabbitExchange.Notify,
       RabbitRouting.SendNewPosts,
       posts
     );

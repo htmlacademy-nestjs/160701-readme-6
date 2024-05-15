@@ -2,20 +2,22 @@ import { Controller } from '@nestjs/common';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 import {
-  ChangeSubscriberPasswordDto,
   RabbitRouting,
   RabbitExchange,
   RabbitQueue,
-  NotifyRecoveryEmailDto,
 } from '@project/shared/core';
 import { MailService } from '@project/notify-mail';
+import {
+  ChangeSubscriberPasswordDto,
+  NotifyRecoveryEmailDto,
+} from '@project/dto';
 
 @Controller()
 export class UserEmailsController {
   constructor(private readonly mailService: MailService) {}
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.ChangePassword,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.ChangePassword,
     queue: RabbitQueue.ChangePassword,
   })
@@ -24,7 +26,7 @@ export class UserEmailsController {
   }
 
   @RabbitSubscribe({
-    exchange: RabbitExchange.RecoveryEmail,
+    exchange: RabbitExchange.Notify,
     routingKey: RabbitRouting.RecoveryEmail,
     queue: RabbitQueue.RecoveryEmail,
   })

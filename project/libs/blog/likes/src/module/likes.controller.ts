@@ -10,7 +10,7 @@ import {
 import { LikesService } from './likes.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
-import { LikeRdo } from './rdo/like.rdo';
+import { LikeRdo } from '@project/rdo';
 
 @ApiTags('likes')
 @Controller('posts/:postId/likes')
