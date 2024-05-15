@@ -12,7 +12,13 @@ import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
-import { CreatePostDto, UploadedFileRdo, UserRdo } from '@project/shared/core';
+import {
+  CreatePostDto,
+  PostRdo,
+  PostWithAuthorFullRdo,
+  UploadedFileRdo,
+  UserRdo,
+} from '@project/shared/core';
 import { ApiService } from '../service/api.service';
 import {
   ApiBearerAuth,
@@ -20,7 +26,6 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { PostRdo } from '../rdo/post.rdo';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -30,7 +35,7 @@ export class BlogController {
 
   @ApiBearerAuth(AuthKeyName)
   @ApiResponse({
-    type: PostRdo,
+    type: PostWithAuthorFullRdo,
     status: HttpStatus.CREATED,
     description: 'The new post has been successfully created.',
   })
@@ -64,6 +69,6 @@ export class BlogController {
       user.avatar = file.path;
     }
 
-    return fillDto(PostRdo, { ...post, author: user });
+    return fillDto(PostWithAuthorFullRdo, { ...post, author: user });
   }
 }

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { PostRdo as BasePost } from './post.rdo';
 import { Expose } from 'class-transformer';
 
-export class PostWithAuthorRdo extends BasePost {
+export class PostWithAuthorIdRdo extends BasePost {
   @Expose()
   @ApiProperty({
     description: 'The uniq author(user) ID',
