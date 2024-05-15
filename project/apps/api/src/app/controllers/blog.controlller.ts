@@ -52,20 +52,20 @@ export class BlogController {
   @Post('/')
   public async create(@Body() dto: CreatePostDto, @Req() req: any) {
     const userId = req['user']['sub'];
-    const post = await this.apiService.blog<PostRdo>({
+    const post = await this.apiService.blog<CreatePostWithAuthorDto, PostRdo>({
       method: 'post',
       endpoint: '',
-      data: { ...dto, authorId: userId } as CreatePostWithAuthorDto,
+      data: { ...dto, authorId: userId },
     });
 
-    const user = await this.apiService.users<UserRdo>({
+    const user = await this.apiService.users<unknown, UserRdo>({
       method: 'get',
       endpoint: 'info',
       options: this.apiService.getAuthorizationHeader(req),
     });
 
     if (user.avatar) {
-      const file = await this.apiService.fileVault<UploadedFileRdo>({
+      const file = await this.apiService.fileVault<string, UploadedFileRdo>({
         method: 'get',
         endpoint: user.avatar,
       });

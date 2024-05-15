@@ -21,6 +21,8 @@ import {
   UserRdo,
   RecoveryEmailRdo,
   RecoveryEmailDto,
+  CreateUserDto,
+  UserFullRdo,
 } from '@project/shared/core';
 
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
@@ -54,7 +56,7 @@ export class UsersController {
   constructor(private readonly apiService: ApiService) {}
 
   @ApiResponse({
-    type: UserRdo,
+    type: UserFullRdo,
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.',
   })
@@ -88,20 +90,22 @@ export class UsersController {
         contentType: file.mimetype,
       });
 
-      uploadedFile = await this.apiService.fileVault<UploadedFileRdo>({
-        method: 'post',
-        endpoint: 'upload/avatar',
-        data: form,
-      });
+      uploadedFile = await this.apiService.fileVault<FormData, UploadedFileRdo>(
+        {
+          method: 'post',
+          endpoint: 'upload/avatar',
+          data: form,
+        }
+      );
     }
 
-    const user = await this.apiService.users<UserRdo>({
+    const user = await this.apiService.users<CreateUserDto, UserRdo>({
       method: 'post',
       endpoint: 'register',
-      data: { ...dto, avatar: uploadedFile?.id },
+      data: { ...dto, avatarId: uploadedFile?.id },
     });
 
-    return fillDto(UserRdo, { ...user, avatar: uploadedFile?.path });
+    return fillDto(UserFullRdo, { ...user, avatar: uploadedFile?.path });
   }
 
   @ApiResponse({
@@ -114,7 +118,7 @@ export class UsersController {
   })
   @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto) {
-    const data = await this.apiService.users<UserRdo>({
+    const data = await this.apiService.users<LoginUserDto, UserRdo>({
       method: 'post',
       endpoint: 'login',
       data: loginUserDto,
@@ -136,7 +140,7 @@ export class UsersController {
   })
   @Post('refresh')
   public async refreshToken(@Req() req: Request) {
-    const data = await this.apiService.users<UserRdo>({
+    const data = await this.apiService.users<unknown, UserRdo>({
       method: 'post',
       endpoint: 'refresh',
       options: this.apiService.getAuthorizationHeader(req),
@@ -146,7 +150,7 @@ export class UsersController {
   }
 
   @ApiResponse({
-    type: UserRdo,
+    type: UserFullRdo,
     status: HttpStatus.OK,
     description: 'User found',
   })
@@ -157,14 +161,14 @@ export class UsersController {
   })
   @Get('info')
   public async info(@Req() req: Request) {
-    const user = await this.apiService.users<UserRdo>({
+    const user = await this.apiService.users<unknown, UserRdo>({
       method: 'get',
       endpoint: 'info',
       options: this.apiService.getAuthorizationHeader(req),
     });
 
     if (user.avatar) {
-      const file = await this.apiService.fileVault<UploadedFileRdo>({
+      const file = await this.apiService.fileVault<string, UploadedFileRdo>({
         method: 'get',
         endpoint: user.avatar,
       });
@@ -191,7 +195,7 @@ export class UsersController {
     @Req() req: Request,
     @Body() dto: ChangePasswordDto
   ) {
-    const data = await this.apiService.users<UserRdo>({
+    const data = await this.apiService.users<ChangePasswordDto, UserRdo>({
       method: 'patch',
       endpoint: 'change-password',
       data: dto,
@@ -209,7 +213,10 @@ export class UsersController {
   })
   @Post('recovery-email')
   public async recoveryPassword(@Body() dto: RecoveryEmailDto) {
-    const data = await this.apiService.users<RecoveryEmailRdo>({
+    const data = await this.apiService.users<
+      RecoveryEmailDto,
+      RecoveryEmailRdo
+    >({
       method: 'post',
       endpoint: 'recovery-email',
       data: dto,
