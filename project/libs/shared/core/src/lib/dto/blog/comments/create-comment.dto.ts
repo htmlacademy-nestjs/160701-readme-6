@@ -8,7 +8,6 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 import { CommentValidator } from '@project/validation';
-import { BlogCommentValidateMessage } from '../comment.constant';
 
 export class CreateCommentDto
   implements Omit<Comment, 'createdAt' | 'updatedAt' | 'postId'>
@@ -18,7 +17,7 @@ export class CreateCommentDto
     example: 'Lorem ipsum',
   })
   @IsString()
-  @IsNotEmpty({ message: BlogCommentValidateMessage.MessageIsEmpty })
+  @IsNotEmpty()
   @MinLength(CommentValidator.message.Min)
   @MaxLength(CommentValidator.message.Max)
   public message!: string;
@@ -27,6 +26,6 @@ export class CreateCommentDto
     description: 'User id',
     example: '65b7a93fe29bcc5e9410a607',
   })
-  @IsMongoId({ message: BlogCommentValidateMessage.InvalidID })
+  @IsMongoId()
   public userId!: string;
 }

@@ -12,10 +12,8 @@ import {
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { fillDto } from '@project/shared/helpers';
-import { TagRdo } from './rdo/tag.rdo';
-import { UpdateTagDto } from './dto/update-tag.dto';
-import { CreateTagDto } from './dto/create-tag.dto';
 import { TagService } from './tag.service';
+import { CreateTagDto, TagRdo, UpdateTagDto } from '@project/shared/core';
 
 @ApiTags('tags')
 @Controller('tags')

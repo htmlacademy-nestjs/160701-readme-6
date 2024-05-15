@@ -1,8 +1,8 @@
 import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { LikeRdo } from './rdo/like.rdo';
 import { fillDto } from '@project/shared/helpers';
+import { LikeRdo } from '@project/shared/core';
 
 @ApiTags('likes')
 @Controller('/likes')

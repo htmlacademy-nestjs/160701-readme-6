@@ -1,6 +1,17 @@
 // Posts
 export { CreatePostDto } from './blog/create-post.dto';
+export { CreatePostWithAuthorDto } from './blog/create-post-with-author.dto';
+export { UpdatePostDto } from './blog/update-post.dto';
+
 export * from './blog/content/index';
+
+// Posts-comment
+export { CreateCommentDto } from './blog/comments/create-comment.dto';
+export { UpdateCommentDto } from './blog/comments/update-comment.dto';
+// Posts-tags
+export { CreateTagDto } from './blog/tags/create-tag.dto';
+export { UpdateTagDto } from './blog/tags/update-tag.dto';
+
 // Users
 export {
   CreateUserDto,

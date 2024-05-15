@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CreatePostDto } from '@project/shared/core';
 import { IsMongoId, IsNotEmpty, IsString } from 'class-validator';
+import { CreatePostDto } from './create-post.dto';
 
 export class CreatePostWithAuthorDto extends CreatePostDto {
   @ApiProperty({

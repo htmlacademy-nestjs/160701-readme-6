@@ -1,9 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import {
-  CreatePostDto,
-  PostContent,
-  RefOptionalPostContentArray,
-} from '@project/shared/core';
+import { CreatePostDto } from './create-post.dto';
+import { PostContent, RefOptionalPostContentArray } from './content';
+
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {
   @ApiProperty({

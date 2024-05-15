@@ -9,11 +9,9 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillDto, generateSchemeApiError } from '@project/shared/helpers';
-import { CommentRdo } from './rdo/comment.rdo';
+import { CommentRdo, CreateCommentDto, UpdateCommentDto } from '@project/shared/core';
 
 @ApiTags('comments')
 @Controller('posts/:postId/comments')
