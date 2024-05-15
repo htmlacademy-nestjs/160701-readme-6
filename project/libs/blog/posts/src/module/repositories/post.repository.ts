@@ -5,7 +5,7 @@ import { PaginationResult, Post } from '@project/shared/core';
 import { PrismaClientService } from '@project/blog-models';
 import { PostFactory } from '../post.factory';
 import { Prisma } from '@prisma/client';
-import { PostQuery , DefaultPost} from '@project/shared/core';
+import { PostQuery, DefaultPost } from '@project/shared/core';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, Post> {

@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
-import { InjectUserIdInterceptor } from '@project/interceptors';>
+import { InjectUserIdInterceptor } from '@project/interceptors';
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
 import { PostQuery, RequestWithUserId } from '@project/shared/core';
 import {

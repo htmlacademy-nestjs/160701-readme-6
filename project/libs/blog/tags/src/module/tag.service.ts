@@ -82,9 +82,12 @@ export class TagService {
       );
 
       if (notFoundTagIds.length > 0) {
-        throw new NotFoundException(
-          `Tag with names "${notFoundTagIds.join(', ')}" not found.`
+        const promises = notFoundTagIds.map((el) =>
+          this.createTag({ name: el })
         );
+        const tags = await Promise.all(promises);
+
+        return tags;
       }
     }
 
