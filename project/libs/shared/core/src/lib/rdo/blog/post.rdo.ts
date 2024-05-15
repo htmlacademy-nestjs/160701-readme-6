@@ -1,19 +1,19 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
 
 import { Expose, Type } from 'class-transformer';
-import { Tag } from '../../types/blog/tag.interface';
+import { Tag } from '../../interfaces/blog/tag.interface';
 import { LikeRdo } from 'libs/blog/likes/src/module/rdo/like.rdo';
-import { Comment } from '../../types/blog/comment.interface';
+import { Comment } from '../../interfaces/blog/comment.interface';
 import { CommentRdo } from 'libs/blog/comments/src/module/rdo/comment.rdo';
 import {
   AllOptionPostContentArray,
   PostContent,
   RefPostContentArray,
 } from '../../dto/blog/content';
-import { PostType } from '../../types/blog/posts/post-type.enum';
-import { PostStatus } from '../../types/blog/posts/post-status.enum';
-import { Post } from '../../types/blog/posts/post.interface';
-import { Like } from '../../types/blog/like.interface';
+
+import { Post } from '../../interfaces/blog/posts/post.interface';
+import { Like } from '../../interfaces/blog/like.interface';
+import { PostStatus, PostType } from '../../enums';
 
 @ApiExtraModels(...AllOptionPostContentArray)
 export class PostRdo implements Omit<Post, 'authorId' | 'contentId'> {

@@ -1,9 +1,8 @@
 import { Tag } from '../tag.interface';
 import { Comment } from '../comment.interface';
-import { PostStatus } from './post-status.enum';
-import { PostType } from './post-type.enum';
 import { Like } from '../like.interface';
 import { VideoPostContent } from './content/video-post-content.interface';
+import { PostStatus, PostType } from '../../../enums';
 
 export interface Post {
   id?: string;

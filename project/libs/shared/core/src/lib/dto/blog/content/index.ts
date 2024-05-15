@@ -5,12 +5,13 @@ import { PhotoPostContentDto } from './photo-post-content.dto';
 import { QuotePostContentDto } from './quote-post-content.dto';
 import { TextPostContentDto } from './text-post-content.dto';
 import { LinkPostContentDto } from './link-post-content.dto';
-import { PostType } from '../../../types/blog/posts/post-type.enum';
-import { VideoPostContent } from '../../../types/blog/posts/content/video-post-content.interface';
-import { LinkPostContent } from '../../../types/blog/posts/content/link-post-content.interface';
-import { PhotoPostContent } from '../../../types/blog/posts/content/photo-post-content.interface';
-import { QuotePostContent } from '../../../types/blog/posts/content/quote-post-content.interface';
-import { TextPostContent } from '../../../types/blog/posts/content/text-post-content.interface';
+
+import { VideoPostContent } from '../../../interfaces/blog/posts/content/video-post-content.interface';
+import { LinkPostContent } from '../../../interfaces/blog/posts/content/link-post-content.interface';
+import { PhotoPostContent } from '../../../interfaces/blog/posts/content/photo-post-content.interface';
+import { QuotePostContent } from '../../../interfaces/blog/posts/content/quote-post-content.interface';
+import { TextPostContent } from '../../../interfaces/blog/posts/content/text-post-content.interface';
+import { PostType } from '../../../enums';
 
 export const AllPostContentArray = [
   VideoPostContentDto,
