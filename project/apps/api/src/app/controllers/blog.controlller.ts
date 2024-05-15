@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
   Post,
+  Query,
   Req,
   UseFilters,
   UseGuards,
@@ -14,8 +16,11 @@ import { InjectUserIdInterceptor } from '@project/interceptors';
 import { AuthKeyName, fillDto } from '@project/shared/helpers';
 import {
   CreatePostDto,
+  CreatePostWithAuthorDto,
+  PostQuery,
   PostRdo,
   PostWithAuthorFullRdo,
+  PostWithPaginationRdo,
   UploadedFileRdo,
   UserRdo,
 } from '@project/shared/core';
@@ -47,11 +52,10 @@ export class BlogController {
   @Post('/')
   public async create(@Body() dto: CreatePostDto, @Req() req: any) {
     const userId = req['user']['sub'];
-
     const post = await this.apiService.blog<PostRdo>({
       method: 'post',
       endpoint: '',
-      data: { ...dto, author: userId },
+      data: { ...dto, authorId: userId } as CreatePostWithAuthorDto,
     });
 
     const user = await this.apiService.users<UserRdo>({
@@ -70,5 +74,24 @@ export class BlogController {
     }
 
     return fillDto(PostWithAuthorFullRdo, { ...post, author: user });
+  }
+
+  @ApiOperation({
+    summary: 'Получить все посты',
+  })
+  @ApiResponse({
+    isArray: true,
+    type: PostRdo,
+    status: HttpStatus.OK,
+  })
+  @Get('/')
+  public async index(@Query() query: PostQuery) {
+    const posts = await this.apiService.blog({
+      method: 'get',
+      endpoint: '',
+      options: { params: query },
+    });
+
+    return fillDto(PostWithPaginationRdo<PostWithAuthorFullRdo>, posts);
   }
 }
