@@ -1,12 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PostRdo as BasePost, UserRdo } from '@project/shared/core';
 import { Expose } from 'class-transformer';
+import { PostRdo } from './post.rdo';
+import { UserFullRdo } from '../../users/user-full.rdo';
 
-export class PostWithAuthorFullRdo extends BasePost {
+export class PostWithAuthorFullRdo extends PostRdo {
   @Expose()
   @ApiProperty({
-    type: UserRdo,
+    type: UserFullRdo,
     description: 'Full author info',
   })
-  public author!: UserRdo;
+  public author!: UserFullRdo;
 }

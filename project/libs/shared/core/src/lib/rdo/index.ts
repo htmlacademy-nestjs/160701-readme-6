@@ -1,5 +1,6 @@
 // Users
 export { UserRdo } from './users/user.rdo';
+export { UserFullRdo } from './users/user-full.rdo';
 export { LoggedUserRdo } from './users/logged-user.rdo';
 export { RecoveryEmailRdo } from './users/recovery-email.rdo';
 export { ChangePasswordRdo } from './users/change-password.rdo';

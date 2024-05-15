@@ -3,13 +3,13 @@ import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { PaginationResult } from '../../../interfaces';
 
-export class PostWithPaginationRdo implements PaginationResult<PostRdo> {
+export class PostWithPaginationRdo<T> implements PaginationResult<T> {
   @Expose()
   @ApiProperty({
     description: 'Posts',
     example: PostRdo,
   })
-  public entities!: PostRdo[];
+  public entities!: T[];
 
   @Expose()
   @ApiProperty({

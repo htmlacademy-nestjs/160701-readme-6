@@ -12,8 +12,8 @@ export class UserRdo implements Omit<User, 'role'> {
 
   @Expose()
   @ApiProperty({
-    description: 'User avatar path',
-    example: '/images/user.png',
+    description: 'User avatar img id',
+    example: '6643537224e91d1093d4bfb0',
   })
   @Transform(({ value }) => (value === undefined ? null : value))
   public avatar!: string | null;
