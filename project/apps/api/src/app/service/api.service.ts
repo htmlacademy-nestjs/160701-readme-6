@@ -5,10 +5,10 @@ import { Request } from 'express';
 import { AxiosRequestConfig } from 'axios';
 
 type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'postForm';
-type ReqOptions = {
+type ReqOptions<D> = {
   method: HttpMethod;
   endpoint: string;
-  data?: any;
+  data?: D;
   options?: AxiosRequestConfig;
 };
 
@@ -16,43 +16,37 @@ type ReqOptions = {
 export class ApiService {
   constructor(private readonly httpService: HttpService) {}
 
-  private async request<T>(
+  private async request<D, R = unknown>(
     method: HttpMethod,
     url: string,
-    data?: any,
+    data?: D,
     options?: AxiosRequestConfig
-  ) {
-    if (method === 'get' || method === 'delete') {
-      const response = await this.httpService.axiosRef[method]<T>(url, options);
-
-      return response.data;
-    }
-
-    const response = await this.httpService.axiosRef[method]<T>(
+  ): Promise<R> {
+    const response = await this.httpService.axiosRef[method]<R>(
       url,
-      data,
-      options
+      ...(method === 'get' || method === 'delete' ? [options] : [data, options])
     );
-
     return response.data;
   }
 
-  users<T>({ method, endpoint, data = {}, options }: ReqOptions) {
-    const url = `${ApplicationServiceURL.Users}/${endpoint}`;
-
-    return this.request<T>(method, url, data, options);
+  private apiCall<D, R>(
+    baseURL: string,
+    { method, endpoint, data, options }: ReqOptions<D>
+  ): Promise<R> {
+    const url = `${baseURL}/${endpoint}`;
+    return this.request<D, R>(method, url, data, options);
   }
 
-  blog<T>({ method, endpoint, data = {}, options }: ReqOptions) {
-    const url = `${ApplicationServiceURL.Blog}/${endpoint}`;
-
-    return this.request<T>(method, url, data, options);
+  users<D, R>(options: ReqOptions<D>): Promise<R> {
+    return this.apiCall<D, R>(ApplicationServiceURL.Users, options);
   }
 
-  fileVault<T>({ method, endpoint, data = {}, options }: ReqOptions) {
-    const url = `${ApplicationServiceURL.FileVault}/${endpoint}`;
+  blog<D, R>(options: ReqOptions<D>): Promise<R> {
+    return this.apiCall<D, R>(ApplicationServiceURL.Blog, options);
+  }
 
-    return this.request<T>(method, url, data, options);
+  fileVault<D, R>(options: ReqOptions<D>): Promise<R> {
+    return this.apiCall<D, R>(ApplicationServiceURL.FileVault, options);
   }
 
   getAuthorizationHeader(req: Request): AxiosRequestConfig {
