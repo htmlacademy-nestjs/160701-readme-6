@@ -1,7 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   CreatePostWithAuthorDto,
+  DEFAULT_PAGE_COUNT,
+  DefaultPost,
   PaginationResult,
+  PostQuery,
   PostStatus,
   PostType,
   SortBy,
@@ -10,7 +13,6 @@ import {
 } from '@project/shared/core';
 import { PostRepository } from './repositories/post.repository';
 import { PostEntity } from './entitites/post.entity';
-import { PostQuery } from './post.query';
 import { PostFactory } from './post.factory';
 import { PostContentService } from './post-content/post-content.service';
 import { TagService } from '@project/blog-tags';
@@ -77,8 +79,8 @@ export class PostService {
     return this.postRepository.find({
       sortBy: SortBy.createdAt,
       sortDirection: SortDirection.Desc,
-      limit: 10,
-      page: 1,
+      limit: DefaultPost.COUNT_LIMIT,
+      page: DEFAULT_PAGE_COUNT,
     });
   }
 }

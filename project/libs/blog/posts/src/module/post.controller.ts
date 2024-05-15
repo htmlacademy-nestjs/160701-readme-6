@@ -12,10 +12,17 @@ import {
 } from '@nestjs/common';
 import { fillDto } from '@project/shared/helpers';
 import { PostService } from './post.service';
-import { PostQuery } from './post.query';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Cron } from '@nestjs/schedule';
-import { CreatePostWithAuthorDto, CronTime, PostRdo, PostTypesRdo, PostWithPaginationRdo, UpdatePostDto } from '@project/shared/core';
+import {
+  CreatePostWithAuthorDto,
+  CronTime,
+  PostQuery,
+  PostRdo,
+  PostTypesRdo,
+  PostWithPaginationRdo,
+  UpdatePostDto,
+} from '@project/shared/core';
 import { NotifyService } from '@project/blog-notify';
 
 @ApiTags('posts')
@@ -56,7 +63,7 @@ export class PostController {
       entities: postsWithPagination.entities.map((post) => post.toPOJO()),
     };
 
-    return fillDto(PostWithPaginationRdo, result);
+    return fillDto(PostWithPaginationRdo<PostRdo>, result);
   }
 
   @ApiResponse({

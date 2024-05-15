@@ -1,44 +1,43 @@
-import { PostType, SortBy, SortDirection } from '@project/shared/core';
 import {
   DEFAULT_PAGE_COUNT,
-  DEFAULT_POST_COUNT_LIMIT,
-  DEFAULT_POST_MAX_COUNT_LIMIT,
-  DEFAULT_SORT_BY,
-  DEFAULT_SORT_DIRECTION,
-} from './post.contant';
+  DefaultPost,
+  DefaultSort,
+} from '../../../const/post.const';
 import { IsEnum, IsIn, IsNumber, IsOptional, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { SortDirection, SortBy } from '../../../interfaces';
+import { PostType } from '../../../enums';
 
 export class PostQuery {
   @ApiProperty({
     description: 'The maximum number of posts to return',
-    default: DEFAULT_POST_COUNT_LIMIT,
+    default: DefaultPost.COUNT_LIMIT,
     type: Number,
   })
-  @Transform(({ value }) => Number(value) || DEFAULT_POST_COUNT_LIMIT)
+  @Transform(({ value }) => Number(value) || DefaultPost.COUNT_LIMIT)
   @IsNumber()
-  @Max(DEFAULT_POST_MAX_COUNT_LIMIT)
+  @Max(DefaultPost.MAX_COUNT_LIMIT)
   @IsOptional()
-  public limit = DEFAULT_POST_COUNT_LIMIT;
+  public limit = DefaultPost.COUNT_LIMIT;
 
   @ApiProperty({
     description: 'The direction in which to sort the posts',
     enum: SortDirection,
-    default: DEFAULT_SORT_DIRECTION,
+    default: DefaultSort.DIRECTION,
   })
   @IsIn(Object.values(SortDirection))
   @IsOptional()
-  public sortDirection: SortDirection = DEFAULT_SORT_DIRECTION;
+  public sortDirection: SortDirection = DefaultSort.DIRECTION;
 
   @ApiProperty({
     description: 'The sort type the posts',
-    default: DEFAULT_SORT_BY,
+    default: DefaultSort.BY,
     enum: SortBy,
   })
   @IsIn(Object.values(SortBy))
   @IsOptional()
-  public sortBy: SortBy = DEFAULT_SORT_BY;
+  public sortBy: SortBy = DefaultSort.BY;
 
   @ApiProperty({
     description: 'The page number',
