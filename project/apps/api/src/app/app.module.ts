@@ -7,6 +7,7 @@ import { UsersController } from './controllers/users.controller';
 import { ApiService } from './service/api.service';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { AppService } from './app.service';
+import { LikesController } from './controllers/likes.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { AppService } from './app.service';
       maxRedirects: HTTP_CLIENT_MAX_REDIRECTS,
     }),
   ],
-  controllers: [BlogController, UsersController],
+  controllers: [BlogController, UsersController, LikesController],
   providers: [CheckAuthGuard, ApiService, AppService],
 })
 export class AppModule {}
