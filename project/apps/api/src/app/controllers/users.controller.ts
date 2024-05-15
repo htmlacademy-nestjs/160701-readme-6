@@ -30,6 +30,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiCreatedResponse,
+  ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -62,6 +63,9 @@ export class UsersController {
     type: CreateUserDtoWithAvatarFile,
   })
   @UseInterceptors(FileInterceptor('avatar'))
+  @ApiOperation({
+    summary: 'Регистрация',
+  })
   @Post('register')
   public async register(
     @Body() dto: CreateUserDtoWithAvatarFile,
@@ -105,6 +109,9 @@ export class UsersController {
     status: HttpStatus.OK,
     description: 'User has been successfully logged.',
   })
+  @ApiOperation({
+    summary: 'Авторизация',
+  })
   @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto) {
     const data = await this.apiService.users<UserRdo>({
@@ -124,6 +131,9 @@ export class UsersController {
   @ApiBearerAuth(AuthKeyName)
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({
+    summary: 'Новая пара Access/Refresh токен',
+  })
   @Post('refresh')
   public async refreshToken(@Req() req: Request) {
     const data = await this.apiService.users<UserRdo>({
@@ -142,6 +152,9 @@ export class UsersController {
   })
   @ApiBearerAuth(AuthKeyName)
   @UseGuards(CheckAuthGuard)
+  @ApiOperation({
+    summary: 'Данные по пользователю',
+  })
   @Get('info')
   public async info(@Req() req: Request) {
     const user = await this.apiService.users<UserRdo>({
@@ -170,6 +183,9 @@ export class UsersController {
   @ApiBearerAuth(AuthKeyName)
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({
+    summary: 'Смена пароля',
+  })
   @Patch('change-password')
   public async changePassword(
     @Req() req: Request,
@@ -187,6 +203,9 @@ export class UsersController {
 
   @ApiCreatedResponse({
     type: RecoveryEmailRdo,
+  })
+  @ApiOperation({
+    summary: 'Восстановление пароля (письмо)',
   })
   @Post('recovery-email')
   public async recoveryPassword(@Body() dto: RecoveryEmailDto) {
