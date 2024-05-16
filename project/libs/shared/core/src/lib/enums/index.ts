@@ -1,4 +1,4 @@
-export { CronTime } from './cron/cronTime.enum';
+export { CronTime } from './cron/cron-time.enum';
 // Users
 export { UserRole } from './users/user-role.enum';
 // Posts
